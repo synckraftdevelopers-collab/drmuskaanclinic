@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Lato", "Helvetica Neue", Arial, sans-serif;
+
+  /* Primary Deep Green */
+  --color-slate-teal: #0D4C3F;
+  --color-deep-green: #0D4C3F;
+
+  /* Secondary Gold */
+  --color-seafoam: #C8A46A;
+  --color-gold: #C8A46A;
+
+  /* Soft Green Accent */
+  --color-linen: #E6F2EC;
+  --color-soft-green: #E6F2EC;
+  --color-linen-dark: #cbdcd3;
+
+  /* Charcoal Text */
+  --color-charcoal: #1A1A1A;
+
+  /* Light Mint Background */
+  --color-light-mint: #F7FAF8;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #F7FAF8;
+  color: #1A1A1A;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 0.35s ease-out;
+}
+
+@keyframes slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+@keyframes scale-up {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-scale-up {
+  animation: scale-up 0.25s ease-out;
+}
