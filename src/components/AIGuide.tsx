@@ -110,7 +110,7 @@ export default function AIGuide({ onClose, onOpenBooking }: AIGuideProps) {
   const formatText = (text: string) => {
     // Basic bold and list item formatting
     return text.split("\n").map((line, lineIdx) => {
-      let formattedLine = line;
+      const formattedLine = line;
       
       // Bold formatting
       const boldRegex = /\*\*(.*?)\*\*/g;

@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { db } from "../../../lib/firebase/client";
 import { format, parseISO, isSameDay } from "date-fns";
-import { DayPicker } from "react-day-picker";
+import dynamic from "next/dynamic";
+const DayPicker = dynamic(() => import("react-day-picker").then(mod => mod.DayPicker), { ssr: false });
 import "react-day-picker/dist/style.css";
 
 export default function CalendarPage() {
