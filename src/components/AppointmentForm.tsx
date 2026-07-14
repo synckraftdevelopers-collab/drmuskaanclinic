@@ -280,11 +280,7 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
           >
             <span>{bookedAppointment.consultationMode === "Online" ? "Join WhatsApp" : "Open WhatsApp"}</span>
           </a>
-          {bookedAppointment.consultationMode === "Online" && (
-            <button className="bg-linen hover:bg-linen-dark text-charcoal font-bold py-3 px-6 rounded-xl transition-colors">
-              Download Appointment Slip
-            </button>
-          )}
+
           <button
             onClick={() => {
               if (onClose) onClose();
