@@ -15,7 +15,6 @@ export interface ConsultationFormData {
   time?: string;
   message?: string;
   meetingPlatform?: string;
-  language?: string;
 }
 
 /**
@@ -34,53 +33,45 @@ export function buildWhatsAppMessage(formData: ConsultationFormData): string {
   const procedure = formData.subService || "General Consultation";
   const message = formData.message || "None";
   const platform = formData.meetingPlatform || "Not specified";
-  const language = formData.language || "Not specified";
 
   if (mode === "Online") {
     return `Hello Dr. Imran Shaikh,
 I would like to book an ONLINE consultation.
-Patient Name:
-${name}
-Age:
-${age}
-Gender:
-${gender}
-Mobile:
-${mobile}
-City:
-${city}
-Department:
-${department}
-Procedure:
-${procedure}
-Preferred Platform:
-${platform}
-Preferred Language:
-${language}
-Date:
-${date}
-Time:
-${time}
+
+Patient Details:
+• Name: ${name}
+• Age: ${age}
+• Gender: ${gender}
+• Mobile: ${mobile}
+• City: ${city}
+
+Consultation Details:
+• Department: ${department}
+• Procedure: ${procedure}
+• Platform: ${platform}
+• Date: ${date}
+• Time: ${time}
+
 Symptoms:
 ${message}
+
 Thank you.`;
   } else {
-    return `Hello Doctor,
+    return `Hello Dr. Imran Shaikh,
 I would like to book an OFFLINE consultation.
-Patient Name:
-${name}
-Age:
-${age}
-Gender:
-${gender}
-Department:
-${department}
-Procedure:
-${procedure}
-Date:
-${date}
-Time:
-${time}
+
+Patient Details:
+• Name: ${name}
+• Age: ${age}
+• Gender: ${gender}
+• Mobile: ${mobile}
+
+Consultation Details:
+• Department: ${department}
+• Procedure: ${procedure}
+• Date: ${date}
+• Time: ${time}
+
 Thank you.`;
   }
 }
@@ -103,13 +94,14 @@ export function buildContactWhatsAppMessage(contactData: {
   email: string;
   message: string;
 }): string {
-  return `Hello Doctor,
+  return `Hello Dr. Imran Shaikh,
 
 I have a general inquiry from the website.
 
-Name: ${contactData.name}
-Phone: ${contactData.phone}
-Email: ${contactData.email}
+Contact Details:
+• Name: ${contactData.name}
+• Phone: ${contactData.phone}
+• Email: ${contactData.email}
 
 Inquiry/Message:
 ${contactData.message}

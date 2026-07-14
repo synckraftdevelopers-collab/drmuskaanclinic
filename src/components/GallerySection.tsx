@@ -124,18 +124,6 @@ export default function GallerySection() {
           ))}
         </div>
 
-        {/* Client approval placeholder banner */}
-        {!CLINIC_CONFIG.beforeAfterApproved && (
-          <div className="mb-8 p-4 bg-amber-50/50 border border-amber-100 rounded-2xl text-left max-w-3xl mx-auto flex items-start space-x-3 text-xs text-amber-800">
-            <span className="text-base shrink-0">💡</span>
-            <div>
-              <p className="font-bold">Before & After Patient Gallery Hidden</p>
-              <p className="text-amber-700/80 mt-0.5">
-                Clinical ethics dictate strict patient confidentiality. The patient progress before-and-after photographic category is currently hidden. This can be enabled instantly in <code className="bg-white px-1.5 py-0.5 border border-amber-200 rounded font-mono font-bold">CLINIC_CONFIG.beforeAfterApproved</code> in the code once final compliance clearance is received.
-              </p>
-            </div>
-          </div>
-        )}
 
         {/* Images Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-images-container">

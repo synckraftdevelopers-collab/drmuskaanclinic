@@ -216,7 +216,8 @@ export const GALLERY_IMAGES = [
     category: "clinic",
     title: "Reception & Waiting Lounge",
     alt: "Spacious, warm waiting lounge at Muskaan Clinic with comfortable seating and calming aesthetic.",
-    icon: "Smile"
+    icon: "Smile",
+    image: "/reception-lounge.jpg"
   },
   {
     id: "g2",
@@ -229,29 +230,35 @@ export const GALLERY_IMAGES = [
     id: "equipment-1",
     category: "equipment",
     title: "High-Frequency Scalp & PRP Stimulator",
-    alt: "Advanced trichology equipment for activating scalp blood circulation and augmenting PRP follicular uptake.",
-    icon: "Sparkles"
+    alt: "Advanced high-frequency scalp stimulation machine used for PRP therapies.",
+    icon: "Activity",
+    image: "/scalp-prp-stimulator.png"
   },
   {
     id: "equipment-2",
     category: "equipment",
     title: "Laser Hair Growth Helmet System",
-    alt: "Cold-laser photobiomodulation helmet used to safely trigger hair follicle cell metabolism and regrowth.",
-    icon: "Activity"
+    alt: "FDA-approved LLLT (Low-Level Laser Therapy) helmet for non-invasive hair follicle stimulation.",
+    icon: "Sun",
+    image: "/laser-hair-helmet.png"
   },
   {
     id: "treatment-1",
     category: "treatment",
     title: "PRP & Trichology Procedure Bay",
-    alt: "Sterile, comfortable treatment suite for administering PRP growth factors and scalp mesotherapy.",
-    icon: "HeartPulse"
+    alt: "Sterile, dedicated environment for performing PRP injections and advanced trichology procedures.",
+    icon: "HeartPulse",
+    image: "/prp-procedure-bay.jpg",
+    fit: "contain"
   },
   {
     id: "treatment-2",
     category: "treatment",
     title: "Cosmetology & Clinical Peels Suite",
-    alt: "Relaxing visual therapy room for advanced clinical peels, medical microdermabrasion and hydradermabrasion.",
-    icon: "Sparkles"
+    alt: "Private, hygienic setup for administering advanced chemical peels and specialized cosmetological treatments.",
+    icon: "Sparkles",
+    image: "/clinical-peels-suite.png",
+    fit: "contain"
   },
   {
     id: "certificates-1",

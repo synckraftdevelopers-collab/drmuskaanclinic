@@ -33,20 +33,18 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
   
   // Online Specific Fields
   const [meetingPlatform, setMeetingPlatform] = useState("Google Meet");
-  const [internetAvailability, setInternetAvailability] = useState("WiFi");
-  const [language, setLanguage] = useState("English");
   const [symptoms, setSymptoms] = useState("");
   const [medicalConditions, setMedicalConditions] = useState<string[]>([]);
   const [takingMedicines, setTakingMedicines] = useState("No");
   const [medicineDetails, setMedicineDetails] = useState("");
   const [emergencyContact, setEmergencyContact] = useState("");
-  const [reportFile, setReportFile] = useState<File | null>(null);
   
   // Status states
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [bookedAppointment, setBookedAppointment] = useState<ConsultationFormData | null>(null);
   const [copied, setCopied] = useState(false);
+  const hasNotifiedDoctor = useRef(false);
 
   // Selected Service configuration
   const selectedService = CLINIC_SERVICES.find(s => s.id === serviceCategory) || CLINIC_SERVICES[0];
@@ -64,18 +62,6 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
     const mm = String(today.getMonth() + 1).padStart(2, "0");
     const dd = String(today.getDate()).padStart(2, "0");
     return `${yyyy}-${mm}-${dd}`;
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      if (file.size > 10 * 1024 * 1024) {
-        setErrorMessage("File size must be less than 10MB");
-        return;
-      }
-      setReportFile(file);
-      setErrorMessage("");
-    }
   };
 
   const handleConditionToggle = (condition: string) => {
@@ -122,19 +108,6 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
     setIsSubmitting(true);
 
     try {
-      let reportURL = "";
-      
-      // Upload file if selected and mode is Online
-      if (consultationMode === "Online" && reportFile) {
-        try {
-          const storageRef = ref(storage, `medical_reports/${Date.now()}_${reportFile.name}`);
-          await uploadBytes(storageRef, reportFile);
-          reportURL = await getDownloadURL(storageRef);
-        } catch (err) {
-          console.error("Firebase Storage Upload failed, proceeding without file.", err);
-        }
-      }
-
       const consultationData = {
         consultationMode,
         patientName: name,
@@ -154,29 +127,32 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
         // Online specific
         ...(consultationMode === "Online" && {
           meetingPlatform,
-          language,
-          internetType: internetAvailability,
           symptoms,
           medicalConditions,
           medicineDetails: takingMedicines === "Yes" ? medicineDetails : "",
-          emergencyContact,
-          reportURL
+          emergencyContact
         })
       };
 
       // Save to Firestore with timeout to prevent infinite hang on misconfiguration
       try {
         const savePromise = addDoc(collection(db, "consultations"), consultationData);
-        const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error("Firestore save timed out")), 3000)
-        );
+        let timeoutId: NodeJS.Timeout;
+        const timeoutPromise = new Promise((_, reject) => {
+          timeoutId = setTimeout(() => reject(new Error("Firestore save timed out")), 3000);
+        });
+        
+        // Prevent unhandled rejection if race finishes first but timeout triggers later
+        timeoutPromise.catch(() => {});
         
         const docRef = await Promise.race([savePromise, timeoutPromise]) as any;
+        clearTimeout(timeoutId!);
+        
         if (docRef && docRef.id) {
           console.log("Document written with ID: ", docRef.id);
         }
       } catch (err) {
-        console.error("Firebase Firestore save failed or timed out. Proceeding to WhatsApp generation.", err);
+        console.warn("Firebase Firestore save failed or timed out. Proceeding to WhatsApp generation.");
       }
       
       const formDataForWhatsApp: ConsultationFormData = {
@@ -191,9 +167,32 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
         service: selectedService.title,
         subService,
         message: symptoms,
-        meetingPlatform,
-        language
+        meetingPlatform
       };
+
+      // Notify the doctor via WhatsApp API Route (prevent duplicate sends)
+      if (!hasNotifiedDoctor.current) {
+        hasNotifiedDoctor.current = true;
+        try {
+          fetch('/api/notify-doctor', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              patientName: name,
+              mobile: phone,
+              email,
+              consultationMode,
+              date,
+              time,
+              message: symptoms
+            })
+          }).catch(err => {
+            console.warn("Failed to notify doctor, but proceeding silently.", err);
+          });
+        } catch (notifyErr) {
+          console.warn("Notification error swallowed to ensure booking succeeds.", notifyErr);
+        }
+      }
 
       setBookedAppointment(formDataForWhatsApp);
       
@@ -549,7 +548,7 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                   <span>Online Consultation Details</span>
                 </label>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                   <div>
                     <label className="block text-[10px] uppercase tracking-wider font-semibold text-charcoal/50 mb-1">Preferred Meeting Platform</label>
                     <select
@@ -562,46 +561,6 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                       <option value="WhatsApp Video Call">WhatsApp Video Call</option>
                       <option value="Phone Call">Phone Call</option>
                     </select>
-                  </div>
-                  <div>
-                    <label className="block text-[10px] uppercase tracking-wider font-semibold text-charcoal/50 mb-1">Internet Availability</label>
-                    <select
-                      value={internetAvailability}
-                      onChange={(e) => setInternetAvailability(e.target.value)}
-                      className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-slate-teal font-semibold"
-                    >
-                      <option value="WiFi">WiFi</option>
-                      <option value="Mobile Data">Mobile Data</option>
-                      <option value="Not Sure">Not Sure</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-[10px] uppercase tracking-wider font-semibold text-charcoal/50 mb-1">Preferred Language</label>
-                    <select
-                      value={language}
-                      onChange={(e) => setLanguage(e.target.value)}
-                      className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-slate-teal font-semibold"
-                    >
-                      <option value="English">English</option>
-                      <option value="Hindi">Hindi</option>
-                      <option value="Marathi">Marathi</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-[10px] uppercase tracking-wider font-semibold text-charcoal/50 mb-1">Upload Medical Reports (Optional)</label>
-                  <div className="relative border-2 border-dashed border-linen rounded-xl p-4 bg-white text-center hover:bg-slate-teal/5 transition-colors cursor-pointer flex flex-col items-center justify-center">
-                    <Upload size={24} className="text-slate-teal mb-2" />
-                    <span className="text-sm font-medium text-charcoal/80">
-                      {reportFile ? reportFile.name : "Click to upload (PDF, JPG, PNG) max 10MB"}
-                    </span>
-                    <input 
-                      type="file" 
-                      accept=".pdf,.jpg,.jpeg,.png"
-                      onChange={handleFileChange}
-                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    />
                   </div>
                 </div>
 
