@@ -22,7 +22,6 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
   // Form State
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("Male");
   const [city, setCity] = useState("Amravati");
@@ -105,6 +104,12 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
       return;
     }
 
+    const selectedDate = new Date(date);
+    if (selectedDate.getDay() === 0) {
+      setErrorMessage("Appointments cannot be booked on Sundays as the clinic is closed.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -112,7 +117,6 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
         consultationMode,
         patientName: name,
         mobile: phone,
-        email,
         age,
         gender,
         city,
@@ -180,7 +184,6 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
             body: JSON.stringify({
               patientName: name,
               mobile: phone,
-              email,
               consultationMode,
               date,
               time,
@@ -293,6 +296,8 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
       </div>
     );
   }
+
+  const isSunday = date ? new Date(date).getDay() === 0 : false;
 
   return (
     <div className="bg-white rounded-2xl border border-linen p-6 sm:p-8 shadow-xl max-w-3xl mx-auto relative overflow-y-auto max-h-[90vh] custom-scrollbar" id="appointment-booking-form">
@@ -443,9 +448,10 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                   onChange={(e) => setTime(e.target.value)}
                   className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-slate-teal transition-all font-semibold"
                   required
+                  disabled={isSunday}
                 >
-                  <option value="">-- Choose Time Slot --</option>
-                  {TIME_SLOTS.map((slot, idx) => (
+                  <option value="">{isSunday ? "Clinic Closed on Sunday" : "-- Choose Time Slot --"}</option>
+                  {!isSunday && TIME_SLOTS.map((slot, idx) => (
                     <option key={idx} value={slot}>
                       {slot}
                     </option>
@@ -521,18 +527,6 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                     required
                   />
                 </div>
-              </div>
-
-              <div>
-                <label className="block text-[10px] uppercase tracking-wider font-semibold text-charcoal/50 mb-1">Email *</label>
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-slate-teal"
-                  required
-                />
               </div>
             </div>
 

@@ -7,9 +7,9 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { name, email, phone, service, subService, date, time, notes } = body;
+  const { name, phone, service, subService, date, time, notes } = body;
 
-  if (!name || !email || !phone || !service || !date || !time) {
+  if (!name || !phone || !service || !date || !time) {
     return NextResponse.json(
       { error: "All required fields must be provided." },
       { status: 400 }
@@ -19,7 +19,6 @@ export async function POST(req: NextRequest) {
   const newAppointment = {
     id: Date.now().toString(),
     name,
-    email,
     phone,
     service,
     subService: subService || "General Consultation",

@@ -91,7 +91,6 @@ export function buildWhatsAppUrl(formData: ConsultationFormData): string {
 export function buildContactWhatsAppMessage(contactData: {
   name: string;
   phone: string;
-  email: string;
   message: string;
 }): string {
   return `Hello Dr. Imran Shaikh,
@@ -101,7 +100,6 @@ I have a general inquiry from the website.
 Contact Details:
 • Name: ${contactData.name}
 • Phone: ${contactData.phone}
-• Email: ${contactData.email}
 
 Inquiry/Message:
 ${contactData.message}
@@ -115,7 +113,6 @@ Thank you.`;
 export function buildContactWhatsAppUrl(contactData: {
   name: string;
   phone: string;
-  email: string;
   message: string;
 }): string {
   const messageText = buildContactWhatsAppMessage(contactData);

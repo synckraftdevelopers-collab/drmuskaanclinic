@@ -3,7 +3,7 @@ import { Service, Testimonial } from "../types";
 export const CLINIC_INFO = {
   name: "Muskaan Clinic",
   doctor: "Dr. Mohammad Imran Shaikh",
-  credentials: "B.H.M.S., PG in Medical Cosmetology & Aesthetics",
+  credentials: "BHMS CCMP Nasik University",
   experience: "26+ Years",
   phone: "8698782272",
   whatsapp: "918698782272",
@@ -13,10 +13,10 @@ export const CLINIC_INFO = {
   state: "Maharashtra",
   postalCode: "444601",
   country: "India",
-  timings: "Monday - Saturday: 10:00 AM - 01:30 PM, 04:30 PM - 08:30 PM",
+  timings: "Monday – Saturday: 10:00 AM – 2:30 PM, 6:30 PM – 9:30 PM",
   hours: [
-    { days: "Monday - Saturday", timings: "10:00 AM - 01:30 PM, 04:30 PM - 08:30 PM" },
-    { days: "Sunday", timings: "Closed (Emergency appointments only)" }
+    { days: "Monday – Saturday", timings: "10:00 AM – 2:30 PM, 6:30 PM – 9:30 PM" },
+    { days: "Sunday", timings: "Closed" }
   ],
   mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3727.1855663731115!2d77.75549007604634!3d20.934947991390492!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd6a4b1fc7d2dcf%3A0xc3f8fc8c4593f6ea!2sIrwin%20Square%2C%20Amravati%2C%20Maharashtra%20444601!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
   googleBusinessProfileUrl: "https://maps.google.com/?cid=14121633519803131626", // Placeholder local business CID
@@ -34,10 +34,9 @@ export const CLINIC_CONFIG = {
 };
 
 export const CLINIC_STATS = [
-  { label: "Successful Hair PRP Sessions", value: 4800, suffix: "+" },
-  { label: "Acne & Skin Peel Recoveries", value: 6200, suffix: "+" },
+  { label: "Acne & Skin Peel Recoveries", value: 6000, suffix: "+" },
   { label: "Chronic Homeopathic Cases", value: 5500, suffix: "+" },
-  { label: "Patient Satisfaction Rate", value: 99.4, suffix: "%" }
+  { label: "Patient Satisfaction Rate", value: 90, suffix: "%" }
 ];
 
 export const CLINIC_SERVICES: Service[] = [
@@ -160,9 +159,9 @@ export const CLINIC_SERVICES: Service[] = [
 export const DOCTOR_PROFILE = {
   name: "Dr. Mohammad Imran Shaikh",
   title: "Founder & Chief Consultant",
-  credentials: "B.H.M.S., PG in Medical Cosmetology & Aesthetics",
+  credentials: "BHMS CCMP Nasik University",
   experience: "Over 26 Years of Clinical Practice",
-  philosophy: "I believe that true healing and visual confidence can only be achieved when we treat the human body as an integrated whole. By merging the scientific precision of modern medical aesthetics with the natural, systemic balancing power of classical homeopathy, we don't just treat symptoms—we transform lives.",
+  philosophy: "I believe that true healing and visual confidence can only be achieved when we treat the human body as an integrated whole. By merging the scientific precision of modern medical aesthetics with the natural, systemic balancing power of classical homeopathy, we don't just treat symptomsâ€”we transform lives.",
   specialties: [
     "Aesthetic Medicine & Trichology",
     "Advanced Non-Surgical Hair Regrowth",
@@ -291,8 +290,8 @@ export const GALLERY_IMAGES = [
 ];
 
 export const TIME_SLOTS = [
-  "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM",
-  "05:00 PM", "05:30 PM", "06:00 PM", "06:30 PM", "07:00 PM", "07:30 PM", "08:00 PM"
+  "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM",
+  "06:30 PM", "07:00 PM", "07:30 PM", "08:00 PM", "08:30 PM", "09:00 PM", "09:30 PM"
 ];
 
 export const WHY_CHOOSE_US = [
@@ -317,3 +316,4 @@ export const WHY_CHOOSE_US = [
     icon: "Sparkles"
   }
 ];
+

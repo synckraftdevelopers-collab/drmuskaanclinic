@@ -6,7 +6,6 @@
 export interface AppointmentRecord {
   id: string;
   name: string;
-  email: string;
   phone: string;
   service: string;
   subService: string;
@@ -38,7 +37,6 @@ function createInitialStore(): Store {
       {
         id: "1",
         name: "Aarav Sharma",
-        email: "aarav@example.com",
         phone: "+91 98765 43210",
         service: "Hair Restoration",
         subService: "PRP Therapy",
@@ -50,7 +48,6 @@ function createInitialStore(): Store {
       {
         id: "2",
         name: "Priya Patel",
-        email: "priya@example.com",
         phone: "+91 91234 56789",
         service: "Skin Care",
         subService: "Chemical Peel",

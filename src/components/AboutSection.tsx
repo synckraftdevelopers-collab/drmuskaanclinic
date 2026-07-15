@@ -44,7 +44,7 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
                 <p className="text-[10px] uppercase tracking-wider font-extrabold text-charcoal/50 mt-1">{DOCTOR_PROFILE.title}</p>
               </div>
               <div className="border-t border-linen pt-3 text-xs font-semibold text-charcoal/70">
-                ⭐ BHMS, PG in Medical Cosmetology & Aesthetics
+                ⭐ BHMS CCMP Nasik University
               </div>
             </div>
 

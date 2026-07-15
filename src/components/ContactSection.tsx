@@ -9,7 +9,6 @@ export default function ContactSection() {
   // Contact Form States
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   
   // Statuses
@@ -25,15 +24,8 @@ export default function ContactSection() {
     setSuccessMessage("");
     setLastSubmittedMessage("");
 
-    if (!name.trim() || !phone.trim() || !email.trim() || !message.trim()) {
+    if (!name.trim() || !phone.trim() || !message.trim()) {
       setErrorMessage("Please complete all fields in this inquiry card.");
-      return;
-    }
-
-    // Email format validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.trim())) {
-      setErrorMessage("Please enter a valid email address.");
       return;
     }
 
@@ -54,7 +46,7 @@ export default function ContactSection() {
         body: JSON.stringify({
           name,
           rating: 5,
-          comment: `[Inquiry via Contact Form - ${email}] ${message}`,
+          comment: `[Inquiry via Contact Form] ${message}`,
           service: "General Check-up"
         })
       });
@@ -63,7 +55,6 @@ export default function ContactSection() {
       const rawMessage = buildContactWhatsAppMessage({
         name,
         phone,
-        email,
         message
       });
       setLastSubmittedMessage(rawMessage);
@@ -72,7 +63,6 @@ export default function ContactSection() {
       const contactWhatsAppUrl = buildContactWhatsAppUrl({
         name,
         phone,
-        email,
         message
       });
 
@@ -81,7 +71,6 @@ export default function ContactSection() {
       setSuccessMessage("Thank you! Your general inquiry has been saved, and we have opened a WhatsApp message pre-filled with your message to send to Dr. Shaikh.");
       setName("");
       setPhone("");
-      setEmail("");
       setMessage("");
     } catch (err: any) {
       console.error(err);
@@ -173,9 +162,9 @@ export default function ContactSection() {
                 </div>
                 <div className="space-y-1">
                   <span className="text-[10px] uppercase font-extrabold text-charcoal/50">Clinic Timing</span>
-                  <p className="text-xs font-bold text-charcoal">10:00 AM - 1:30 PM</p>
-                  <p className="text-xs font-bold text-charcoal">04:30 PM - 08:30 PM</p>
-                  <p className="text-[10px] text-charcoal/40">Monday to Saturday</p>
+                  <p className="text-xs font-bold text-charcoal">10:00 AM – 2:30 PM</p>
+                  <p className="text-xs font-bold text-charcoal">6:30 PM – 9:30 PM</p>
+                  <p className="text-[10px] text-charcoal/40">Monday – Saturday</p>
                 </div>
               </div>
 
@@ -193,7 +182,7 @@ export default function ContactSection() {
                   {CLINIC_INFO.address}
                 </p>
                 <p className="text-[11px] text-slate-teal font-semibold">
-                  📍 Landmarks: Near Irwin Square, adjacent to general market avenue, Amravati.
+                  ðŸ“ Landmarks: Near Irwin Square, adjacent to general market avenue, Amravati.
                 </p>
               </div>
             </div>
@@ -258,21 +247,6 @@ export default function ContactSection() {
                   />
                 </div>
 
-                {/* Email */}
-                <div>
-                  <label className="block text-[10px] uppercase tracking-wider font-extrabold text-charcoal/60 mb-1.5">
-                    Your Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-linen/20 border border-linen rounded-xl px-4 py-2.5 text-xs text-charcoal focus:outline-none focus:border-slate-teal focus:ring-1 focus:ring-slate-teal/20 transition-all font-semibold"
-                    required
-                  />
-                </div>
-
                 {/* Message */}
                 <div>
                   <label className="block text-[10px] uppercase tracking-wider font-extrabold text-charcoal/60 mb-1.5">
@@ -311,7 +285,7 @@ export default function ContactSection() {
                                 : "bg-slate-teal/10 text-slate-teal hover:bg-slate-teal hover:text-white"
                             }`}
                           >
-                            {contactCopied ? "Copied! ✓" : "Copy Message"}
+                            {contactCopied ? "Copied! âœ“" : "Copy Message"}
                           </button>
                         </div>
                         <pre className="text-[11px] text-charcoal/80 whitespace-pre-wrap font-mono leading-relaxed bg-white p-3 rounded-lg border border-linen max-h-32 overflow-y-auto select-all">
@@ -360,3 +334,4 @@ export default function ContactSection() {
     </section>
   );
 }
+

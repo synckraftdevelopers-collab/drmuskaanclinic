@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { Smile, Phone, Clock, Menu, X, Calendar } from "lucide-react";
@@ -40,7 +40,7 @@ export default function Header({ activeTab, setActiveTab, onOpenBooking }: Heade
             </span>
             <span className="flex items-center space-x-2">
               <Clock size={14} className="text-seafoam" />
-              <span>Mon - Sat: 10:00 AM - 1:30 PM, 4:30 PM - 8:30 PM</span>
+              <span>Mon – Sat: 10:00 AM – 2:30 PM, 6:30 PM – 9:30 PM</span>
             </span>
           </div>
           <div className="flex items-center space-x-4">
@@ -152,8 +152,8 @@ export default function Header({ activeTab, setActiveTab, onOpenBooking }: Heade
                 <span>Book Appointment</span>
               </button>
               <div className="text-center text-xs text-charcoal/60 pt-2 space-y-1">
-                <p>📞 +91 {CLINIC_INFO.phone}</p>
-                <p>📍 Irwin Square, Amravati</p>
+                <p>ðŸ“ž +91 {CLINIC_INFO.phone}</p>
+                <p>ðŸ“ Irwin Square, Amravati</p>
               </div>
             </div>
           </nav>
@@ -162,3 +162,4 @@ export default function Header({ activeTab, setActiveTab, onOpenBooking }: Heade
     </header>
   );
 }
+

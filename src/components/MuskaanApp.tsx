@@ -308,9 +308,9 @@ export default function App() {
 
             {/* EXPERIENCE STATS BADGES */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="bg-white border border-linen rounded-3xl p-6 sm:p-8 shadow-xs grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+              <div className="bg-white border border-linen rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col sm:flex-row justify-evenly items-center gap-6 text-center">
                 {CLINIC_STATS.map((st, i) => (
-                  <div key={i} className="space-y-1">
+                  <div key={i} className="flex-1 w-full flex flex-col items-center justify-center space-y-2">
                     <span className="text-3xl sm:text-4xl font-serif font-bold text-slate-teal">
                       {st.value}{st.suffix}
                     </span>
@@ -386,6 +386,17 @@ export default function App() {
                           setTimeout(() => {
                             const btn = document.getElementById(`service-tab-${serv.id}`);
                             if (btn) btn.click();
+                            
+                            setTimeout(() => {
+                              const targetSection = document.getElementById('treatments-section');
+                              if (targetSection) {
+                                const yOffset = -80;
+                                const y = targetSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                                window.scrollTo({ top: y, behavior: 'smooth' });
+                              } else {
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                              }
+                            }, 50);
                           }, 100);
                         }}
                         className="text-slate-teal font-bold text-xs hover:underline inline-flex items-center space-x-1"
