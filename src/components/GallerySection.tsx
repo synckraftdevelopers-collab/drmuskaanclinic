@@ -88,7 +88,7 @@ export default function GallerySection() {
             A Glimpse Into Muskaan
           </h2>
           <p className="text-charcoal/70 text-sm max-w-xl mx-auto mt-2">
-            Explore our state-of-the-art facility near Irwin Square, Amravati. Witness our sterile procedure bays, advanced aesthetic devices, and clinical certifications.
+            Explore our state-of-the-art facility near Sabunpura Gandhi Chowk, Juna Motor Stand Road, Gandhi Chowk, Amravati-444601, Maharashtra. Witness our sterile procedure bays, advanced aesthetic devices, and clinical certifications.
           </p>
         </div>
 

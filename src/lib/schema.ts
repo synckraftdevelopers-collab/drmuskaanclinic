@@ -18,7 +18,7 @@ export function getMedicalClinicSchema() {
     "email": CLINIC_INFO.email,
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Near Irwin Square",
+      "streetAddress": "Near Sabunpura Gandhi Chowk, Juna Motor Stand Road, Gandhi Chowk",
       "addressLocality": CLINIC_INFO.city,
       "addressRegion": CLINIC_INFO.state,
       "postalCode": CLINIC_INFO.postalCode,
@@ -66,7 +66,7 @@ export function getPhysicianSchema() {
     "telephone": `+91 ${CLINIC_INFO.phone}`,
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Near Irwin Square",
+      "streetAddress": "Near Sabunpura Gandhi Chowk, Juna Motor Stand Road, Gandhi Chowk",
       "addressLocality": CLINIC_INFO.city,
       "addressRegion": CLINIC_INFO.state,
       "postalCode": CLINIC_INFO.postalCode,
@@ -93,7 +93,7 @@ export function getLocalBusinessSchema() {
     "priceRange": "$$",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Near Irwin Square",
+      "streetAddress": "Near Sabunpura Gandhi Chowk, Juna Motor Stand Road, Gandhi Chowk",
       "addressLocality": CLINIC_INFO.city,
       "addressRegion": CLINIC_INFO.state,
       "postalCode": CLINIC_INFO.postalCode,

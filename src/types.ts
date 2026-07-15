@@ -12,7 +12,7 @@ export interface SubService {
 
 //rfv  
 export interface Service {
-  id: "hair" | "skin" | "homeopathy";
+  id: "hair" | "skin" | "homeopathy" | "infertility";
   title: string;
   tagline: string;
   description: string;

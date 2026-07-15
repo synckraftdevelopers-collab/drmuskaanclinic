@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sparkles, HeartPulse, Activity, CheckCircle2, Clock, ShieldCheck } from "lucide-react";
+import { Sparkles, HeartPulse, Activity, CheckCircle2, Clock, ShieldCheck, Baby } from "lucide-react";
 import { CLINIC_SERVICES } from "../lib/content";
 
 interface ServicesSectionProps {
@@ -9,7 +9,7 @@ interface ServicesSectionProps {
 }
 
 export default function ServicesSection({ onOpenBooking }: ServicesSectionProps) {
-  const [selectedServiceId, setSelectedServiceId] = useState<"hair" | "skin" | "homeopathy">("hair");
+  const [selectedServiceId, setSelectedServiceId] = useState<"hair" | "skin" | "homeopathy" | "infertility">("hair");
 
   const currentService = CLINIC_SERVICES.find(s => s.id === selectedServiceId) || CLINIC_SERVICES[0];
 
@@ -21,6 +21,8 @@ export default function ServicesSection({ onOpenBooking }: ServicesSectionProps)
         return <HeartPulse className={colorClass} size={size} />;
       case "homeopathy":
         return <Activity className={colorClass} size={size} />;
+      case "infertility":
+        return <Baby className={colorClass} size={size} />;
       default:
         return <ShieldCheck className={colorClass} size={size} />;
     }
@@ -63,7 +65,7 @@ export default function ServicesSection({ onOpenBooking }: ServicesSectionProps)
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="font-serif font-bold text-sm sm:text-sm leading-tight break-words">{serv.title}</h3>
-                <p className="text-[10px] uppercase font-semibold tracking-wider text-charcoal/50 mt-0.5 break-words">{serv.id === 'homeopathy' ? 'Internal Healing' : 'Advanced Procedure'}</p>
+                <p className="text-[10px] uppercase font-semibold tracking-wider text-charcoal/50 mt-0.5 break-words">{serv.id === 'homeopathy' ? 'Internal Healing' : serv.id === 'infertility' ? "Specialized Women's Health" : 'Advanced Procedure'}</p>
               </div>
             </button>
           ))}

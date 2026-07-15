@@ -280,7 +280,7 @@ export default function App() {
                       <div className="space-y-2.5 text-xs text-charcoal/70 text-left">
                         <div className="flex items-center space-x-2">
                           <MapPin size={14} className="text-slate-teal shrink-0" />
-                          <span>Near Irwin Square, {CLINIC_INFO.city}, MH</span>
+                          <span>Near Sabunpura Gandhi Chowk, Juna Motor Stand Road, Gandhi Chowk, Amravati-444601, Maharashtra</span>
                         </div>
                         <div className="flex items-center space-x-2">
                           <Phone size={14} className="text-slate-teal shrink-0" />

@@ -55,6 +55,27 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
     }
   }, [serviceCategory, selectedService]);
 
+  // Auto-redirect to WhatsApp after 3 seconds on successful booking
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    if (bookedAppointment) {
+      const whatsappUrl = buildWhatsAppUrl(bookedAppointment);
+      timeoutId = setTimeout(() => {
+        // Try multiple methods to force redirect, avoiding popup blockers by opening in self
+        try {
+          window.location.replace(whatsappUrl);
+        } catch (e) {
+          window.location.assign(whatsappUrl);
+        }
+      }, 3000);
+    }
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [bookedAppointment]);
+
   const getMinDate = () => {
     const today = new Date();
     const yyyy = today.getFullYear();

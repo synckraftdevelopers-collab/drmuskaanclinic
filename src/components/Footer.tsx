@@ -47,22 +47,6 @@ export default function Footer({ setActiveTab, onOpenBooking }: FooterProps) {
                   onClick={() => setActiveTab("services")} 
                   className="hover:text-seafoam hover:underline text-left transition-all cursor-pointer"
                 >
-                  Platelet-Rich Plasma (PRP)
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => setActiveTab("services")} 
-                  className="hover:text-seafoam hover:underline text-left transition-all cursor-pointer"
-                >
-                  Advanced Chemical Peels
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => setActiveTab("services")} 
-                  className="hover:text-seafoam hover:underline text-left transition-all cursor-pointer"
-                >
                   Skin Toning
                 </button>
               </li>

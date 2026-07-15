@@ -182,7 +182,7 @@ export default function ContactSection() {
                   {CLINIC_INFO.address}
                 </p>
                 <p className="text-[11px] text-slate-teal font-semibold">
-                  ðŸ“ Landmarks: Near Irwin Square, adjacent to general market avenue, Amravati.
+                  📍 Landmarks: Near Sabunpura Gandhi Chowk, Juna Motor Stand Road, Gandhi Chowk, Amravati-444601, Maharashtra.
                 </p>
               </div>
             </div>
