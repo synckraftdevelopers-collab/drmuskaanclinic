@@ -146,7 +146,7 @@ export const CLINIC_INFO = {
   country: "India",
   phone: "+91 72125 67890",
   mobile: "+91 94228 12345",
-  email: "care@muskaanclinic.com",
+  email: "drimranshaikhamt@gmail.com",
   hours: [
     { days: "Monday – Saturday", timings: "10:00 AM – 2:30 PM, 6:30 PM – 9:30 PM" },
     { days: "Sunday", timings: "Closed" }

@@ -7,7 +7,7 @@ export const CLINIC_INFO = {
   experience: "26+ Years",
   phone: "8698782272",
   whatsapp: "918698782272",
-  email: "care@muskaanclinic.com",
+  email: "drimranshaikhamt@gmail.com",
   address: "Muskaan Clinic, Near Irwin Square, Amravati, Maharashtra, India - 444601",
   city: "Amravati",
   state: "Maharashtra",
@@ -304,11 +304,6 @@ export const WHY_CHOOSE_US = [
     title: "Integrated Dual Therapy",
     description: "The unique synergy of cutting-edge external aesthetic cosmetology with internal constitutional homeopathy for permanent recoveries.",
     icon: "Activity"
-  },
-  {
-    title: "100% Side-Effect Free",
-    description: "Our customized homeopathic sweet-pill remedies are highly palatable, non-addictive, and perfectly safe for all age brackets.",
-    icon: "ShieldCheck"
   },
   {
     title: "Surgical Outcomes, No Surgery",

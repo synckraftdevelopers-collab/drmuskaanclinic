@@ -173,7 +173,7 @@ export default function Footer({ setActiveTab, onOpenBooking }: FooterProps) {
         </div>
 
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-xs text-linen/60">
-          <p>© {currentYear} Muskaan Clinic (Aesthetics & Homeopathy). All Rights Reserved.</p>
+          <p>© {currentYear} Muskaan Clinic (Skin & Homeopathy). All Rights Reserved.</p>
           <p className="flex items-center space-x-1 mt-2 sm:mt-0">
             <span>Made with</span>
             <Heart size={12} className="text-red-400 fill-red-400" />

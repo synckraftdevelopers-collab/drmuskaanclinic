@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import { Smile, Phone, Clock, Menu, X, Calendar } from "lucide-react";
@@ -68,10 +68,10 @@ export default function Header({ activeTab, setActiveTab, onOpenBooking }: Heade
           <div>
             <div className="flex items-baseline space-x-1">
               <span className="font-serif text-2xl font-bold tracking-tight text-charcoal">Muskaan</span>
-              <span className="text-slate-teal font-sans font-light tracking-wide text-lg">Clinic</span>
+              <span className="text-slate-teal font-sans font-bold tracking-wide text-lg">Clinic</span>
             </div>
             <p className="text-[10px] uppercase tracking-widest text-slate-teal/70 font-semibold -mt-1">
-              Aesthetics & Homeopathy
+              Skin & Homeopathy
             </p>
           </div>
         </div>
