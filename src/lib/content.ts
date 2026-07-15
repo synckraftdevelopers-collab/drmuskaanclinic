@@ -67,13 +67,6 @@ export const CLINIC_SERVICES: Service[] = [
         benefits: ["Controls excessive shedding within weeks", "Improves scalp environment and health", "Stimulates microcirculation"],
         duration: "30 Mins",
         priceEstimate: "Standard Clinical Session"
-      },
-      {
-        name: "Hair Transplant Evaluation & Design",
-        description: "Comprehensive digital microscopic scalp analysis, donor area density mapping, hairline aesthetics planning, and custom post-transplant medical optimization.",
-        benefits: ["Microscopic follicular unit check", "Personalized hairline aesthetic planning", "Pre- & post-op scalp preparation guides"],
-        duration: "45 Mins",
-        priceEstimate: "Comprehensive Consultation"
       }
     ],
     homeopathicSynergy: "Homeopathic treatments target internal hormonal imbalances, stress, and nutritional deficits, amplifying the efficacy and longevity of your clinical hair growth therapies."
@@ -93,7 +86,7 @@ export const CLINIC_SERVICES: Service[] = [
         priceEstimate: "Targeted Care"
       },
       {
-        name: "Laser Skin Toning & Rejuvenation",
+        name: "Skin Toning & Rejuvenation",
         description: "Precision non-ablative laser therapies that penetrate deep dermal layers to stimulate high-density collagen production, reduce redness, and fade stubborn pigmentations.",
         benefits: ["Smooths fine lines and acne scars", "Evens out skin tone without peeling", "Increases long-term skin elasticity"],
         duration: "45 Mins",
@@ -143,13 +136,6 @@ export const CLINIC_SERVICES: Service[] = [
         benefits: ["Non-sedative, non-addictive natural relief", "Restores neuro-endocrine equilibrium", "Excellent support for stress-related hair fall"],
         duration: "30 Mins",
         priceEstimate: "Mental Wellness Consultation"
-      },
-      {
-        name: "Pediatric & Immunity Care",
-        description: "Sweet, kid-friendly remedies designed to naturally boost a child's delicate immune system, treating recurrent tonsillitis, asthma, food allergies, and skin rashes.",
-        benefits: ["Extremely palatable for young children", "Strengthens defense mechanisms naturally", "Avoids recurrent antibiotic abuse"],
-        duration: "30 Mins",
-        priceEstimate: "Pediatric Care Intake"
       }
     ],
     homeopathicSynergy: "Homeopathy is the ultimate holistic stabilizer. It balances your body's immune intelligence, ensuring that your hair and skin health is maintained for decades, not just weeks."

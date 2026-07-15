@@ -63,7 +63,7 @@ export default function Footer({ setActiveTab, onOpenBooking }: FooterProps) {
                   onClick={() => setActiveTab("services")} 
                   className="hover:text-seafoam hover:underline text-left transition-all cursor-pointer"
                 >
-                  Laser Skin Toning
+                  Skin Toning
                 </button>
               </li>
               <li>
