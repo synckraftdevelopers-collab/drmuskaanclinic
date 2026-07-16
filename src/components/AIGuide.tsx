@@ -36,6 +36,7 @@ export default function AIGuide({ onClose, onOpenBooking }: AIGuideProps) {
         }
       ]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Auto scroll to bottom

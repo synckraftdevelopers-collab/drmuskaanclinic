@@ -34,7 +34,7 @@ export const CLINIC_CONFIG = {
 };
 
 export const CLINIC_STATS = [
-  { label: "Acne & Skin Peel Recoveries", value: 6000, suffix: "+" },
+  { label: "Acne & Skin Peel Recoveries", value: 600, suffix: "+" },
   { label: "Chronic Homeopathic Cases", value: 5500, suffix: "+" },
   { label: "Patient Satisfaction Rate", value: 90, suffix: "%" }
 ];

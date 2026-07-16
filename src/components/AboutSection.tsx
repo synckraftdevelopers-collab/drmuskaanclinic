@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Award, Briefcase, Users, Calendar, BookOpen, Quote, Sparkles, ShieldCheck } from "lucide-react";
 import { DOCTOR_PROFILE } from "../lib/content";
 
@@ -33,17 +34,26 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
           <div className="lg:col-span-5 grid grid-cols-2 gap-4">
             
             {/* Dr Profile card */}
-            <div className="col-span-2 bg-linen/30 border border-linen rounded-2xl p-6 text-center space-y-3 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-20 h-20 bg-slate-teal/5 rounded-full -ml-6 -mt-6" />
-              <div className="w-20 h-20 rounded-full bg-slate-teal/10 border border-slate-teal/20 flex items-center justify-center mx-auto shadow-xs">
-                <Users size={36} className="text-slate-teal" />
+            <div className="col-span-2 bg-linen/30 border border-linen rounded-2xl flex flex-col overflow-hidden">
+              <div className="relative h-[460px] w-full">
+                <Image
+                  src="/profile photo.png"
+                  alt={DOCTOR_PROFILE.name}
+                  fill
+                  className="object-cover object-[center_18%]"
+                  priority
+                />
+                <div 
+                  className="absolute bottom-0 left-0 w-full h-[45%]" 
+                  style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0.45), rgba(0,0,0,0))' }} 
+                />
+                <div className="absolute bottom-0 left-0 p-8 sm:p-10 text-left w-full space-y-1.5">
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-tight">{DOCTOR_PROFILE.name}</h3>
+                  <p className="text-sm text-slate-teal font-semibold">{DOCTOR_PROFILE.credentials}</p>
+                  <p className="text-[11px] uppercase tracking-wider font-extrabold text-white/80 mt-1.5">{DOCTOR_PROFILE.title}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-serif text-xl font-bold text-charcoal">{DOCTOR_PROFILE.name}</h3>
-                <p className="text-xs text-slate-teal font-semibold mt-0.5">{DOCTOR_PROFILE.credentials}</p>
-                <p className="text-[10px] uppercase tracking-wider font-extrabold text-charcoal/50 mt-1">{DOCTOR_PROFILE.title}</p>
-              </div>
-              <div className="border-t border-linen pt-3 text-xs font-semibold text-charcoal/70">
+              <div className="bg-linen/30 p-4 border-t border-linen text-center text-xs font-semibold text-charcoal/70">
                 ⭐ BHMS CCMP Nasik University
               </div>
             </div>

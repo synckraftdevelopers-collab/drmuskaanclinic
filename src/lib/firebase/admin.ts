@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as admin from "firebase-admin";
 
 // Define the shape of your service account configuration
@@ -9,7 +8,7 @@ interface ServiceAccount {
 }
 
 const initializeAdmin = () => {
-  // @ts-ignore
+  // @ts-expect-error - Firebase admin apps type error
   if (!admin.apps.length) {
     try {
       const serviceAccount: ServiceAccount = {
@@ -26,6 +25,7 @@ const initializeAdmin = () => {
       }
 
       admin.initializeApp({
+        // @ts-expect-error - Firebase admin credential type error
         credential: admin.credential.cert(serviceAccount),
       });
     } catch (error) {
@@ -36,7 +36,7 @@ const initializeAdmin = () => {
 };
 
 const adminApp = initializeAdmin();
-// @ts-ignore
+// @ts-expect-error - Firebase admin apps and firestore type error
 const adminDb = admin.apps.length > 0 ? admin.firestore() : null;
 
 export { adminApp, adminDb };
