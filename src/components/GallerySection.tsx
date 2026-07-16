@@ -48,6 +48,34 @@ export default function GallerySection() {
       );
     }
 
+    if (img.id === "treatment-1") {
+      return (
+        <div className="relative h-[240px] w-full overflow-hidden rounded-t-xl">
+          <Image
+            src="/PRP & Trichology Procedure Bay.png"
+            alt={img.title || "PRP & Trichology Procedure Bay"}
+            fill
+            className="object-cover object-center transition-transform duration-500 hover:scale-105"
+            priority
+          />
+        </div>
+      );
+    }
+
+    if (img.id === "treatment-2") {
+      return (
+        <div className="relative h-[240px] w-full overflow-hidden rounded-t-xl">
+          <Image
+            src="/Cosmetology & Clinical Peels Suite.png"
+            alt={img.title || "Cosmetology & Clinical Peels Suite"}
+            fill
+            className="object-cover object-center transition-transform duration-500 hover:scale-105"
+            priority
+          />
+        </div>
+      );
+    }
+
     if (img.id === "g2") {
       return (
         <div className="relative h-[220px] w-full overflow-hidden rounded-t-xl">
@@ -78,16 +106,14 @@ export default function GallerySection() {
 
     if (img.id === "equipment-1") {
       return (
-        <div className="w-full bg-white flex justify-center items-center overflow-hidden rounded-t-xl h-[260px] p-4">
-          <div className="relative w-full h-full">
-            <Image
-              src="/High-Frequency Scalp & PRP Stimulator.png"
-              alt={img.title || "High-Frequency Scalp & PRP Stimulator"}
-              fill
-              className="object-contain object-center"
-              priority
-            />
-          </div>
+        <div className="relative h-[240px] w-full overflow-hidden rounded-t-xl">
+          <Image
+            src="/High-Frequency Scalp & PRP Stimulator (2).png"
+            alt={img.title || "High-Frequency Scalp & PRP Stimulator"}
+            fill
+            className="object-cover object-center transition-transform duration-500 hover:scale-105"
+            priority
+          />
         </div>
       );
     }
