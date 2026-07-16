@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { GALLERY_CATEGORIES, GALLERY_IMAGES, CLINIC_CONFIG } from "../lib/content";
 import { Sparkles, HeartPulse, Award, CheckCircle2, Image as ImageIcon, Smile, BookOpen, Activity } from "lucide-react";
 
@@ -19,6 +20,20 @@ export default function GallerySection() {
   };
 
   const getCategoryImagePlaceholder = (img: any) => {
+    if (img.id === "g2") {
+      return (
+        <div className="relative h-[220px] w-full overflow-hidden rounded-t-xl">
+          <Image
+            src="/consulting.jpeg"
+            alt="Doctor's Consulting Suite"
+            fill
+            className="object-cover transition-transform duration-500 hover:scale-105"
+            priority
+          />
+        </div>
+      );
+    }
+
     // Generate a beautiful, high-fidelity clinical icon vector representation
     let bgGradient = "from-slate-500/10 to-charcoal/10";
     let iconColor = "text-slate-teal";

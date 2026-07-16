@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Smile, Phone, Clock, Menu, X, Calendar } from "lucide-react";
+import Image from "next/image";
+import { Phone, Clock, Menu, X, Calendar } from "lucide-react";
 import { CLINIC_INFO } from "../lib/content";
 
 interface HeaderProps {
@@ -58,22 +59,19 @@ export default function Header({ activeTab, setActiveTab, onOpenBooking }: Heade
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         {/* Brand Logo */}
         <div 
-          className="flex items-center space-x-3 cursor-pointer group"
+          className="flex items-center cursor-pointer group shrink-0"
           onClick={() => handleNavClick("home")}
           id="brand-logo"
         >
-          <div className="w-10 h-10 rounded-full bg-slate-teal flex items-center justify-center shadow-md shadow-slate-teal/20 transition-transform group-hover:scale-105">
-            <Smile className="text-linen" size={24} />
-          </div>
-          <div>
-            <div className="flex items-baseline space-x-1">
-              <span className="font-serif text-2xl font-bold tracking-tight text-charcoal">Muskaan</span>
-              <span className="text-slate-teal font-sans font-bold tracking-wide text-lg">Clinic</span>
-            </div>
-            <p className="text-[10px] uppercase tracking-widest text-slate-teal/70 font-semibold -mt-1">
-              Skin & Homeopathy
-            </p>
-          </div>
+          <Image 
+            src="/logo (2).png" 
+            alt="Muskaan Clinic Logo" 
+            width={480} 
+            height={160} 
+            className="h-[72px] sm:h-[88px] w-auto -my-3 sm:-my-5 object-contain object-left transition-transform group-hover:scale-105"
+            priority
+            quality={100}
+          />
         </div>
 
         {/* Desktop Nav Links */}

@@ -352,7 +352,8 @@ export const GALLERY_IMAGES = [
     category: "clinic",
     title: "Doctor's Consulting Suite",
     alt: "Dr. Mohammad Imran Shaikh's professional consultation chamber equipped with digital microscopic hair diagnostic tools.",
-    icon: "BookOpen"
+    icon: "BookOpen",
+    image: "/Doctor's Consulting Suite.jpeg"
   },
   {
     id: "equipment-1",
