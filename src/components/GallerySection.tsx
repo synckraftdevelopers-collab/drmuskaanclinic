@@ -34,6 +34,20 @@ export default function GallerySection() {
       );
     }
 
+    if (img.id === "equipment-2") {
+      return (
+        <div className="relative h-[240px] w-full overflow-hidden rounded-t-xl">
+          <Image
+            src="/Hair Growth Helmet System.png"
+            alt={img.title || "Hair Growth Helmet System"}
+            fill
+            className="object-cover object-center transition-transform duration-500 hover:scale-105"
+            priority
+          />
+        </div>
+      );
+    }
+
     if (img.id === "g2") {
       return (
         <div className="relative h-[220px] w-full overflow-hidden rounded-t-xl">
