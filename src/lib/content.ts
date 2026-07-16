@@ -389,13 +389,7 @@ export const GALLERY_IMAGES = [
     image: "/clinical-peels-suite.png",
     fit: "contain"
   },
-  {
-    id: "certificates-1",
-    category: "certificates",
-    title: "Post Graduate Cosmetology Fellowship",
-    alt: "Dr. Imran Shaikh's advanced certification in Medical Cosmetology & Aesthetic Procedures.",
-    icon: "Award"
-  },
+
   {
     id: "certificates-2",
     category: "certificates",

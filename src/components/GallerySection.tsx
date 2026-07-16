@@ -34,6 +34,20 @@ export default function GallerySection() {
       );
     }
 
+    if (img.id === "certificates-2") {
+      return (
+        <div className="relative h-[220px] w-full overflow-hidden rounded-t-xl">
+          <Image
+            src="/26 Years Clinical Excellence Citation.jpeg"
+            alt="26 Years Clinical Excellence Citation"
+            fill
+            className="object-cover object-[center_20%] transition-transform duration-500 hover:scale-105"
+            priority
+          />
+        </div>
+      );
+    }
+
     // Generate a beautiful, high-fidelity clinical icon vector representation
     let bgGradient = "from-slate-500/10 to-charcoal/10";
     let iconColor = "text-slate-teal";
@@ -154,9 +168,11 @@ export default function GallerySection() {
               {/* Text metadata */}
               <div className="p-5 flex-grow flex flex-col justify-between space-y-2">
                 <div>
-                  <span className="text-[9px] uppercase tracking-wider font-extrabold text-slate-teal bg-slate-teal/10 px-2 py-0.5 rounded">
-                    {img.category.replace("_", " ")}
-                  </span>
+                  {img.id !== "certificates-2" && (
+                    <span className="text-[9px] uppercase tracking-wider font-extrabold text-slate-teal bg-slate-teal/10 px-2 py-0.5 rounded">
+                      {img.category.replace("_", " ")}
+                    </span>
+                  )}
                   <h3 className="font-serif text-base font-bold text-charcoal mt-2 leading-tight">
                     {img.title}
                   </h3>
