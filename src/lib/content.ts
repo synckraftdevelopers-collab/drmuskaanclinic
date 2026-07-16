@@ -366,7 +366,7 @@ export const GALLERY_IMAGES = [
   {
     id: "equipment-2",
     category: "equipment",
-    title: "Laser Hair Growth Helmet System",
+    title: "Hair Growth Helmet System",
     alt: "FDA-approved LLLT (Low-Level Laser Therapy) helmet for non-invasive hair follicle stimulation.",
     icon: "Sun",
     image: "/laser-hair-helmet.png"

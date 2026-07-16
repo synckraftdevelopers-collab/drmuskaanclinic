@@ -48,6 +48,22 @@ export default function GallerySection() {
       );
     }
 
+    if (img.id === "equipment-1") {
+      return (
+        <div className="w-full bg-white flex justify-center items-center overflow-hidden rounded-t-xl h-[260px] p-4">
+          <div className="relative w-full h-full">
+            <Image
+              src="/High-Frequency Scalp & PRP Stimulator.png"
+              alt={img.title || "High-Frequency Scalp & PRP Stimulator"}
+              fill
+              className="object-contain object-center"
+              priority
+            />
+          </div>
+        </div>
+      );
+    }
+
     // Generate a beautiful, high-fidelity clinical icon vector representation
     let bgGradient = "from-slate-500/10 to-charcoal/10";
     let iconColor = "text-slate-teal";
