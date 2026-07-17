@@ -22,7 +22,25 @@ export default function ServicesSection({ onOpenBooking }: ServicesSectionProps)
       case "homeopathy":
         return <Activity className={colorClass} size={size} />;
       case "infertility":
-        return <Baby className={colorClass} size={size} />;
+        return (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={colorClass}
+            style={{ display: 'block', margin: 'auto' }}
+          >
+            <path d="M 12 13 v 8" />
+            <path d="M 9 18 h 6" />
+            <path d="M 2.2 10.5 c -1.3 -0.6 -1.3 -2.6 0 -3.3 l 1.6 -1.1 a 2.8 2.8 0 0 1 3.6 0.4 l 3 3 c 0.4 0.4 1 0.4 1.4 0 l 3 -3 a 2.8 2.8 0 0 1 3.6 -0.4 l 1.6 1.1 c 1.3 0.7 1.3 2.7 0 3.3 l -3.3 1.8 c -1.3 0.7 -3.7 1.2 -6.1 1.2 s -4.8 -0.5 -6.1 -1.2 Z" />
+          </svg>
+        );
       default:
         return <ShieldCheck className={colorClass} size={size} />;
     }

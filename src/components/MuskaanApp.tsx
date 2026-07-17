@@ -371,6 +371,23 @@ export default function App() {
                         {serv.id === 'hair' && <Sparkles size={20} />}
                         {serv.id === 'skin' && <HeartPulse size={20} />}
                         {serv.id === 'homeopathy' && <Activity size={20} />}
+                        {serv.id === 'infertility' && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="28"
+                            height="28"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#0F5C4D"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M 12 13 v 8" />
+                            <path d="M 9 18 h 6" />
+                            <path d="M 2.2 10.5 c -1.3 -0.6 -1.3 -2.6 0 -3.3 l 1.6 -1.1 a 2.8 2.8 0 0 1 3.6 0.4 l 3 3 c 0.4 0.4 1 0.4 1.4 0 l 3 -3 a 2.8 2.8 0 0 1 3.6 -0.4 l 1.6 1.1 c 1.3 0.7 1.3 2.7 0 3.3 l -3.3 1.8 c -1.3 0.7 -3.7 1.2 -6.1 1.2 s -4.8 -0.5 -6.1 -1.2 Z" />
+                          </svg>
+                        )}
                       </div>
                       <h3 className="font-serif text-xl font-bold text-charcoal">{serv.title}</h3>
                       <p className="text-xs text-charcoal/60 leading-relaxed font-semibold">"{serv.tagline}"</p>
