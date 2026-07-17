@@ -135,17 +135,30 @@ export default function Footer({ setActiveTab, onOpenBooking }: FooterProps) {
 
         {/* Map Embed and Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-white/10 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center text-left">
-          <div className="lg:col-span-2 rounded-xl overflow-hidden shadow-inner h-48 bg-white/5 relative border border-white/15">
-            <iframe 
-              src={CLINIC_INFO.mapEmbedUrl}
-              width="100%" 
-              height="100%" 
-              style={{ border: 0, opacity: 0.85 }} 
-              allowFullScreen={true} 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Muskaan Clinic Amravati Location Map"
-            />
+          <div className="lg:col-span-2 flex flex-col space-y-3">
+            <div className="rounded-xl overflow-hidden shadow-inner h-48 bg-white/5 relative border border-white/15 w-full">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3758.9993220711394!2d77.74541400539553!3d20.929580819598158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd6a4ac74cf6d15%3A0x415cdb27111ae8c5!2sDr.%20Imran%20Shaikh%20(Muskaan%20Clinic)!5e0!3m2!1sen!2sin!4v1784271634645!5m2!1sen!2sin"
+                width="100%" 
+                height="100%" 
+                style={{ border: 0, opacity: 0.85 }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="strict-origin-when-cross-origin"
+                title="Muskaan Clinic Amravati Location Map"
+              />
+            </div>
+            <div>
+              <a 
+                href="https://www.google.com/maps/dir/?api=1&destination=Dr.+Imran+Shaikh+(Muskaan+Clinic),+Amravati"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-1.5 text-xs bg-slate-teal text-white hover:bg-white hover:text-charcoal font-bold py-1.5 px-3 rounded-md transition-colors shadow-sm"
+              >
+                <MapPin size={14} />
+                <span>Get Directions</span>
+              </a>
+            </div>
           </div>
           <div className="space-y-3 text-sm text-linen/80 bg-white/5 p-5 rounded-xl border border-white/10">
             <h4 className="font-serif text-white font-bold">Clinical Philosophy</h4>

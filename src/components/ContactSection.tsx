@@ -188,17 +188,30 @@ export default function ContactSection() {
             </div>
 
             {/* Map Frame */}
-            <div className="bg-white border border-linen p-4 rounded-3xl overflow-hidden h-[300px] flex flex-col relative" id="contact-map-wrapper">
-              <iframe 
-                src={CLINIC_INFO.mapEmbedUrl}
-                width="100%" 
-                height="100%" 
-                style={{ border: 0, borderRadius: "20px" }} 
-                allowFullScreen={true} 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Muskaan Clinic Google Maps Location"
-              />
+            <div className="space-y-4">
+              <div className="bg-white border border-linen p-4 rounded-3xl overflow-hidden h-[300px] flex flex-col relative" id="contact-map-wrapper">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3758.9993220711394!2d77.74541400539553!3d20.929580819598158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd6a4ac74cf6d15%3A0x415cdb27111ae8c5!2sDr.%20Imran%20Shaikh%20(Muskaan%20Clinic)!5e0!3m2!1sen!2sin!4v1784271634645!5m2!1sen!2sin"
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0, borderRadius: "20px" }} 
+                  allowFullScreen={true} 
+                  loading="lazy" 
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  title="Muskaan Clinic Google Maps Location"
+                />
+              </div>
+              <div className="flex justify-start">
+                <a 
+                  href="https://www.google.com/maps/dir/?api=1&destination=Dr.+Imran+Shaikh+(Muskaan+Clinic),+Near+Sabunpura+Gandhi+Chowk,+Juna+Motor+Stand+Road,+Amravati,+Maharashtra+444601"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-2 bg-slate-teal hover:bg-charcoal text-white font-bold py-2.5 px-5 rounded-xl text-xs transition-colors shadow-sm"
+                >
+                  <MapPin size={16} />
+                  <span>Get Directions</span>
+                </a>
+              </div>
             </div>
 
           </div>
