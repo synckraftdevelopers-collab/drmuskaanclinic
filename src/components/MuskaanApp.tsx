@@ -487,7 +487,7 @@ export default function App() {
                               }
                             }
                           }}
-                          className="text-xs sm:text-sm font-serif italic text-charcoal/80 leading-relaxed"
+                          className="text-xs sm:text-sm font-serif italic text-charcoal/80 leading-relaxed pl-2 sm:pl-3"
                         >
                           <motion.span
                             variants={{
@@ -501,11 +501,8 @@ export default function App() {
                               whileInView={{ opacity: 1, scale: 1 }}
                               viewport={{ once: true }}
                               transition={{ duration: 0.4, ease: "easeOut" }}
-                              className="inline-block"
-                            >
-                              "
-                            </motion.span>
-                            To improve patients' confidence and health
+                              className="inline-block align-baseline -ml-2 sm:-ml-3"
+                            >"</motion.span>To improve patients' confidence and health
                           </motion.span>
                           <motion.span
                             variants={{
@@ -523,16 +520,13 @@ export default function App() {
                             }}
                             className="block"
                           >
-                            Homeopathic treatments.
-                            <motion.span
+                            Homeopathic treatments.<motion.span
                               initial={shouldReduceMotion ? { opacity: 0, scale: 1 } : { opacity: 0, scale: 0.95 }}
                               whileInView={{ opacity: 1, scale: 1 }}
                               viewport={{ once: true }}
                               transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
-                              className="inline-block"
-                            >
-                              "
-                            </motion.span>
+                              className="inline-block align-baseline"
+                            >"</motion.span>
                           </motion.span>
                         </motion.p>
 
