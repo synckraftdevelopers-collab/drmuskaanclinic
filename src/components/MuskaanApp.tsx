@@ -1,6 +1,14 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { 
+  motion, 
+  useInView, 
+  useMotionValue, 
+  useSpring, 
+  useTransform, 
+  useReducedMotion 
+} from "motion/react";
 import { 
   Sparkles, HeartPulse, Activity, Calendar, Clock, MapPin, Phone, 
   ChevronRight, Star, HelpCircle, Bot, X, ShieldCheck, Award, 
@@ -33,6 +41,107 @@ import {
   getBreadcrumbSchema 
 } from "../lib/schema";
 
+// Reusable Animated Counter Component for Statistics
+interface AnimatedCounterProps {
+  value: number;
+  suffix: string;
+}
+
+const AnimatedCounter: React.FC<AnimatedCounterProps> = ({ value, suffix }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-20px" });
+  const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (!isInView || !ref.current) return;
+    if (shouldReduceMotion) {
+      ref.current.textContent = `${value}${suffix}`;
+      return;
+    }
+
+    let startTimestamp: number | null = null;
+    const duration = 2000;
+
+    const step = (timestamp: number) => {
+      if (!ref.current) return;
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(easeOutCubic * value);
+      
+      ref.current.textContent = `${current}${suffix}`;
+
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        ref.current.textContent = `${value}${suffix}`;
+      }
+    };
+
+    const animationFrame = window.requestAnimationFrame(step);
+    return () => window.cancelAnimationFrame(animationFrame);
+  }, [isInView, value, suffix, shouldReduceMotion]);
+
+  return (
+    <span ref={ref} className="text-3xl sm:text-4xl font-serif font-bold text-slate-teal inline-block tabular-nums">
+      0{suffix}
+    </span>
+  );
+};
+
+// Reusable Magnetic Button Component for CTAs
+interface MagneticButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+  id?: string;
+}
+
+const MagneticButton: React.FC<MagneticButtonProps> = ({ children, onClick, className, id }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const shouldReduceMotion = useReducedMotion();
+
+  const springConfig = { stiffness: 150, damping: 15, mass: 0.1 };
+  const smoothX = useSpring(x, springConfig);
+  const smoothY = useSpring(y, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (shouldReduceMotion) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const distanceX = (e.clientX - centerX) * 0.25;
+    const distanceY = (e.clientY - centerY) * 0.25;
+    x.set(distanceX);
+    y.set(distanceY);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.button
+      id={id}
+      onClick={onClick}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        x: shouldReduceMotion ? 0 : smoothX,
+        y: shouldReduceMotion ? 0 : smoothY,
+      }}
+      whileHover={{ scale: shouldReduceMotion ? 1 : 1.03 }}
+      whileTap={{ scale: shouldReduceMotion ? 1 : 0.98 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      className={className}
+    >
+      {children}
+    </motion.button>
+  );
+};
+
 export default function App() {
   const [activeTab, setActiveTab] = useState("home");
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -43,6 +152,65 @@ export default function App() {
   
   // Home Testimonial mini-carousel state
   const [testimonialIndex, setTestimonialIndex] = useState(0);
+
+  // Hero Section Parallax & Stagger setup
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const shouldReduceMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const parallaxSpringConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
+  const smoothMouseX = useSpring(mouseX, parallaxSpringConfig);
+  const smoothMouseY = useSpring(mouseY, parallaxSpringConfig);
+
+  const parallaxX = useTransform(smoothMouseX, [-1, 1], [-10, 10]);
+  const parallaxY = useTransform(smoothMouseY, [-1, 1], [-10, 10]);
+
+  const handleHeroMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (shouldReduceMotion || isMobile) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
+    const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleHeroMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const fadeUpItem = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.25, 0.1, 0.25, 1.0] as const,
+      },
+    },
+  };
 
   // In-memory or saved test reviews
   const defaultReviews = [
@@ -203,61 +371,214 @@ export default function App() {
           <div className="space-y-16 pb-16" id="home-view-panel">
             
             {/* HERO SECTION */}
-            <section className="relative overflow-hidden bg-gradient-to-br from-white via-linen/20 to-seafoam/15 py-16 sm:py-20 md:py-24 border-b border-linen">
+            <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="space-y-16">
+            <section 
+              onMouseMove={handleHeroMouseMove}
+              onMouseLeave={handleHeroMouseLeave}
+              className="relative overflow-hidden bg-gradient-to-br from-white via-linen/20 to-seafoam/15 py-16 sm:py-20 md:py-24 border-b border-linen"
+            >
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-seafoam/10 via-transparent to-transparent opacity-80" />
+              
+              {/* 1. Floating Background Gradients */}
+              <motion.div
+                animate={shouldReduceMotion ? {} : {
+                  x: [0, 40, -30, 0],
+                  y: [0, -40, 30, 0],
+                }}
+                transition={{
+                  duration: 20,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute -top-20 -left-20 w-96 h-96 bg-slate-teal/10 rounded-full blur-3xl pointer-events-none"
+              />
+              <motion.div
+                animate={shouldReduceMotion ? {} : {
+                  x: [0, -50, 40, 0],
+                  y: [0, 50, -40, 0],
+                }}
+                transition={{
+                  duration: 25,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute top-1/3 -right-20 w-[28rem] h-[28rem] bg-seafoam/15 rounded-full blur-3xl pointer-events-none"
+              />
+              <motion.div
+                animate={shouldReduceMotion ? {} : {
+                  x: [0, 30, -40, 0],
+                  y: [0, 40, -30, 0],
+                }}
+                transition={{
+                  duration: 18,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute -bottom-20 left-1/3 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"
+              />
+
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
                 {/* Left content text */}
                 <div className="lg:col-span-7 space-y-6 text-left">
-                  <div className="inline-flex items-center space-x-2 bg-slate-teal/10 text-slate-teal font-extrabold px-3 py-1 rounded-full text-xs uppercase tracking-wider border border-slate-teal/15">
+                  {/* Stagger Item 1: Badge */}
+                  <motion.div variants={fadeUpItem} className="inline-flex items-center space-x-2 bg-slate-teal/10 text-slate-teal font-extrabold px-3 py-1 rounded-full text-xs uppercase tracking-wider border border-slate-teal/15">
                     <Sparkles size={14} className="text-slate-teal animate-pulse" />
                     <span>Amravati's Premier Integrated Clinic</span>
-                  </div>
+                  </motion.div>
                   
-                  <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-charcoal leading-tight tracking-tight">
+                  {/* Stagger Item 2: Heading */}
+                  <motion.h1 variants={fadeUpItem} className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-charcoal leading-tight tracking-tight">
                     Ethical Hair, Skin & <br />
                     <span className="text-slate-teal italic relative font-serif">
                       Homeopathic Restorations
                     </span>
-                  </h1>
+                  </motion.h1>
 
-                  <p className="text-charcoal/70 text-sm sm:text-base md:text-lg max-w-xl leading-relaxed">
-                    Led by <span className="font-bold text-charcoal">{CLINIC_INFO.doctor}</span> with over {CLINIC_INFO.experience} of dedicated clinical practice, we combine state-of-the-art visual aesthetic medicine with gentle, permanent constitutional homeopathy.
-                  </p>
+                  {/* Stagger Item 3: Description */}
+                  <div className="space-y-6">
+                    <motion.p variants={fadeUpItem} className="text-charcoal/70 text-sm sm:text-base md:text-lg max-w-xl leading-relaxed">
+                      Led by <span className="font-bold text-charcoal">{CLINIC_INFO.doctor}</span> with over {CLINIC_INFO.experience} of dedicated clinical practice, we combine state-of-the-art visual aesthetic medicine with gentle, permanent constitutional homeopathy.
+                    </motion.p>
 
-                  {/* Brand Quote Card */}
-                  <div className="bg-white/80 backdrop-blur-xs border border-linen p-5 rounded-2xl max-w-lg shadow-xs">
-                    <p className="text-xs sm:text-sm font-serif italic text-charcoal/80 leading-relaxed">
-                      "To improve patients' confidence and health through ethical Hair, Skin, and Homeopathic treatments."
-                    </p>
-                    <p className="text-[10px] uppercase font-extrabold tracking-wider text-slate-teal/70 mt-2 text-right">
-                      — Clinic Vision
-                    </p>
+                    {/* Brand Quote Card */}
+                    <div className="relative max-w-lg">
+                      {/* 6. SOFT BACKGROUND GLOW */}
+                      <motion.div
+                        animate={shouldReduceMotion ? {} : {
+                          x: [0, 15, -15, 0],
+                          y: [0, -10, 10, 0],
+                        }}
+                        transition={{
+                          duration: 20,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                        style={{ opacity: 0.08 }}
+                        className="absolute -inset-2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-teal via-seafoam to-transparent rounded-3xl blur-xl pointer-events-none -z-10"
+                      />
+
+                      {/* Card Container with 1. SECTION REVEAL & 5. CARD HOVER */}
+                      <motion.div
+                        initial={shouldReduceMotion ? { opacity: 0, y: 0 } : { opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-20px" }}
+                        transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+                        whileHover={(shouldReduceMotion || isMobile) ? {} : {
+                          y: -4,
+                          scale: 1.01,
+                          boxShadow: "0 10px 25px -5px rgba(15, 92, 77, 0.15), 0 8px 10px -6px rgba(15, 92, 77, 0.08)",
+                          transition: { duration: 0.3, ease: "easeOut" },
+                        }}
+                        className="bg-white/80 backdrop-blur-xs border border-linen p-5 rounded-2xl shadow-xs transition-colors duration-300 cursor-default"
+                      >
+                        {/* 2. QUOTE TEXT REVEAL & 3. QUOTATION MARKS */}
+                        <motion.p
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true, margin: "-20px" }}
+                          variants={{
+                            hidden: { opacity: 0 },
+                            visible: {
+                              opacity: 1,
+                              transition: {
+                                staggerChildren: 0.12,
+                                delayChildren: 0.6,
+                              }
+                            }
+                          }}
+                          className="text-xs sm:text-sm font-serif italic text-charcoal/80 leading-relaxed"
+                        >
+                          <motion.span
+                            variants={{
+                              hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
+                              visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                            }}
+                            className="block"
+                          >
+                            <motion.span
+                              initial={shouldReduceMotion ? { opacity: 0, scale: 1 } : { opacity: 0, scale: 0.95 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.4, ease: "easeOut" }}
+                              className="inline-block"
+                            >
+                              "
+                            </motion.span>
+                            To improve patients' confidence and health
+                          </motion.span>
+                          <motion.span
+                            variants={{
+                              hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
+                              visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                            }}
+                            className="block"
+                          >
+                            through ethical Hair, Skin, and
+                          </motion.span>
+                          <motion.span
+                            variants={{
+                              hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
+                              visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                            }}
+                            className="block"
+                          >
+                            Homeopathic treatments.
+                            <motion.span
+                              initial={shouldReduceMotion ? { opacity: 0, scale: 1 } : { opacity: 0, scale: 0.95 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
+                              className="inline-block"
+                            >
+                              "
+                            </motion.span>
+                          </motion.span>
+                        </motion.p>
+
+                        {/* 4. CLINIC VISION LABEL */}
+                        <motion.p
+                          initial={shouldReduceMotion ? { opacity: 0, x: 0 } : { opacity: 0, x: 10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true, margin: "-20px" }}
+                          transition={{ duration: 0.5, delay: 1.2, ease: "easeOut" }}
+                          className="text-[10px] uppercase font-extrabold tracking-wider text-slate-teal/70 mt-2 text-right"
+                        >
+                          — Clinic Vision
+                        </motion.p>
+                      </motion.div>
+                    </div>
                   </div>
 
-                  {/* CTA Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                    <button
+                  {/* Stagger Item 4: CTA Buttons (with 4. CTA Magnetic Hover) */}
+                  <motion.div variants={fadeUpItem} className="flex flex-col sm:flex-row gap-3 pt-2">
+                    <MagneticButton
                       onClick={() => handleOpenBooking()}
                       className="flex items-center justify-center space-x-2 bg-slate-teal hover:bg-charcoal text-white font-bold py-3.5 px-8 rounded-xl shadow-md shadow-slate-teal/10 hover:shadow-lg transition-all text-sm cursor-pointer"
                       id="hero-book-btn"
                     >
                       <Calendar size={16} />
                       <span>Book Slot Today</span>
-                    </button>
-                    <button
+                    </MagneticButton>
+                    <MagneticButton
                       onClick={() => setAiAssistantOpen(true)}
                       className="flex items-center justify-center space-x-2 bg-white hover:bg-linen/30 text-slate-teal border border-slate-teal/20 font-bold py-3.5 px-8 rounded-xl transition-all text-sm cursor-pointer"
                       id="hero-ai-chat-btn"
                     >
                       <Bot size={16} />
                       <span>Chat with Muskaan AI Guide</span>
-                    </button>
-                  </div>
+                    </MagneticButton>
+                  </motion.div>
                 </div>
 
-                {/* Right side teaser card */}
-                <div className="lg:col-span-5">
+                {/* Right side teaser card (with 2. Doctor Image Parallax) */}
+                <motion.div 
+                  style={{
+                    x: (shouldReduceMotion || isMobile) ? 0 : parallaxX,
+                    y: (shouldReduceMotion || isMobile) ? 0 : parallaxY,
+                  }}
+                  className="lg:col-span-5"
+                >
                   <div className="bg-white border border-linen rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-seafoam/15 rounded-full -mr-12 -mt-12" />
                     
@@ -301,26 +622,47 @@ export default function App() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
+              </div>
+
+              {/* 6. Scroll Indicator */}
+              <div className="hidden md:flex justify-center w-full mt-12 pt-2 relative z-10">
+                <button
+                  onClick={() => {
+                    document.getElementById("stats-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                  aria-label="Scroll to next section"
+                  className="group flex flex-col items-center gap-2 text-charcoal/50 hover:text-slate-teal transition-colors duration-300 focus:outline-none cursor-pointer"
+                >
+                  <span className="text-[10px] font-mono font-bold tracking-widest uppercase opacity-80 group-hover:opacity-100 transition-opacity">
+                    Explore Clinic
+                  </span>
+                  <div className="w-6 h-10 rounded-full border-2 border-charcoal/20 group-hover:border-slate-teal flex justify-center pt-1.5 p-1 transition-colors duration-300 shadow-xs bg-white/60 backdrop-blur-xs">
+                    <motion.div
+                      animate={shouldReduceMotion ? {} : { y: [0, 8, 0], opacity: [1, 0.4, 1] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                      className="w-1 h-2.5 bg-slate-teal rounded-full"
+                    />
+                  </div>
+                </button>
               </div>
             </section>
 
-            {/* EXPERIENCE STATS BADGES */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* EXPERIENCE STATS BADGES (Stagger Item 5: Statistics, with 5. Counter Animation) */}
+            <motion.section id="stats-section" variants={fadeUpItem} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="bg-white border border-linen rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col sm:flex-row justify-evenly items-center gap-6 text-center">
                 {CLINIC_STATS.map((st, i) => (
                   <div key={i} className="flex-1 w-full flex flex-col items-center justify-center space-y-2">
-                    <span className="text-3xl sm:text-4xl font-serif font-bold text-slate-teal">
-                      {st.value}{st.suffix}
-                    </span>
+                    <AnimatedCounter value={st.value} suffix={st.suffix} />
                     <p className="text-[10px] sm:text-xs uppercase font-extrabold text-charcoal/50 leading-tight">
                       {st.label}
                     </p>
                   </div>
                 ))}
               </div>
-            </section>
+            </motion.section>
+            </motion.div>
 
             {/* WHY CHOOSE US SECTION */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
