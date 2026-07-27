@@ -40,7 +40,7 @@ export default function CalendarPage() {
   const modifiersStyles = {
     booked: {
       color: 'white',
-      backgroundColor: '#0D4C3F',
+      backgroundColor: '#0A3832',
       fontWeight: 'bold',
       borderRadius: '50%'
     }

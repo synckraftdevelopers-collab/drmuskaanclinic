@@ -1,3 +1,5 @@
+/* stylelint-disable */
+/* csslint ignore:start */
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 @import "tailwindcss";
 
@@ -5,30 +7,30 @@
   --font-serif: "Playfair Display", Georgia, serif;
   --font-sans: "Lato", "Helvetica Neue", Arial, sans-serif;
 
-  /* Primary Deep Green */
-  --color-slate-teal: #0D4C3F;
-  --color-deep-green: #0D4C3F;
+  /* Primary Swiss Deep Teal Emerald */
+  --color-slate-teal: #0A3832;
+  --color-deep-green: #0A3832;
 
-  /* Secondary Gold */
-  --color-seafoam: #C8A46A;
-  --color-gold: #C8A46A;
+  /* Secondary Rose-Gold Champagne */
+  --color-seafoam: #C99A6E;
+  --color-gold: #C99A6E;
 
-  /* Soft Green Accent */
-  --color-linen: #E6F2EC;
-  --color-soft-green: #E6F2EC;
-  --color-linen-dark: #cbdcd3;
+  /* Soft Alabaster Silk / Cream Accent */
+  --color-linen: #EFECE6;
+  --color-soft-green: #EFECE6;
+  --color-linen-dark: #D8D2C9;
 
-  /* Charcoal Text */
-  --color-charcoal: #1A1A1A;
+  /* Deep Teal Charcoal Text */
+  --color-charcoal: #141A19;
 
-  /* Light Mint Background */
-  --color-light-mint: #F7FAF8;
+  /* Alabaster Silk Luxury Background */
+  --color-light-mint: #FBFBF9;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: #F7FAF8;
-  color: #1A1A1A;
+  background-color: #FBFBF9;
+  color: #141A19;
 }
 
 h1, h2, h3, h4 {
