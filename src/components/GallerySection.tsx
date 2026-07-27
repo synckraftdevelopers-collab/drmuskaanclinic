@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { GALLERY_CATEGORIES, GALLERY_IMAGES, CLINIC_CONFIG } from "../lib/content";
 import { Sparkles, HeartPulse, Award, CheckCircle2, Image as ImageIcon, Smile, BookOpen, Activity } from "lucide-react";
+import { motion } from "motion/react";
 
 export default function GallerySection() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -27,6 +28,7 @@ export default function GallerySection() {
             src="/Reception & Waiting Lounge.png"
             alt={img.title || "Reception & Waiting Lounge"}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-center transition-transform duration-500 hover:scale-105"
             priority
           />
@@ -41,6 +43,7 @@ export default function GallerySection() {
             src="/Hair Growth Helmet System.png"
             alt={img.title || "Hair Growth Helmet System"}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-center transition-transform duration-500 hover:scale-105"
             priority
           />
@@ -55,6 +58,7 @@ export default function GallerySection() {
             src="/PRP & Trichology Procedure Bay.png"
             alt={img.title || "PRP & Trichology Procedure Bay"}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-center transition-transform duration-500 hover:scale-105"
             priority
           />
@@ -69,6 +73,7 @@ export default function GallerySection() {
             src="/Cosmetology & Clinical Peels Suite.png"
             alt={img.title || "Cosmetology & Clinical Peels Suite"}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-center transition-transform duration-500 hover:scale-105"
             priority
           />
@@ -83,6 +88,7 @@ export default function GallerySection() {
             src="/consulting.jpeg"
             alt="Doctor's Consulting Suite"
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 hover:scale-105"
             priority
           />
@@ -97,6 +103,7 @@ export default function GallerySection() {
             src="/26 Years Clinical Excellence Citation.jpeg"
             alt="26 Years Clinical Excellence Citation"
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-[center_20%] transition-transform duration-500 hover:scale-105"
             priority
           />
@@ -111,6 +118,7 @@ export default function GallerySection() {
             src="/High-Frequency Scalp & PRP Stimulator (2).png"
             alt={img.title || "High-Frequency Scalp & PRP Stimulator"}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-center transition-transform duration-500 hover:scale-105"
             priority
           />
@@ -224,11 +232,22 @@ export default function GallerySection() {
         </div>
 
 
-        {/* Images Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-images-container">
+        {/* Images Grid (4. Stagger Card Animation) */}
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10px" }}
+          variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" 
+          id="gallery-images-container"
+        >
           {filteredImages.map((img) => (
-            <div 
+            <motion.div 
               key={img.id}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+              }}
               className="bg-white border border-linen rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-all group flex flex-col text-left"
               id={`gallery-item-${img.id}`}
             >
@@ -251,9 +270,9 @@ export default function GallerySection() {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>

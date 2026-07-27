@@ -3,13 +3,36 @@
 import React from "react";
 import Image from "next/image";
 import { Award, Briefcase, Users, Calendar, BookOpen, Quote, Sparkles, ShieldCheck } from "lucide-react";
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { DOCTOR_PROFILE } from "../lib/content";
+import { AnimatedCounter } from "./MuskaanApp";
 
 interface AboutSectionProps {
   onOpenBooking: () => void;
 }
 
 export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
+  const imgRef = React.useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: imgRef,
+    offset: ["start end", "end start"]
+  });
+
+  // 2. Doctor Image Parallax: X=10px, Y=20px, Scale max 1.03
+  const y = useTransform(scrollYProgress, [0, 1], [-20, 20]);
+  const x = useTransform(scrollYProgress, [0, 1], [-10, 10]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.03, 1]);
+
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white text-left" id="about-doctor-section">
       <div className="max-w-7xl mx-auto">
@@ -35,14 +58,24 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
             
             {/* Dr Profile card */}
             <div className="col-span-2 bg-linen/30 border border-linen rounded-2xl flex flex-col overflow-hidden">
-              <div className="relative h-[460px] w-full">
-                <Image
-                  src="/profile photo.png"
-                  alt={DOCTOR_PROFILE.name}
-                  fill
-                  className="object-cover object-[center_18%]"
-                  priority
-                />
+              <div ref={imgRef} className="relative h-[460px] w-full overflow-hidden">
+                <motion.div
+                  style={{
+                    y: (shouldReduceMotion || isMobile) ? 0 : y,
+                    x: (shouldReduceMotion || isMobile) ? 0 : x,
+                    scale: (shouldReduceMotion || isMobile) ? 1 : scale,
+                  }}
+                  className="absolute inset-0 w-full h-full"
+                >
+                  <Image
+                    src="/profile photo.png"
+                    alt={DOCTOR_PROFILE.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover object-[center_18%]"
+                    priority
+                  />
+                </motion.div>
                 <div 
                   className="absolute bottom-0 left-0 w-full h-[45%]" 
                   style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0.45), rgba(0,0,0,0))' }} 
@@ -60,14 +93,14 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
 
             {/* Metric 1 */}
             <div className="bg-white border border-linen p-5 rounded-2xl text-center space-y-2">
-              <span className="text-3xl font-serif font-bold text-slate-teal block">26+</span>
+              <AnimatedCounter value={26} suffix="+" className="text-3xl font-serif font-bold text-slate-teal block tabular-nums" />
               <span className="text-[10px] uppercase font-extrabold text-charcoal/60 tracking-wider block">Years of Practice</span>
               <p className="text-xs text-charcoal/70">Continuous clinical service in Amravati</p>
             </div>
 
             {/* Metric 2 */}
             <div className="bg-white border border-linen p-5 rounded-2xl text-center space-y-2">
-              <span className="text-3xl font-serif font-bold text-slate-teal block">15,000+</span>
+              <AnimatedCounter value={15000} suffix="+" className="text-3xl font-serif font-bold text-slate-teal block tabular-nums" />
               <span className="text-[10px] uppercase font-extrabold text-charcoal/60 tracking-wider block">Happy Patients</span>
               <p className="text-xs text-charcoal/70">Across Vidarbha and central India</p>
             </div>
@@ -109,14 +142,27 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
             {/* Areas of special expertise */}
             <div>
               <h4 className="font-serif text-xs uppercase tracking-wider font-bold text-charcoal/60 mb-3">Core Specialty Portfolios</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <motion.div 
+                initial="hidden" 
+                whileInView="visible" 
+                viewport={{ once: true, margin: "-10px" }}
+                variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-2"
+              >
                 {DOCTOR_PROFILE.specialties.map((spec, idx) => (
-                  <div key={idx} className="flex items-center space-x-2 text-xs text-charcoal/80 font-semibold bg-linen/20 py-2 px-3 rounded-lg border border-linen">
+                  <motion.div 
+                    key={idx} 
+                    variants={{
+                      hidden: { opacity: 0, y: 15 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                    }}
+                    className="flex items-center space-x-2 text-xs text-charcoal/80 font-semibold bg-linen/20 py-2 px-3 rounded-lg border border-linen"
+                  >
                     <Sparkles size={14} className="text-slate-teal shrink-0" />
                     <span>{spec}</span>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
 
             {/* Accolades */}

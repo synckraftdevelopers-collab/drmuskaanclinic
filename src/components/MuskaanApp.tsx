@@ -7,7 +7,8 @@ import {
   useMotionValue, 
   useSpring, 
   useTransform, 
-  useReducedMotion 
+  useReducedMotion,
+  useScroll
 } from "motion/react";
 import { 
   Sparkles, HeartPulse, Activity, Calendar, Clock, MapPin, Phone, 
@@ -41,21 +42,27 @@ import {
   getBreadcrumbSchema 
 } from "../lib/schema";
 
-// Reusable Animated Counter Component for Statistics
-interface AnimatedCounterProps {
+// Reusable Animated Counter Component for Statistics (5. Counter Animation)
+export interface AnimatedCounterProps {
   value: number;
   suffix: string;
+  className?: string;
 }
 
-const AnimatedCounter: React.FC<AnimatedCounterProps> = ({ value, suffix }) => {
+export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({ 
+  value, 
+  suffix, 
+  className = "text-3xl sm:text-4xl font-serif font-bold text-slate-teal inline-block tabular-nums" 
+}) => {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-20px" });
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (!isInView || !ref.current) return;
+    const formatNumber = (num: number) => num.toLocaleString('en-US');
     if (shouldReduceMotion) {
-      ref.current.textContent = `${value}${suffix}`;
+      ref.current.textContent = `${formatNumber(value)}${suffix}`;
       return;
     }
 
@@ -69,12 +76,12 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({ value, suffix }) => {
       const easeOutCubic = 1 - Math.pow(1 - progress, 3);
       const current = Math.floor(easeOutCubic * value);
       
-      ref.current.textContent = `${current}${suffix}`;
+      ref.current.textContent = `${formatNumber(current)}${suffix}`;
 
       if (progress < 1) {
         window.requestAnimationFrame(step);
       } else {
-        ref.current.textContent = `${value}${suffix}`;
+        ref.current.textContent = `${formatNumber(value)}${suffix}`;
       }
     };
 
@@ -83,21 +90,21 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({ value, suffix }) => {
   }, [isInView, value, suffix, shouldReduceMotion]);
 
   return (
-    <span ref={ref} className="text-3xl sm:text-4xl font-serif font-bold text-slate-teal inline-block tabular-nums">
+    <span ref={ref} className={className}>
       0{suffix}
     </span>
   );
 };
 
-// Reusable Magnetic Button Component for CTAs
-interface MagneticButtonProps {
+// Reusable Magnetic Button Component for CTAs (6. CTA Magnetic Hover)
+export interface MagneticButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   className?: string;
   id?: string;
 }
 
-const MagneticButton: React.FC<MagneticButtonProps> = ({ children, onClick, className, id }) => {
+export const MagneticButton: React.FC<MagneticButtonProps> = ({ children, onClick, className, id }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const shouldReduceMotion = useReducedMotion();
@@ -107,12 +114,12 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({ children, onClick, clas
   const smoothY = useSpring(y, springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (shouldReduceMotion) return;
+    if (shouldReduceMotion || (typeof window !== 'undefined' && window.innerWidth < 768)) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    const distanceX = (e.clientX - centerX) * 0.25;
-    const distanceY = (e.clientY - centerY) * 0.25;
+    const distanceX = Math.max(-8, Math.min(8, (e.clientX - centerX) * 0.25));
+    const distanceY = Math.max(-8, Math.min(8, (e.clientY - centerY) * 0.25));
     x.set(distanceX);
     y.set(distanceY);
   };
@@ -142,6 +149,114 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({ children, onClick, clas
   );
 };
 
+// Reusable Word Reveal Heading Component (3. Text Reveal Animation)
+interface WordRevealHeadingProps {
+  line1: string;
+  line2: string;
+  className?: string;
+}
+
+const WordRevealHeading: React.FC<WordRevealHeadingProps> = ({ line1, line2, className }) => {
+  const shouldReduceMotion = useReducedMotion();
+  const words1 = line1.split(" ");
+  const words2 = line2.split(" ");
+
+  if (shouldReduceMotion) {
+    return (
+      <h1 className={className}>
+        {line1} <br />
+        <span className="text-slate-teal italic relative font-serif">{line2}</span>
+      </h1>
+    );
+  }
+
+  return (
+    <h1 className={className}>
+      <motion.span
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-20px" }}
+        variants={{
+          visible: { transition: { staggerChildren: 0.08 } },
+          hidden: {}
+        }}
+        className="block"
+      >
+        {words1.map((w, i) => (
+          <motion.span
+            key={i}
+            variants={{
+              hidden: { opacity: 0, y: 15 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+            }}
+            className="inline-block mr-[0.25em]"
+          >
+            {w}
+          </motion.span>
+        ))}
+        <br />
+        <span className="text-slate-teal italic relative font-serif inline-block">
+          {words2.map((w, i) => (
+            <motion.span
+              key={i + words1.length}
+              variants={{
+                hidden: { opacity: 0, y: 15 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+              }}
+              className="inline-block mr-[0.25em]"
+            >
+              {w}
+            </motion.span>
+          ))}
+        </span>
+      </motion.span>
+    </h1>
+  );
+};
+
+// Reusable Floating Particles Component (8. Floating Particles)
+const PARTICLES = Array.from({ length: 12 }, (_, i) => ({
+  id: i,
+  size: (i % 3 + 2) * 2,
+  left: `${(i * 17 + 13) % 90 + 5}%`,
+  top: `${(i * 23 + 19) % 80 + 10}%`,
+  duration: 20 + (i % 5) * 5,
+  delay: (i % 4) * 2,
+}));
+
+const FloatingParticles: React.FC = () => {
+  const shouldReduceMotion = useReducedMotion();
+  if (shouldReduceMotion) return null;
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      {PARTICLES.map((p) => (
+        <motion.div
+          key={p.id}
+          style={{
+            width: p.size,
+            height: p.size,
+            left: p.left,
+            top: p.top,
+          }}
+          animate={{
+            y: [0, -30, 10, 0],
+            x: [0, 15, -15, 0],
+            opacity: [0.15, 0.35, 0.15],
+          }}
+          transition={{
+            duration: p.duration,
+            repeat: Infinity,
+            delay: p.delay,
+            ease: "easeInOut",
+          }}
+          className="absolute rounded-full bg-slate-teal/30 blur-[1px]"
+        />
+      ))}
+    </div>
+  );
+};
+
 export default function App() {
   const [activeTab, setActiveTab] = useState("home");
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -158,6 +273,14 @@ export default function App() {
   const mouseY = useMotionValue(0);
   const shouldReduceMotion = useReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
+
+  // 7. Scroll Indicator progress
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   useEffect(() => {
     const checkMobile = () => {
@@ -326,6 +449,12 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-[#FAFAFA] text-charcoal font-sans relative antialiased selection:bg-slate-teal/10 selection:text-slate-teal">
       
+      {/* 7. Scroll Indicator: Thin top progress bar */}
+      <motion.div
+        style={{ scaleX, transformOrigin: "0%" }}
+        className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-slate-teal via-seafoam to-amber-500 z-50 pointer-events-none"
+      />
+
       {/* Dynamic SEO JSON-LD Injections */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(clinicSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(physicianSchema) }} />
@@ -379,6 +508,9 @@ export default function App() {
             >
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-seafoam/10 via-transparent to-transparent opacity-80" />
               
+              {/* 8. Floating Particles */}
+              <FloatingParticles />
+              
               {/* 1. Floating Background Gradients */}
               <motion.div
                 animate={shouldReduceMotion ? {} : {
@@ -427,13 +559,12 @@ export default function App() {
                     <span>Amravati's Premier Integrated Clinic</span>
                   </motion.div>
                   
-                  {/* Stagger Item 2: Heading */}
-                  <motion.h1 variants={fadeUpItem} className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-charcoal leading-tight tracking-tight">
-                    Ethical Hair, Skin & <br />
-                    <span className="text-slate-teal italic relative font-serif">
-                      Homeopathic Restorations
-                    </span>
-                  </motion.h1>
+                  {/* Stagger Item 2: Heading (with 3. Text Reveal Animation) */}
+                  <WordRevealHeading
+                    line1="Ethical Hair, Skin &"
+                    line2="Homeopathic Restorations"
+                    className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-charcoal leading-tight tracking-tight"
+                  />
 
                   {/* Stagger Item 3: Description */}
                   <div className="space-y-6">
@@ -565,14 +696,8 @@ export default function App() {
                   </motion.div>
                 </div>
 
-                {/* Right side teaser card (with 2. Doctor Image Parallax) */}
-                <motion.div 
-                  style={{
-                    x: (shouldReduceMotion || isMobile) ? 0 : parallaxX,
-                    y: (shouldReduceMotion || isMobile) ? 0 : parallaxY,
-                  }}
-                  className="lg:col-span-5"
-                >
+                {/* Right side teaser card */}
+                <div className="lg:col-span-5">
                   <div className="bg-white border border-linen rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-seafoam/15 rounded-full -mr-12 -mt-12" />
                     
@@ -616,7 +741,7 @@ export default function App() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
 
               </div>
 

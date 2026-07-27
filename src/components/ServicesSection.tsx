@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Sparkles, HeartPulse, Activity, CheckCircle2, Clock, ShieldCheck, Baby } from "lucide-react";
+import { motion } from "motion/react";
 import { CLINIC_SERVICES } from "../lib/content";
 
 interface ServicesSectionProps {
@@ -129,11 +130,22 @@ export default function ServicesSection({ onOpenBooking }: ServicesSectionProps)
             </button>
           </div>
 
-          {/* Sub Services Detail Grid */}
-          <div className="lg:col-span-2 space-y-4 sm:space-y-6 w-full" id="sub-services-grid">
+          {/* Sub Services Detail Grid (4. Stagger Card Animation) */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-10px" }}
+            variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
+            className="lg:col-span-2 space-y-4 sm:space-y-6 w-full" 
+            id="sub-services-grid"
+          >
             {currentService.subServices.map((sub, idx) => (
-              <div 
+              <motion.div 
                 key={idx}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+                }}
                 className="bg-white border border-linen rounded-xl sm:rounded-2xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all space-y-3 sm:space-y-4 overflow-hidden w-full"
               >
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 sm:gap-2">
@@ -166,9 +178,9 @@ export default function ServicesSection({ onOpenBooking }: ServicesSectionProps)
                     ))}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
         </div>
 

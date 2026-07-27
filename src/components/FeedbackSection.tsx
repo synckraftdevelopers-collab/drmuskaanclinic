@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Star, MessageSquare, Quote, User, Sparkles, RefreshCw, ThumbsUp, Send } from "lucide-react";
+import { motion } from "motion/react";
 import { Testimonial } from "../types";
 
 export default function FeedbackSection() {
@@ -265,8 +266,15 @@ export default function FeedbackSection() {
 
           </div>
 
-          {/* Column 2: Testimonials List */}
-          <div className="lg:col-span-7 space-y-6" id="testimonials-feed">
+          {/* Column 2: Testimonials List (4. Stagger Card Animation) */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-10px" }}
+            variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
+            className="lg:col-span-7 space-y-6" 
+            id="testimonials-feed"
+          >
             {isLoading ? (
               <div className="text-center py-10 bg-white border border-linen rounded-2xl">
                 <RefreshCw size={30} className="animate-spin text-slate-teal mx-auto mb-2" />
@@ -278,8 +286,12 @@ export default function FeedbackSection() {
               </div>
             ) : (
               feedbacks.map((item) => (
-                <div 
+                <motion.div 
                   key={item.id}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+                  }}
                   className="bg-white border border-linen rounded-2xl p-6 shadow-xs relative overflow-hidden flex flex-col justify-between"
                   id={`patient-testimonial-${item.id}`}
                 >
@@ -316,10 +328,10 @@ export default function FeedbackSection() {
                     </span>
                     <span className="text-[10px] font-semibold">{item.date}</span>
                   </div>
-                </div>
+                </motion.div>
               ))
             )}
-          </div>
+          </motion.div>
 
         </div>
 
