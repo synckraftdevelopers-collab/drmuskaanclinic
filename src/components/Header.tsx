@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Phone, Clock, Menu, X, Calendar } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 import { CLINIC_INFO } from "../lib/content";
 
 interface HeaderProps {
@@ -89,7 +90,11 @@ export default function Header({ activeTab, setActiveTab, onOpenBooking }: Heade
             >
               {item.label}
               {activeTab === item.id && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-slate-teal rounded-full animate-fade-in" />
+                <motion.span 
+                  layoutId="activeNavUnderline" 
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-slate-teal rounded-full" 
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
               )}
             </button>
           ))}
@@ -120,43 +125,51 @@ export default function Header({ activeTab, setActiveTab, onOpenBooking }: Heade
       </div>
 
       {/* Mobile Menu Panel */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-linen bg-white py-4 px-4 shadow-inner animate-fade-in">
-          <nav className="flex flex-col space-y-4">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleNavClick(item.id)}
-                className={`text-left font-medium py-2 px-3 rounded-lg transition-colors text-sm cursor-pointer ${
-                  activeTab === item.id
-                    ? "bg-linen text-slate-teal font-bold"
-                    : "text-charcoal/80 hover:bg-linen/30 hover:text-slate-teal"
-                }`}
-                id={`mobile-nav-${item.id}`}
-              >
-                {item.label}
-              </button>
-            ))}
-            <div className="pt-4 border-t border-linen flex flex-col space-y-3">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenBooking();
-                }}
-                className="flex items-center justify-center space-x-2 bg-slate-teal text-white font-bold py-3 px-4 rounded-full shadow-md text-sm cursor-pointer"
-                id="mobile-booking-btn"
-              >
-                <Calendar size={16} />
-                <span>Book Appointment</span>
-              </button>
-              <div className="text-center text-xs text-charcoal/60 pt-2 space-y-1">
-                <p>ðŸ“ž +91 {CLINIC_INFO.phone}</p>
-                <p>ðŸ“ Irwin Square, Amravati</p>
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="lg:hidden border-t border-linen bg-white py-4 px-4 shadow-inner overflow-hidden"
+          >
+            <nav className="flex flex-col space-y-4">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => handleNavClick(item.id)}
+                  className={`text-left font-medium py-2 px-3 rounded-lg transition-colors text-sm cursor-pointer ${
+                    activeTab === item.id
+                      ? "bg-linen text-slate-teal font-bold"
+                      : "text-charcoal/80 hover:bg-linen/30 hover:text-slate-teal"
+                  }`}
+                  id={`mobile-nav-${item.id}`}
+                >
+                  {item.label}
+                </button>
+              ))}
+              <div className="pt-4 border-t border-linen flex flex-col space-y-3">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenBooking();
+                  }}
+                  className="flex items-center justify-center space-x-2 bg-slate-teal text-white font-bold py-3 px-4 rounded-full shadow-md text-sm cursor-pointer"
+                  id="mobile-booking-btn"
+                >
+                  <Calendar size={16} />
+                  <span>Book Appointment</span>
+                </button>
+                <div className="text-center text-xs text-charcoal/60 pt-2 space-y-1">
+                  <p>ðŸ“ž +91 {CLINIC_INFO.phone}</p>
+                  <p>ðŸ“  Irwin Square, Amravati</p>
+                </div>
               </div>
-            </div>
-          </nav>
-        </div>
-      )}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

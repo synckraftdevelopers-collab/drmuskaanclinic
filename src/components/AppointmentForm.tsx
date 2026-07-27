@@ -8,6 +8,7 @@ import { buildWhatsAppUrl, buildWhatsAppMessage, ConsultationFormData } from "..
 import { db, storage } from "../lib/firebase/client";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { motion } from "motion/react";
 
 interface AppointmentFormProps {
   onClose?: () => void;
@@ -321,7 +322,13 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
   const isSunday = date ? new Date(date).getDay() === 0 : false;
 
   return (
-    <div className="bg-white rounded-2xl border border-linen p-6 sm:p-8 shadow-xl max-w-3xl mx-auto relative overflow-y-auto max-h-[90vh] custom-scrollbar" id="appointment-booking-form">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="bg-white rounded-2xl border border-linen p-6 sm:p-8 shadow-xl max-w-3xl mx-auto relative overflow-y-auto max-h-[90vh] custom-scrollbar" 
+      id="appointment-booking-form"
+    >
       {onClose && (
         <button 
           onClick={onClose}
@@ -670,9 +677,11 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
 
             {/* Submit Button */}
             <div className="pt-4">
-              <button
+              <motion.button
                 type="submit"
                 disabled={isSubmitting}
+                whileHover={isSubmitting ? {} : { scale: 1.01 }}
+                whileTap={isSubmitting ? {} : { scale: 0.98 }}
                 className="w-full flex items-center justify-center space-x-2 bg-slate-teal hover:bg-charcoal text-white font-bold py-4 px-6 rounded-xl shadow-md transition-all cursor-pointer text-base disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
@@ -687,13 +696,13 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                     <ArrowRight size={20} className="ml-1" />
                   </>
                 )}
-              </button>
+              </motion.button>
             </div>
 
           </div>
         )}
 
       </form>
-    </div>
+    </motion.div>
   );
 }

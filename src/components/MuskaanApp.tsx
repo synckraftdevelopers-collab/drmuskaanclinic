@@ -8,7 +8,8 @@ import {
   useSpring, 
   useTransform, 
   useReducedMotion,
-  useScroll
+  useScroll,
+  AnimatePresence
 } from "motion/react";
 import { 
   Sparkles, HeartPulse, Activity, Calendar, Clock, MapPin, Phone, 
@@ -1262,45 +1263,74 @@ export default function App() {
       <div className="fixed bottom-6 right-6 z-30 flex flex-col items-end space-y-2">
         {/* Helper pop tooltip */}
         {!aiAssistantOpen && (
-          <div className="bg-charcoal text-white text-[11px] font-semibold py-1.5 px-3 rounded-xl shadow-md border border-slate-teal/30 hidden sm:block animate-pulse">
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-charcoal text-white text-[11px] font-semibold py-1.5 px-3 rounded-xl shadow-md border border-slate-teal/30 hidden sm:block animate-pulse"
+          >
             ✨ Chat with Muskaan AI Guide
-          </div>
+          </motion.div>
         )}
-        <button
+        <motion.button
           onClick={() => setAiAssistantOpen(!aiAssistantOpen)}
-          className="w-14 h-14 rounded-full bg-slate-teal hover:bg-charcoal text-white flex items-center justify-center shadow-lg shadow-slate-teal/20 transition-all transform hover:scale-105 active:scale-95 cursor-pointer border border-seafoam/20"
+          animate={shouldReduceMotion ? {} : { y: [0, -6, 0] }}
+          transition={{ y: { duration: 3, repeat: Infinity, ease: "easeInOut" } }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.94 }}
+          className="w-14 h-14 rounded-full bg-slate-teal hover:bg-charcoal text-white flex items-center justify-center shadow-lg shadow-slate-teal/20 transition-colors cursor-pointer border border-seafoam/20 relative"
           id="floating-ai-guide-toggle"
           aria-label="Toggle Muskaan AI assistant guide drawer"
         >
           {aiAssistantOpen ? <X size={24} /> : <Bot size={24} className="text-linen" />}
-        </button>
+        </motion.button>
       </div>
 
       {/* Slide-out Drawer Panel for AI Guide */}
-      {aiAssistantOpen && (
-        <div className="fixed inset-y-0 right-0 z-50 w-full sm:max-w-md bg-white shadow-2xl flex flex-col h-full border-l border-linen animate-slide-in">
-          <AIGuide 
-            onClose={() => setAiAssistantOpen(false)} 
-            onOpenBooking={() => {
-              setAiAssistantOpen(false);
-              handleOpenBooking();
-            }}
-          />
-        </div>
-      )}
+      <AnimatePresence>
+        {aiAssistantOpen && (
+          <motion.div 
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 260 }}
+            className="fixed inset-y-0 right-0 z-50 w-full sm:max-w-md bg-white shadow-2xl flex flex-col h-full border-l border-linen"
+          >
+            <AIGuide 
+              onClose={() => setAiAssistantOpen(false)} 
+              onOpenBooking={() => {
+                setAiAssistantOpen(false);
+                handleOpenBooking();
+              }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Scheduling overlay Modal */}
-      {bookingOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-charcoal/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="w-full max-w-2xl animate-scale-up">
-            <AppointmentForm 
-              preSelectedServiceId={preSelectedServiceId}
-              onClose={() => setBookingOpen(false)}
-              onAppointmentCreated={handleAppointmentCreated}
-            />
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {bookingOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 overflow-y-auto bg-charcoal/60 backdrop-blur-xs flex items-center justify-center p-4"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="w-full max-w-2xl"
+            >
+              <AppointmentForm 
+                preSelectedServiceId={preSelectedServiceId}
+                onClose={() => setBookingOpen(false)}
+                onAppointmentCreated={handleAppointmentCreated}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );

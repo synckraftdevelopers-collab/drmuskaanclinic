@@ -108,7 +108,7 @@ export default function ContactSection() {
               {/* Telephone card */}
               <a 
                 href={`tel:+91${CLINIC_INFO.phone}`}
-                className="bg-white border border-linen p-5 rounded-2xl flex items-start space-x-4 hover:border-slate-teal hover:shadow-xs transition-all text-left"
+                className="bg-white border border-linen p-5 rounded-2xl flex items-start space-x-4 hover:border-slate-teal hover:shadow-md transition-all transform hover:-translate-y-1 duration-300 text-left"
                 id="contact-tel-card"
               >
                 <div className="w-10 h-10 rounded-xl bg-slate-teal/10 text-slate-teal flex items-center justify-center shrink-0">
@@ -126,10 +126,10 @@ export default function ContactSection() {
                 href={`https://wa.me/${CLINIC_INFO.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white border border-linen p-5 rounded-2xl flex items-start space-x-4 hover:border-emerald-500 hover:shadow-xs transition-all text-left"
+                className="bg-white border border-linen p-5 rounded-2xl flex items-start space-x-4 hover:border-emerald-500 hover:shadow-md transition-all transform hover:-translate-y-1 duration-300 text-left"
                 id="contact-wa-card"
               >
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 animate-pulse">
                   <MessageSquare size={18} />
                 </div>
                 <div className="space-y-1">
@@ -142,7 +142,7 @@ export default function ContactSection() {
               {/* Email card */}
               <a 
                 href={`mailto:${CLINIC_INFO.email}`}
-                className="bg-white border border-linen p-5 rounded-2xl flex items-start space-x-4 hover:border-slate-teal hover:shadow-xs transition-all text-left"
+                className="bg-white border border-linen p-5 rounded-2xl flex items-start space-x-4 hover:border-slate-teal hover:shadow-md transition-all transform hover:-translate-y-1 duration-300 text-left"
                 id="contact-email-card"
               >
                 <div className="w-10 h-10 rounded-xl bg-slate-teal/10 text-slate-teal flex items-center justify-center shrink-0">

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Smile, MapPin, Phone, Mail, Clock, ShieldCheck, Heart, ExternalLink } from "lucide-react";
+import { motion } from "motion/react";
 import { CLINIC_INFO, DOCTOR_PROFILE } from "../lib/content";
 
 interface FooterProps {
@@ -13,8 +14,14 @@ export default function Footer({ setActiveTab, onOpenBooking }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-charcoal text-white pt-16 pb-8 border-t-4 border-slate-teal">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-charcoal text-white pt-16 pb-8 border-t-4 border-slate-teal overflow-hidden relative">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           
           {/* Column 1: About the Clinic */}
@@ -169,15 +176,21 @@ export default function Footer({ setActiveTab, onOpenBooking }: FooterProps) {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-xs text-linen/60">
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-xs text-linen/60 gap-4">
           <p>© {currentYear} Muskaan Clinic (Skin & Homeopathy). All Rights Reserved.</p>
-          <p className="flex items-center space-x-1 mt-2 sm:mt-0">
+          <button 
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="hover:text-white transition-colors cursor-pointer underline underline-offset-4 font-semibold text-seafoam hover:scale-105 transform duration-200"
+          >
+            ↑ Back to top
+          </button>
+          <p className="flex items-center space-x-1">
             <span>Made with</span>
             <Heart size={12} className="text-red-400 fill-red-400" />
             <span>in Amravati, Maharashtra</span>
           </p>
         </div>
-      </div>
+      </motion.div>
     </footer>
   );
 }
