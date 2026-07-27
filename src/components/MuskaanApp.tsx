@@ -1,19 +1,19 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { 
-  motion, 
-  useInView, 
-  useMotionValue, 
-  useSpring, 
-  useTransform, 
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useSpring,
+  useTransform,
   useReducedMotion,
   useScroll,
   AnimatePresence
 } from "motion/react";
-import { 
-  Sparkles, HeartPulse, Activity, Calendar, Clock, MapPin, Phone, 
-  ChevronRight, Star, HelpCircle, Bot, X, ShieldCheck, Award, 
+import {
+  Sparkles, HeartPulse, Activity, Calendar, Clock, MapPin, Phone,
+  ChevronRight, Star, HelpCircle, Bot, X, ShieldCheck, Award,
   MessageSquare, Users, Trash2, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight as ChevronRightIcon
 } from "lucide-react";
 import Header from "./Header";
@@ -26,21 +26,21 @@ import FeedbackSection from "./FeedbackSection";
 import GallerySection from "./GallerySection";
 import ContactSection from "./ContactSection";
 
-import { 
-  CLINIC_INFO, 
-  CLINIC_FAQS, 
-  CLINIC_SERVICES, 
-  DOCTOR_PROFILE, 
-  CLINIC_STATS, 
+import {
+  CLINIC_INFO,
+  CLINIC_FAQS,
+  CLINIC_SERVICES,
+  DOCTOR_PROFILE,
+  CLINIC_STATS,
   WHY_CHOOSE_US,
   CLINIC_CONFIG
 } from "../lib/content";
 import { Appointment } from "../types";
-import { 
-  getMedicalClinicSchema, 
-  getPhysicianSchema, 
-  getLocalBusinessSchema, 
-  getBreadcrumbSchema 
+import {
+  getMedicalClinicSchema,
+  getPhysicianSchema,
+  getLocalBusinessSchema,
+  getBreadcrumbSchema
 } from "../lib/schema";
 
 // Reusable Animated Counter Component for Statistics (5. Counter Animation)
@@ -50,10 +50,10 @@ export interface AnimatedCounterProps {
   className?: string;
 }
 
-export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({ 
-  value, 
-  suffix, 
-  className = "text-3xl sm:text-4xl font-serif font-bold text-slate-teal inline-block tabular-nums" 
+export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
+  value,
+  suffix,
+  className = "text-3xl sm:text-4xl font-serif font-bold text-slate-teal inline-block tabular-nums"
 }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-20px" });
@@ -76,7 +76,7 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
       const progress = Math.min((timestamp - startTimestamp) / duration, 1);
       const easeOutCubic = 1 - Math.pow(1 - progress, 3);
       const current = Math.floor(easeOutCubic * value);
-      
+
       ref.current.textContent = `${formatNumber(current)}${suffix}`;
 
       if (progress < 1) {
@@ -265,7 +265,7 @@ export default function App() {
   const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
   const [localAppointments, setLocalAppointments] = useState<Appointment[]>([]);
   const [expandedFaqIndex, setExpandedFaqIndex] = useState<number | null>(null);
-  
+
   // Home Testimonial mini-carousel state
   const [testimonialIndex, setTestimonialIndex] = useState(0);
 
@@ -377,7 +377,7 @@ export default function App() {
       }
     };
     loadAppointments();
-    
+
     // Check if URL has hash or parameter
     const handleHash = () => {
       const hash = window.location.hash.replace("#", "");
@@ -448,8 +448,8 @@ export default function App() {
   })));
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAFAFA] text-charcoal font-sans relative antialiased selection:bg-slate-teal/10 selection:text-slate-teal">
-      
+    <div className="min-h-screen flex flex-col bg-[#F0F7FC] text-charcoal font-sans relative antialiased selection:bg-slate-teal/10 selection:text-slate-teal">
+
       {/* 7. Scroll Indicator: Thin top progress bar */}
       <motion.div
         style={{ scaleX, transformOrigin: "0%" }}
@@ -463,10 +463,10 @@ export default function App() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* Navigation Header */}
-      <Header 
-        activeTab={activeTab} 
-        setActiveTab={setActiveTab} 
-        onOpenBooking={() => handleOpenBooking()} 
+      <Header
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        onOpenBooking={() => handleOpenBooking()}
       />
 
       {/* Inner View Breadcrumbs Header */}
@@ -477,7 +477,7 @@ export default function App() {
               {breadcrumbs.map((b, idx) => (
                 <React.Fragment key={idx}>
                   {idx > 0 && <span className="text-charcoal/30">/</span>}
-                  <button 
+                  <button
                     onClick={() => setActiveTab(b.id)}
                     className={`hover:text-slate-teal transition-colors cursor-pointer ${idx === breadcrumbs.length - 1 ? "text-slate-teal font-bold" : ""}`}
                   >
@@ -495,293 +495,503 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="flex-grow">
-        
+
         {/* VIEW 1: HOME PANEL */}
         {activeTab === "home" && (
           <div className="space-y-16 pb-16" id="home-view-panel">
-            
+
             {/* HERO SECTION */}
             <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="space-y-16">
-            <section 
-              onMouseMove={handleHeroMouseMove}
-              onMouseLeave={handleHeroMouseLeave}
-              className="relative overflow-hidden bg-gradient-to-br from-white via-linen/20 to-seafoam/15 py-16 sm:py-20 md:py-24 border-b border-linen"
-            >
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-seafoam/10 via-transparent to-transparent opacity-80" />
-              
-              {/* 8. Floating Particles */}
-              <FloatingParticles />
-              
-              {/* 1. Floating Background Gradients */}
-              <motion.div
-                animate={shouldReduceMotion ? {} : {
-                  x: [0, 40, -30, 0],
-                  y: [0, -40, 30, 0],
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="absolute -top-20 -left-20 w-96 h-96 bg-slate-teal/10 rounded-full blur-3xl pointer-events-none"
-              />
-              <motion.div
-                animate={shouldReduceMotion ? {} : {
-                  x: [0, -50, 40, 0],
-                  y: [0, 50, -40, 0],
-                }}
-                transition={{
-                  duration: 25,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="absolute top-1/3 -right-20 w-[28rem] h-[28rem] bg-seafoam/15 rounded-full blur-3xl pointer-events-none"
-              />
-              <motion.div
-                animate={shouldReduceMotion ? {} : {
-                  x: [0, 30, -40, 0],
-                  y: [0, 40, -30, 0],
-                }}
-                transition={{
-                  duration: 18,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="absolute -bottom-20 left-1/3 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"
-              />
+              <section
+                onMouseMove={handleHeroMouseMove}
+                onMouseLeave={handleHeroMouseLeave}
+                className="relative overflow-hidden bg-gradient-to-br from-white via-linen/20 to-seafoam/15 py-16 sm:py-20 md:py-24 border-b border-linen"
+              >
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-seafoam/10 via-transparent to-transparent opacity-80" />
 
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                
-                {/* Left content text */}
-                <div className="lg:col-span-7 space-y-6 text-left">
-                  {/* Stagger Item 1: Badge */}
-                  <motion.div variants={fadeUpItem} className="inline-flex items-center space-x-2 bg-slate-teal/10 text-slate-teal font-extrabold px-3 py-1 rounded-full text-xs uppercase tracking-wider border border-slate-teal/15">
-                    <Sparkles size={14} className="text-slate-teal animate-pulse" />
-                    <span>Amravati's Premier Integrated Clinic</span>
-                  </motion.div>
-                  
-                  {/* Stagger Item 2: Heading (with 3. Text Reveal Animation) */}
-                  <WordRevealHeading
-                    line1="Ethical Hair, Skin &"
-                    line2="Homeopathic Restorations"
-                    className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-charcoal leading-tight tracking-tight"
-                  />
+                {/* 8. Floating Particles */}
+                <FloatingParticles />
 
-                  {/* Stagger Item 3: Description */}
-                  <div className="space-y-6">
-                    <motion.p variants={fadeUpItem} className="text-charcoal/70 text-sm sm:text-base md:text-lg max-w-xl leading-relaxed">
-                      Led by <span className="font-bold text-charcoal">{CLINIC_INFO.doctor}</span> with over {CLINIC_INFO.experience} of dedicated clinical practice, we combine state-of-the-art visual aesthetic medicine with gentle, permanent constitutional homeopathy.
-                    </motion.p>
+                {/* 1. Floating Background Gradients */}
+                <motion.div
+                  animate={shouldReduceMotion ? {} : {
+                    x: [0, 40, -30, 0],
+                    y: [0, -40, 30, 0],
+                  }}
+                  transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute -top-20 -left-20 w-96 h-96 bg-slate-teal/10 rounded-full blur-3xl pointer-events-none"
+                />
+                <motion.div
+                  animate={shouldReduceMotion ? {} : {
+                    x: [0, -50, 40, 0],
+                    y: [0, 50, -40, 0],
+                  }}
+                  transition={{
+                    duration: 25,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute top-1/3 -right-20 w-[28rem] h-[28rem] bg-seafoam/15 rounded-full blur-3xl pointer-events-none"
+                />
+                <motion.div
+                  animate={shouldReduceMotion ? {} : {
+                    x: [0, 30, -40, 0],
+                    y: [0, 40, -30, 0],
+                  }}
+                  transition={{
+                    duration: 18,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute -bottom-20 left-1/3 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"
+                />
 
-                    {/* Brand Quote Card */}
-                    <div className="relative max-w-lg">
-                      {/* 6. SOFT BACKGROUND GLOW */}
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                  {/* Left content text */}
+                  <div className="lg:col-span-7 space-y-6 text-left">
+                    {/* Stagger Item 1: Badge */}
+                    <motion.div variants={fadeUpItem} className="inline-flex items-center space-x-2 bg-slate-teal/10 text-slate-teal font-extrabold px-3 py-1 rounded-full text-xs uppercase tracking-wider border border-slate-teal/15">
+                      <Sparkles size={14} className="text-slate-teal animate-pulse" />
+                      <span>Amravati's Premier Integrated Clinic</span>
+                    </motion.div>
+
+                    {/* Stagger Item 2: Heading (with 3. Text Reveal Animation) */}
+                    <WordRevealHeading
+                      line1="Ethical Hair, Skin &"
+                      line2="Homeopathic Restorations"
+                      className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-charcoal leading-tight tracking-tight"
+                    />
+
+                    {/* Stagger Item 3: Description */}
+                    <div className="space-y-6">
+                      <motion.p variants={fadeUpItem} className="text-charcoal/70 text-sm sm:text-base md:text-lg max-w-xl leading-relaxed">
+                        Led by <span className="font-bold text-charcoal">{CLINIC_INFO.doctor}</span> with over {CLINIC_INFO.experience} of dedicated clinical practice, we combine state-of-the-art visual aesthetic medicine with gentle, permanent constitutional homeopathy.
+                      </motion.p>
+
+                      {/* Brand Quote Card */}
+                      <div className="relative max-w-lg">
+                        {/* 6. SOFT BACKGROUND GLOW */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            x: [0, 15, -15, 0],
+                            y: [0, -10, 10, 0],
+                          }}
+                          transition={{
+                            duration: 20,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                          style={{ opacity: 0.08 }}
+                          className="absolute -inset-2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-teal via-seafoam to-transparent rounded-3xl blur-xl pointer-events-none -z-10"
+                        />
+
+                        {/* Card Container with 1. SECTION REVEAL & 5. CARD HOVER */}
+                        <motion.div
+                          initial={shouldReduceMotion ? { opacity: 0, y: 0 } : { opacity: 0, y: 30 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true, margin: "-20px" }}
+                          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+                          whileHover={(shouldReduceMotion || isMobile) ? {} : {
+                            y: -4,
+                            scale: 1.01,
+                            boxShadow: "0 10px 25px -5px rgba(15, 92, 77, 0.15), 0 8px 10px -6px rgba(15, 92, 77, 0.08)",
+                            transition: { duration: 0.3, ease: "easeOut" },
+                          }}
+                          className="bg-white/80 backdrop-blur-xs border border-linen p-5 rounded-2xl shadow-xs transition-colors duration-300 cursor-default"
+                        >
+                          {/* 2. QUOTE TEXT REVEAL & 3. QUOTATION MARKS */}
+                          <motion.p
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: "-20px" }}
+                            variants={{
+                              hidden: { opacity: 0 },
+                              visible: {
+                                opacity: 1,
+                                transition: {
+                                  staggerChildren: 0.12,
+                                  delayChildren: 0.6,
+                                }
+                              }
+                            }}
+                            className="text-xs sm:text-sm font-serif italic text-charcoal/80 leading-relaxed pl-2 sm:pl-3"
+                          >
+                            <motion.span
+                              variants={{
+                                hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
+                                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                              }}
+                              className="block"
+                            >
+                              <motion.span
+                                initial={shouldReduceMotion ? { opacity: 0, scale: 1 } : { opacity: 0, scale: 0.95 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, ease: "easeOut" }}
+                                className="inline-block align-baseline -ml-2 sm:-ml-3"
+                              >"</motion.span>To improve patients' confidence and health
+                            </motion.span>
+                            <motion.span
+                              variants={{
+                                hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
+                                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                              }}
+                              className="block"
+                            >
+                              through ethical Hair, Skin, and
+                            </motion.span>
+                            <motion.span
+                              variants={{
+                                hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
+                                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                              }}
+                              className="block"
+                            >
+                              Homeopathic treatments.<motion.span
+                                initial={shouldReduceMotion ? { opacity: 0, scale: 1 } : { opacity: 0, scale: 0.95 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
+                                className="inline-block align-baseline"
+                              >"</motion.span>
+                            </motion.span>
+                          </motion.p>
+
+                          {/* 4. CLINIC VISION LABEL */}
+                          <motion.p
+                            initial={shouldReduceMotion ? { opacity: 0, x: 0 } : { opacity: 0, x: 10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-20px" }}
+                            transition={{ duration: 0.5, delay: 1.2, ease: "easeOut" }}
+                            className="text-[10px] uppercase font-extrabold tracking-wider text-slate-teal/70 mt-2 text-right"
+                          >
+                            — Clinic Vision
+                          </motion.p>
+                        </motion.div>
+                      </div>
+                    </div>
+
+                    {/* Stagger Item 4: CTA Buttons (with 4. CTA Magnetic Hover) */}
+                    <motion.div variants={fadeUpItem} className="flex flex-col sm:flex-row gap-3 pt-2">
+                      <MagneticButton
+                        onClick={() => handleOpenBooking()}
+                        className="flex items-center justify-center space-x-2 bg-slate-teal hover:bg-charcoal text-white font-bold py-3.5 px-8 rounded-xl shadow-md shadow-slate-teal/10 hover:shadow-lg transition-all text-sm cursor-pointer"
+                        id="hero-book-btn"
+                      >
+                        <Calendar size={16} />
+                        <span>Book Slot Today</span>
+                      </MagneticButton>
+                      <MagneticButton
+                        onClick={() => setAiAssistantOpen(true)}
+                        className="flex items-center justify-center space-x-2 bg-white hover:bg-linen/30 text-slate-teal border border-slate-teal/20 font-bold py-3.5 px-8 rounded-xl transition-all text-sm cursor-pointer"
+                        id="hero-ai-chat-btn"
+                      >
+                        <Bot size={16} />
+                        <span>Chat with Muskaan AI Guide</span>
+                      </MagneticButton>
+                    </motion.div>
+                  </div>
+
+                  {/* Right side teaser card — premium animated background */}
+                  <div className="lg:col-span-5">
+                    {/* ── ANIMATED BACKGROUND LAYER (behind card, z-0) ── */}
+                    <motion.div
+                      className="relative"
+                      initial={shouldReduceMotion ? {} : { opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-40px" }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
+                      {/* Parallax container for decorative elements */}
                       <motion.div
-                        animate={shouldReduceMotion ? {} : {
-                          x: [0, 15, -15, 0],
-                          y: [0, -10, 10, 0],
-                        }}
-                        transition={{
-                          duration: 20,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                        }}
-                        style={{ opacity: 0.08 }}
-                        className="absolute -inset-2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-teal via-seafoam to-transparent rounded-3xl blur-xl pointer-events-none -z-10"
-                      />
+                        className="absolute inset-0 pointer-events-none overflow-visible"
+                        style={(!shouldReduceMotion && !isMobile) ? {
+                          x: parallaxX,
+                          y: parallaxY,
+                        } : {}}
+                      >
+                        {/* Large soft radial glow behind card */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            scale: [1, 1.06, 1],
+                            opacity: [0.18, 0.28, 0.18],
+                          }}
+                          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+                          className="absolute -inset-10 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(18,53,91,0.18)_0%,_rgba(42,157,143,0.10)_45%,_transparent_75%)] blur-2xl"
+                        />
 
-                      {/* Card Container with 1. SECTION REVEAL & 5. CARD HOVER */}
+                        {/* Outer thin ring 1 */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            scale: [1, 1.04, 1],
+                            opacity: [0.14, 0.22, 0.14],
+                            rotate: [0, 8, 0],
+                          }}
+                          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+                          className="absolute -inset-8 rounded-full border border-slate-teal/15"
+                        />
+
+                        {/* Outer thin ring 2 */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            scale: [1, 1.03, 1],
+                            opacity: [0.08, 0.16, 0.08],
+                            rotate: [0, -5, 0],
+                          }}
+                          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+                          className="absolute -inset-16 rounded-full border border-seafoam/12"
+                        />
+
+                        {/* Outer thin ring 3 — outermost */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            scale: [1, 1.025, 1],
+                            opacity: [0.05, 0.10, 0.05],
+                          }}
+                          transition={{ duration: 30, repeat: Infinity, ease: "easeInOut", delay: 6 }}
+                          className="absolute -inset-24 rounded-full border border-slate-teal/08"
+                        />
+
+                        {/* Ambient teal glow top-right */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            x: [0, 12, -8, 0],
+                            y: [0, -12, 8, 0],
+                            opacity: [0.20, 0.35, 0.20],
+                          }}
+                          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+                          className="absolute -top-10 -right-10 w-36 h-36 rounded-full bg-seafoam/20 blur-2xl"
+                        />
+
+                        {/* Ambient navy glow bottom-left */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            x: [0, -10, 14, 0],
+                            y: [0, 14, -10, 0],
+                            opacity: [0.15, 0.25, 0.15],
+                          }}
+                          transition={{ duration: 23, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+                          className="absolute -bottom-10 -left-10 w-32 h-32 rounded-full bg-slate-teal/15 blur-2xl"
+                        />
+
+                        {/* Floating medical cross — top-right */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            y: [0, -10, 4, 0],
+                            x: [0, 4, -4, 0],
+                            opacity: [0.18, 0.32, 0.18],
+                          }}
+                          transition={{ duration: 19, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                          className="absolute -top-6 right-4 text-slate-teal/25 text-2xl font-bold select-none"
+                          aria-hidden="true"
+                        >
+                          +
+                        </motion.div>
+
+                        {/* Floating medical cross — bottom-left */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            y: [0, 8, -6, 0],
+                            x: [0, -6, 6, 0],
+                            opacity: [0.12, 0.22, 0.12],
+                          }}
+                          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut", delay: 7 }}
+                          className="absolute -bottom-8 left-2 text-seafoam/25 text-xl font-bold select-none"
+                          aria-hidden="true"
+                        >
+                          +
+                        </motion.div>
+
+                        {/* Floating medical cross — mid-left */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            y: [0, -6, 10, 0],
+                            opacity: [0.10, 0.20, 0.10],
+                          }}
+                          transition={{ duration: 21, repeat: Infinity, ease: "easeInOut", delay: 10 }}
+                          className="absolute top-1/2 -left-8 text-slate-teal/20 text-lg font-bold select-none"
+                          aria-hidden="true"
+                        >
+                          +
+                        </motion.div>
+
+                        {/* Tiny floating dot 1 */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            y: [0, -14, 6, 0],
+                            x: [0, 6, -6, 0],
+                            opacity: [0.20, 0.40, 0.20],
+                          }}
+                          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                          className="absolute top-4 -right-4 w-2 h-2 rounded-full bg-seafoam/40"
+                        />
+
+                        {/* Tiny floating dot 2 */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            y: [0, 10, -8, 0],
+                            opacity: [0.15, 0.30, 0.15],
+                          }}
+                          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 5 }}
+                          className="absolute bottom-6 -left-4 w-1.5 h-1.5 rounded-full bg-slate-teal/35"
+                        />
+
+                        {/* Tiny floating dot 3 */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            y: [0, -8, 12, 0],
+                            x: [0, -4, 4, 0],
+                            opacity: [0.12, 0.24, 0.12],
+                          }}
+                          transition={{ duration: 26, repeat: Infinity, ease: "easeInOut", delay: 8 }}
+                          className="absolute top-1/3 -right-6 w-1 h-1 rounded-full bg-seafoam/50"
+                        />
+
+                        {/* Tiny floating dot 4 */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            y: [0, 12, -6, 0],
+                            opacity: [0.10, 0.22, 0.10],
+                          }}
+                          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 11 }}
+                          className="absolute -top-4 left-1/3 w-1.5 h-1.5 rounded-full bg-slate-teal/30"
+                        />
+
+                        {/* Heartbeat / circle medical ring */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            scale: [1, 1.15, 1],
+                            opacity: [0.08, 0.16, 0.08],
+                          }}
+                          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                          className="absolute -bottom-6 right-8 w-5 h-5 rounded-full border border-seafoam/30"
+                        />
+
+                        {/* Medical circle decorative — top area */}
+                        <motion.div
+                          animate={shouldReduceMotion ? {} : {
+                            scale: [1, 1.08, 1],
+                            opacity: [0.06, 0.14, 0.06],
+                          }}
+                          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 9 }}
+                          className="absolute -top-8 left-8 w-8 h-8 rounded-full border border-slate-teal/20"
+                        />
+                      </motion.div>
+
+                      {/* ── THE CARD (unchanged, lifted on hover, z-10) ── */}
                       <motion.div
-                        initial={shouldReduceMotion ? { opacity: 0, y: 0 } : { opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-20px" }}
-                        transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
                         whileHover={(shouldReduceMotion || isMobile) ? {} : {
                           y: -4,
                           scale: 1.01,
-                          boxShadow: "0 10px 25px -5px rgba(15, 92, 77, 0.15), 0 8px 10px -6px rgba(15, 92, 77, 0.08)",
+                          boxShadow: "0 20px 60px -12px rgba(18,53,91,0.18), 0 8px 24px -8px rgba(42,157,143,0.12), 0 0 0 1px rgba(18,53,91,0.06)",
                           transition: { duration: 0.3, ease: "easeOut" },
                         }}
-                        className="bg-white/80 backdrop-blur-xs border border-linen p-5 rounded-2xl shadow-xs transition-colors duration-300 cursor-default"
+                        className="relative z-10"
+                        style={{
+                          boxShadow: "0 8px 32px -8px rgba(18,53,91,0.12), 0 2px 8px -2px rgba(18,53,91,0.06)",
+                        }}
                       >
-                        {/* 2. QUOTE TEXT REVEAL & 3. QUOTATION MARKS */}
-                        <motion.p
-                          initial="hidden"
-                          whileInView="visible"
-                          viewport={{ once: true, margin: "-20px" }}
-                          variants={{
-                            hidden: { opacity: 0 },
-                            visible: {
-                              opacity: 1,
-                              transition: {
-                                staggerChildren: 0.12,
-                                delayChildren: 0.6,
-                              }
-                            }
-                          }}
-                          className="text-xs sm:text-sm font-serif italic text-charcoal/80 leading-relaxed pl-2 sm:pl-3"
-                        >
-                          <motion.span
-                            variants={{
-                              hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
-                              visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
-                            }}
-                            className="block"
-                          >
-                            <motion.span
-                              initial={shouldReduceMotion ? { opacity: 0, scale: 1 } : { opacity: 0, scale: 0.95 }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 0.4, ease: "easeOut" }}
-                              className="inline-block align-baseline -ml-2 sm:-ml-3"
-                            >"</motion.span>To improve patients' confidence and health
-                          </motion.span>
-                          <motion.span
-                            variants={{
-                              hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
-                              visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
-                            }}
-                            className="block"
-                          >
-                            through ethical Hair, Skin, and
-                          </motion.span>
-                          <motion.span
-                            variants={{
-                              hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
-                              visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
-                            }}
-                            className="block"
-                          >
-                            Homeopathic treatments.<motion.span
-                              initial={shouldReduceMotion ? { opacity: 0, scale: 1 } : { opacity: 0, scale: 0.95 }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
-                              className="inline-block align-baseline"
-                            >"</motion.span>
-                          </motion.span>
-                        </motion.p>
+                        <div className="bg-white border border-linen rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+                          <div className="absolute top-0 right-0 w-32 h-32 bg-seafoam/15 rounded-full -mr-12 -mt-12" />
 
-                        {/* 4. CLINIC VISION LABEL */}
-                        <motion.p
-                          initial={shouldReduceMotion ? { opacity: 0, x: 0 } : { opacity: 0, x: 10 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true, margin: "-20px" }}
-                          transition={{ duration: 0.5, delay: 1.2, ease: "easeOut" }}
-                          className="text-[10px] uppercase font-extrabold tracking-wider text-slate-teal/70 mt-2 text-right"
-                        >
-                          — Clinic Vision
-                        </motion.p>
+                          <h3 className="font-serif text-2xl font-bold text-charcoal mb-4">Clinic Profile</h3>
+
+                          <div className="space-y-4">
+                            {/* Doctor Profile Mini */}
+                            <div className="flex items-start space-x-3.5 border-b border-linen pb-4 text-left">
+                              <div className="w-10 h-10 rounded-full bg-slate-teal text-white flex items-center justify-center shrink-0 font-bold font-serif text-lg">
+                                M
+                              </div>
+                              <div>
+                                <h4 className="font-serif font-bold text-sm text-charcoal">{DOCTOR_PROFILE.name}</h4>
+                                <p className="text-[10px] uppercase text-slate-teal font-extrabold mt-0.5">{DOCTOR_PROFILE.credentials}</p>
+                                <p className="text-xs text-charcoal/60 mt-1">{DOCTOR_PROFILE.experience}</p>
+                              </div>
+                            </div>
+
+                            {/* Info Points */}
+                            <div className="space-y-2.5 text-xs text-charcoal/70 text-left">
+                              <div className="flex items-center space-x-2">
+                                <MapPin size={14} className="text-slate-teal shrink-0" />
+                                <span>Near Sabunpura Gandhi Chowk, Juna Motor Stand Road, Gandhi Chowk, Amravati-444601, Maharashtra</span>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Phone size={14} className="text-slate-teal shrink-0" />
+                                <span>+91 {CLINIC_INFO.phone}</span>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Clock size={14} className="text-slate-teal shrink-0" />
+                                <span>{CLINIC_INFO.timings}</span>
+                              </div>
+                            </div>
+
+                            {/* Status badge with pulse glow */}
+                            <div className="bg-linen/30 border border-linen rounded-xl p-3 text-center">
+                              <span className="text-[10px] font-extrabold uppercase text-slate-teal block mb-1">Clinic Status</span>
+                              <motion.span
+                                animate={shouldReduceMotion ? {} : {
+                                  opacity: [1, 0.72, 1],
+                                  boxShadow: [
+                                    "0 0 0 0 rgba(34,197,94,0)",
+                                    "0 0 0 5px rgba(34,197,94,0.12)",
+                                    "0 0 0 0 rgba(34,197,94,0)",
+                                  ],
+                                }}
+                                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                                className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800"
+                              >
+                                🟢 Accepting Priority Patients
+                              </motion.span>
+                            </div>
+                          </div>
+                        </div>
                       </motion.div>
-                    </div>
+                    </motion.div>
                   </div>
 
-                  {/* Stagger Item 4: CTA Buttons (with 4. CTA Magnetic Hover) */}
-                  <motion.div variants={fadeUpItem} className="flex flex-col sm:flex-row gap-3 pt-2">
-                    <MagneticButton
-                      onClick={() => handleOpenBooking()}
-                      className="flex items-center justify-center space-x-2 bg-slate-teal hover:bg-charcoal text-white font-bold py-3.5 px-8 rounded-xl shadow-md shadow-slate-teal/10 hover:shadow-lg transition-all text-sm cursor-pointer"
-                      id="hero-book-btn"
-                    >
-                      <Calendar size={16} />
-                      <span>Book Slot Today</span>
-                    </MagneticButton>
-                    <MagneticButton
-                      onClick={() => setAiAssistantOpen(true)}
-                      className="flex items-center justify-center space-x-2 bg-white hover:bg-linen/30 text-slate-teal border border-slate-teal/20 font-bold py-3.5 px-8 rounded-xl transition-all text-sm cursor-pointer"
-                      id="hero-ai-chat-btn"
-                    >
-                      <Bot size={16} />
-                      <span>Chat with Muskaan AI Guide</span>
-                    </MagneticButton>
-                  </motion.div>
                 </div>
 
-                {/* Right side teaser card */}
-                <div className="lg:col-span-5">
-                  <div className="bg-white border border-linen rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-seafoam/15 rounded-full -mr-12 -mt-12" />
-                    
-                    <h3 className="font-serif text-2xl font-bold text-charcoal mb-4">Clinic Profile</h3>
-                    
-                    <div className="space-y-4">
-                      {/* Doctor Profile Mini */}
-                      <div className="flex items-start space-x-3.5 border-b border-linen pb-4 text-left">
-                        <div className="w-10 h-10 rounded-full bg-slate-teal text-white flex items-center justify-center shrink-0 font-bold font-serif text-lg">
-                          M
-                        </div>
-                        <div>
-                          <h4 className="font-serif font-bold text-sm text-charcoal">{DOCTOR_PROFILE.name}</h4>
-                          <p className="text-[10px] uppercase text-slate-teal font-extrabold mt-0.5">{DOCTOR_PROFILE.credentials}</p>
-                          <p className="text-xs text-charcoal/60 mt-1">{DOCTOR_PROFILE.experience}</p>
-                        </div>
-                      </div>
-
-                      {/* Info Points */}
-                      <div className="space-y-2.5 text-xs text-charcoal/70 text-left">
-                        <div className="flex items-center space-x-2">
-                          <MapPin size={14} className="text-slate-teal shrink-0" />
-                          <span>Near Sabunpura Gandhi Chowk, Juna Motor Stand Road, Gandhi Chowk, Amravati-444601, Maharashtra</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Phone size={14} className="text-slate-teal shrink-0" />
-                          <span>+91 {CLINIC_INFO.phone}</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Clock size={14} className="text-slate-teal shrink-0" />
-                          <span>{CLINIC_INFO.timings}</span>
-                        </div>
-                      </div>
-
-                      {/* Direct action list */}
-                      <div className="bg-linen/30 border border-linen rounded-xl p-3 text-center">
-                        <span className="text-[10px] font-extrabold uppercase text-slate-teal block mb-1">Clinic Status</span>
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
-                          🟢 Accepting Priority Patients
-                        </span>
-                      </div>
+                {/* 6. Scroll Indicator */}
+                <div className="hidden md:flex justify-center w-full mt-12 pt-2 relative z-10">
+                  <button
+                    onClick={() => {
+                      document.getElementById("stats-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }}
+                    aria-label="Scroll to next section"
+                    className="group flex flex-col items-center gap-2 text-charcoal/50 hover:text-slate-teal transition-colors duration-300 focus:outline-none cursor-pointer"
+                  >
+                    <span className="text-[10px] font-mono font-bold tracking-widest uppercase opacity-80 group-hover:opacity-100 transition-opacity">
+                      Explore Clinic
+                    </span>
+                    <div className="w-6 h-10 rounded-full border-2 border-charcoal/20 group-hover:border-slate-teal flex justify-center pt-1.5 p-1 transition-colors duration-300 shadow-xs bg-white/60 backdrop-blur-xs">
+                      <motion.div
+                        animate={shouldReduceMotion ? {} : { y: [0, 8, 0], opacity: [1, 0.4, 1] }}
+                        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                        className="w-1 h-2.5 bg-slate-teal rounded-full"
+                      />
                     </div>
-                  </div>
+                  </button>
                 </div>
+              </section>
 
-              </div>
-
-              {/* 6. Scroll Indicator */}
-              <div className="hidden md:flex justify-center w-full mt-12 pt-2 relative z-10">
-                <button
-                  onClick={() => {
-                    document.getElementById("stats-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }}
-                  aria-label="Scroll to next section"
-                  className="group flex flex-col items-center gap-2 text-charcoal/50 hover:text-slate-teal transition-colors duration-300 focus:outline-none cursor-pointer"
-                >
-                  <span className="text-[10px] font-mono font-bold tracking-widest uppercase opacity-80 group-hover:opacity-100 transition-opacity">
-                    Explore Clinic
-                  </span>
-                  <div className="w-6 h-10 rounded-full border-2 border-charcoal/20 group-hover:border-slate-teal flex justify-center pt-1.5 p-1 transition-colors duration-300 shadow-xs bg-white/60 backdrop-blur-xs">
-                    <motion.div
-                      animate={shouldReduceMotion ? {} : { y: [0, 8, 0], opacity: [1, 0.4, 1] }}
-                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                      className="w-1 h-2.5 bg-slate-teal rounded-full"
-                    />
-                  </div>
-                </button>
-              </div>
-            </section>
-
-            {/* EXPERIENCE STATS BADGES (Stagger Item 5: Statistics, with 5. Counter Animation) */}
-            <motion.section id="stats-section" variants={fadeUpItem} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="bg-white border border-linen rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col sm:flex-row justify-evenly items-center gap-6 text-center">
-                {CLINIC_STATS.map((st, i) => (
-                  <div key={i} className="flex-1 w-full flex flex-col items-center justify-center space-y-2">
-                    <AnimatedCounter value={st.value} suffix={st.suffix} />
-                    <p className="text-[10px] sm:text-xs uppercase font-extrabold text-charcoal/50 leading-tight">
-                      {st.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </motion.section>
+              {/* EXPERIENCE STATS BADGES (Stagger Item 5: Statistics, with 5. Counter Animation) */}
+              <motion.section id="stats-section" variants={fadeUpItem} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="bg-white border border-linen rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col sm:flex-row justify-evenly items-center gap-6 text-center">
+                  {CLINIC_STATS.map((st, i) => (
+                    <div key={i} className="flex-1 w-full flex flex-col items-center justify-center space-y-2">
+                      <AnimatedCounter value={st.value} suffix={st.suffix} />
+                      <p className="text-[10px] sm:text-xs uppercase font-extrabold text-charcoal/50 leading-tight">
+                        {st.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </motion.section>
             </motion.div>
 
             {/* WHY CHOOSE US SECTION */}
@@ -796,7 +1006,7 @@ export default function App() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {WHY_CHOOSE_US.map((wc, idx) => (
-                  <div 
+                  <div
                     key={idx}
                     className="bg-white border border-linen p-6 rounded-2xl shadow-xs text-left space-y-3"
                   >
@@ -824,7 +1034,7 @@ export default function App() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {CLINIC_SERVICES.map((serv) => (
-                  <div 
+                  <div
                     key={serv.id}
                     className="bg-white border border-linen p-6 rounded-2xl shadow-xs hover:shadow-md transition-all flex flex-col justify-between text-left"
                   >
@@ -840,7 +1050,7 @@ export default function App() {
                             height="28"
                             viewBox="0 0 24 24"
                             fill="none"
-                            stroke="#0F5C4D"
+                            stroke="#2A9D8F"
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -864,7 +1074,7 @@ export default function App() {
                           setTimeout(() => {
                             const btn = document.getElementById(`service-tab-${serv.id}`);
                             if (btn) btn.click();
-                            
+
                             setTimeout(() => {
                               const targetSection = document.getElementById('treatments-section');
                               if (targetSection) {
@@ -901,7 +1111,7 @@ export default function App() {
                   Verified Patient Stories
                 </span>
                 <h2 className="font-serif text-2xl sm:text-3xl font-bold text-charcoal">Real Journeys of Renewal</h2>
-                
+
                 {/* Carousel Card */}
                 <div className="bg-white border border-linen p-6 sm:p-10 rounded-3xl shadow-xs relative text-left">
                   <span className="text-6xl text-linen/40 font-serif absolute top-4 left-6 leading-none">“</span>
@@ -922,7 +1132,7 @@ export default function App() {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Controls */}
                   <div className="flex justify-end space-x-2 mt-4 pt-2">
                     <button
@@ -962,7 +1172,7 @@ export default function App() {
 
               <div className="space-y-3">
                 {CLINIC_FAQS.slice(0, 4).map((faq, idx) => (
-                  <div 
+                  <div
                     key={idx}
                     className="bg-white border border-linen rounded-2xl overflow-hidden shadow-xs"
                   >
@@ -974,14 +1184,14 @@ export default function App() {
                       <h3 className="font-serif font-bold text-xs sm:text-sm text-charcoal pr-4 leading-normal">
                         {faq.question}
                       </h3>
-                      <ChevronDown 
-                        size={16} 
-                        className={`text-slate-teal shrink-0 transition-transform ${expandedFaqIndex === idx ? "rotate-180" : ""}`} 
+                      <ChevronDown
+                        size={16}
+                        className={`text-slate-teal shrink-0 transition-transform ${expandedFaqIndex === idx ? "rotate-180" : ""}`}
                       />
                     </button>
 
                     {expandedFaqIndex === idx && (
-                      <div className="px-5 pb-5 pt-1 text-xs text-charcoal/70 border-t border-linen/30 bg-[#FAFAFA] leading-relaxed">
+                      <div className="px-5 pb-5 pt-1 text-xs text-charcoal/70 border-t border-linen/30 bg-[#F0F7FC] leading-relaxed">
                         {faq.answer}
                       </div>
                     )}
@@ -1027,7 +1237,7 @@ export default function App() {
               <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="bg-charcoal text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden border-b-4 border-slate-teal" id="patient-active-bookings">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-8 -mt-8" />
-                  
+
                   <div className="border-b border-white/10 pb-4 mb-6 flex justify-between items-center">
                     <div className="text-left">
                       <span className="text-[10px] uppercase text-seafoam font-bold tracking-wider">Patient Portal</span>
@@ -1040,7 +1250,7 @@ export default function App() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {localAppointments.map((app) => (
-                      <div 
+                      <div
                         key={app.id}
                         className="bg-white/10 border border-white/10 p-5 rounded-2xl relative flex flex-col justify-between text-left"
                       >
@@ -1059,7 +1269,7 @@ export default function App() {
                           </span>
                           <h4 className="font-bold text-sm text-white">{app.name}</h4>
                           <p className="text-xs text-linen/75 font-medium truncate">{app.subService}</p>
-                          
+
                           <div className="grid grid-cols-2 gap-1.5 pt-2 text-[11px] text-linen/85 font-semibold">
                             <div className="flex items-center space-x-1">
                               <Calendar size={12} className="text-seafoam" />
@@ -1098,7 +1308,7 @@ export default function App() {
                   <p className="text-xs sm:text-sm text-charcoal/60 leading-relaxed">
                     We are conveniently nested near **Irwin Square, Amravati**. If you require transport guides, our reception desk is open for live directions on dial.
                   </p>
-                  
+
                   <div className="space-y-3 pt-2 text-xs text-charcoal/70">
                     <p className="flex items-start space-x-2.5">
                       <MapPin size={16} className="text-slate-teal shrink-0 mt-0.5" />
@@ -1125,13 +1335,13 @@ export default function App() {
 
                 {/* Map Frame right side */}
                 <div className="lg:col-span-7 h-[280px] rounded-2xl overflow-hidden border border-linen relative shadow-inner">
-                  <iframe 
+                  <iframe
                     src={CLINIC_INFO.mapEmbedUrl}
-                    width="100%" 
-                    height="100%" 
-                    style={{ border: 0 }} 
-                    allowFullScreen={true} 
-                    loading="lazy" 
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen={true}
+                    loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                     title="Home Clinic Coordinates Irwin Square Amravati"
                   />
@@ -1174,7 +1384,7 @@ export default function App() {
         {activeTab === "faq" && (
           <section className="py-16 px-4 sm:px-6 lg:px-8 bg-linen/10 animate-fade-in" id="faq-view-panel">
             <div className="max-w-3xl mx-auto">
-              
+
               <div className="text-center mb-10">
                 <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full">
                   Educational Board
@@ -1189,7 +1399,7 @@ export default function App() {
 
               <div className="space-y-4">
                 {CLINIC_FAQS.map((faq, idx) => (
-                  <div 
+                  <div
                     key={idx}
                     className="bg-white border border-linen rounded-2xl overflow-hidden shadow-xs transition-all"
                   >
@@ -1201,14 +1411,14 @@ export default function App() {
                       <h3 className="font-serif font-bold text-sm sm:text-base text-charcoal pr-4">
                         {faq.question}
                       </h3>
-                      <ChevronDown 
-                        size={18} 
-                        className={`text-slate-teal shrink-0 transition-transform ${expandedFaqIndex === idx ? "rotate-180" : ""}`} 
+                      <ChevronDown
+                        size={18}
+                        className={`text-slate-teal shrink-0 transition-transform ${expandedFaqIndex === idx ? "rotate-180" : ""}`}
                       />
                     </button>
 
                     {expandedFaqIndex === idx && (
-                      <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-charcoal/75 border-t border-linen/50 bg-[#FAFAFA] animate-fade-in leading-relaxed text-left">
+                      <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-charcoal/75 border-t border-linen/50 bg-[#F0F7FC] animate-fade-in leading-relaxed text-left">
                         {faq.answer}
                       </div>
                     )}
@@ -1252,9 +1462,9 @@ export default function App() {
       </main>
 
       {/* PERSISTENT FOOTER */}
-      <Footer 
-        setActiveTab={setActiveTab} 
-        onOpenBooking={() => handleOpenBooking()} 
+      <Footer
+        setActiveTab={setActiveTab}
+        onOpenBooking={() => handleOpenBooking()}
       />
 
       {/* --- FLOATING CONTROLS --- */}
@@ -1263,7 +1473,7 @@ export default function App() {
       <div className="fixed bottom-6 right-6 z-30 flex flex-col items-end space-y-2">
         {/* Helper pop tooltip */}
         {!aiAssistantOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="bg-charcoal text-white text-[11px] font-semibold py-1.5 px-3 rounded-xl shadow-md border border-slate-teal/30 hidden sm:block animate-pulse"
@@ -1288,15 +1498,15 @@ export default function App() {
       {/* Slide-out Drawer Panel for AI Guide */}
       <AnimatePresence>
         {aiAssistantOpen && (
-          <motion.div 
+          <motion.div
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 260 }}
             className="fixed inset-y-0 right-0 z-50 w-full sm:max-w-md bg-white shadow-2xl flex flex-col h-full border-l border-linen"
           >
-            <AIGuide 
-              onClose={() => setAiAssistantOpen(false)} 
+            <AIGuide
+              onClose={() => setAiAssistantOpen(false)}
               onOpenBooking={() => {
                 setAiAssistantOpen(false);
                 handleOpenBooking();
@@ -1309,20 +1519,20 @@ export default function App() {
       {/* Scheduling overlay Modal */}
       <AnimatePresence>
         {bookingOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 overflow-y-auto bg-charcoal/60 backdrop-blur-xs flex items-center justify-center p-4"
           >
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               className="w-full max-w-2xl"
             >
-              <AppointmentForm 
+              <AppointmentForm
                 preSelectedServiceId={preSelectedServiceId}
                 onClose={() => setBookingOpen(false)}
                 onAppointmentCreated={handleAppointmentCreated}

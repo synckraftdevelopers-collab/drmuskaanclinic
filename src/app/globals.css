@@ -7,56 +7,242 @@
   --font-serif: "Playfair Display", Georgia, serif;
   --font-sans: "Lato", "Helvetica Neue", Arial, sans-serif;
 
-  /* Primary Swiss Deep Teal Emerald */
-  --color-slate-teal: #0A3832;
-  --color-deep-green: #0A3832;
+  /* Premium Medical Blue — Primary */
+  --color-slate-teal: #12355B;
+  --color-primary-navy: #12355B;
+  --color-primary: #12355B;
 
-  /* Secondary Rose-Gold Champagne */
-  --color-seafoam: #C99A6E;
-  --color-gold: #C99A6E;
+  /* Premium Medical Blue — Secondary Teal */
+  --color-deep-green: #2A9D8F;
+  --color-ocean-teal: #2A9D8F;
+  --color-secondary: #2A9D8F;
+  --color-sea-green: #3BB0A1;
 
-  /* Soft Alabaster Silk / Cream Accent */
-  --color-linen: #EFECE6;
-  --color-soft-green: #EFECE6;
-  --color-linen-dark: #D8D2C9;
+  /* Premium Medical Blue — Accent (same as secondary for this palette) */
+  --color-seafoam: #2A9D8F;
+  --color-gold: #2A9D8F;
+  --color-accent: #2A9D8F;
 
-  /* Deep Teal Charcoal Text */
-  --color-charcoal: #141A19;
+  /* Premium Medical Blue — Light Blue Grey / Borders */
+  --color-linen: #D7E8F2;
+  --color-soft-green: #D7E8F2;
+  --color-light-blue-grey: #DCEEF5;
+  --color-linen-dark: #CBD5E0;
+  --color-border-color: #D7E8F2;
+  --color-light-background: #DCEEF5;
+  --color-light-mint: #DCEEF5;
+  --color-card-white: #FFFFFF;
 
-  /* Alabaster Silk Luxury Background */
-  --color-light-mint: #FBFBF9;
+  /* Premium Medical Blue — Text Colors */
+  --color-charcoal: #12355B;
+  --color-dark-heading: #12355B;
+  --color-body-text: #4A5568;
+  --color-muted-text: #718096;
+
+  /* Premium Medical Blue — Success / WhatsApp */
+  --color-success: #22C55E;
+  --color-whatsapp: #25D366;
+  --color-whatsapp-hover: #1DA851;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: #FBFBF9;
-  color: #141A19;
+  background-color: #F0F7FC;
+  color: #4A5568;
 }
 
 h1, h2, h3, h4 {
   font-family: var(--font-serif);
+  color: #12355B;
 }
 
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+/* =============================================
+   PREMIUM VISUAL ENHANCEMENT UTILITIES
+   (No layout changes — colors & polish only)
+   ============================================= */
+
+/* Premium glass effect for header on scroll */
+.glass-header {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(215, 232, 242, 0.8);
+  box-shadow: 0 4px 24px rgba(18, 53, 91, 0.08), 0 1px 4px rgba(18, 53, 91, 0.04);
 }
+
+/* Premium card shadow — soft medical blue glow */
+.shadow-premium {
+  box-shadow:
+    0 1px 3px rgba(18, 53, 91, 0.06),
+    0 4px 16px rgba(18, 53, 91, 0.08),
+    0 8px 32px rgba(18, 53, 91, 0.04);
+}
+
+.shadow-premium-hover {
+  box-shadow:
+    0 4px 12px rgba(18, 53, 91, 0.10),
+    0 12px 40px rgba(18, 53, 91, 0.12),
+    0 0 0 1px rgba(42, 157, 143, 0.12);
+}
+
+/* Gradient text for headings */
+.text-gradient-primary {
+  background: linear-gradient(135deg, #12355B 0%, #2A9D8F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Premium blue glow for hero blobs */
+.glow-primary {
+  box-shadow: 0 0 60px rgba(18, 53, 91, 0.15), 0 0 120px rgba(42, 157, 143, 0.08);
+}
+
+/* Gradient backgrounds */
+.bg-gradient-hero {
+  background: linear-gradient(135deg, #F0F7FC 0%, #DCEEF5 40%, #E8F5F3 100%);
+}
+
+.bg-gradient-card {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFE 100%);
+}
+
+.bg-gradient-section {
+  background: linear-gradient(180deg, #F0F7FC 0%, #DCEEF5 100%);
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(215, 232, 242, 0.9);
+}
+
+/* Premium button glow on hover */
+.btn-primary-glow:hover {
+  box-shadow: 0 0 0 3px rgba(18, 53, 91, 0.15), 0 8px 24px rgba(18, 53, 91, 0.25);
+}
+
+.btn-secondary-glow:hover {
+  box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.15), 0 8px 24px rgba(42, 157, 143, 0.20);
+}
+
+/* Smooth input focus ring */
+.input-focus-ring:focus {
+  outline: none;
+  border-color: #2A9D8F;
+  box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.15), 0 1px 4px rgba(42, 157, 143, 0.10);
+}
+
+/* Hover lift transition */
+.hover-lift {
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* Status glow for active indicators */
+.status-glow {
+  box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.20), 0 0 12px rgba(42, 157, 143, 0.15);
+}
+
+/* Section reveal border accent */
+.border-accent-top {
+  border-top: 3px solid transparent;
+  background-clip: padding-box;
+  background-image: linear-gradient(white, white), linear-gradient(90deg, #12355B, #2A9D8F);
+  background-origin: border-box;
+}
+
+/* Decorative gradient divider */
+.divider-gradient {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #2A9D8F 30%, #12355B 70%, transparent);
+  opacity: 0.3;
+}
+
+/* =============================================
+   PRESERVED ANIMATION KEYFRAMES
+   ============================================= */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .animate-fade-in {
   animation: fade-in 0.35s ease-out;
 }
 
 @keyframes slide-in {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
+
 .animate-slide-in {
   animation: slide-in 0.3s ease-out;
 }
 
 @keyframes scale-up {
-  from { opacity: 0; transform: scale(0.96); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
+
 .animate-scale-up {
   animation: scale-up 0.25s ease-out;
+}
+
+/* Ambient float for background blobs */
+@keyframes float-blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.04); }
+  66% { transform: translate(-20px, 20px) scale(0.97); }
+}
+
+.animate-float-blob {
+  animation: float-blob 18s ease-in-out infinite;
+}
+
+.animate-float-blob-slow {
+  animation: float-blob 24s ease-in-out infinite reverse;
+}
+
+/* Premium scroll bar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F0F7FC;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(18, 53, 91, 0.25);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(18, 53, 91, 0.45);
+}
+
+/* Selection color */
+::selection {
+  background: rgba(42, 157, 143, 0.20);
+  color: #12355B;
 }

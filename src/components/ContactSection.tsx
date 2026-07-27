@@ -10,7 +10,7 @@ export default function ContactSection() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
-  
+
   // Statuses
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -81,9 +81,9 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#FAFAFA]" id="contact-view-panel">
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F0F7FC]" id="contact-view-panel">
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Section Header */}
         <div className="text-center mb-12">
           <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full">
@@ -98,15 +98,15 @@ export default function ContactSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
-          
+
           {/* Column 1: Info Blocks & Google Map (7 Cols) */}
           <div className="lg:col-span-7 space-y-8 flex flex-col justify-between">
-            
+
             {/* Quick Contact Info Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
+
               {/* Telephone card */}
-              <a 
+              <a
                 href={`tel:+91${CLINIC_INFO.phone}`}
                 className="bg-white border border-linen p-5 rounded-2xl flex items-start space-x-4 hover:border-slate-teal hover:shadow-md transition-all transform hover:-translate-y-1 duration-300 text-left"
                 id="contact-tel-card"
@@ -122,7 +122,7 @@ export default function ContactSection() {
               </a>
 
               {/* WhatsApp card */}
-              <a 
+              <a
                 href={`https://wa.me/${CLINIC_INFO.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -140,7 +140,7 @@ export default function ContactSection() {
               </a>
 
               {/* Email card */}
-              <a 
+              <a
                 href={`mailto:${CLINIC_INFO.email}`}
                 className="bg-white border border-linen p-5 rounded-2xl flex items-start space-x-4 hover:border-slate-teal hover:shadow-md transition-all transform hover:-translate-y-1 duration-300 text-left"
                 id="contact-email-card"
@@ -190,19 +190,19 @@ export default function ContactSection() {
             {/* Map Frame */}
             <div className="space-y-4">
               <div className="bg-white border border-linen p-4 rounded-3xl overflow-hidden h-[300px] flex flex-col relative" id="contact-map-wrapper">
-                <iframe 
+                <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3758.9993220711394!2d77.74541400539553!3d20.929580819598158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd6a4ac74cf6d15%3A0x415cdb27111ae8c5!2sDr.%20Imran%20Shaikh%20(Muskaan%20Clinic)!5e0!3m2!1sen!2sin!4v1784271634645!5m2!1sen!2sin"
-                  width="100%" 
-                  height="100%" 
-                  style={{ border: 0, borderRadius: "20px" }} 
-                  allowFullScreen={true} 
-                  loading="lazy" 
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, borderRadius: "20px" }}
+                  allowFullScreen={true}
+                  loading="lazy"
                   referrerPolicy="strict-origin-when-cross-origin"
                   title="Muskaan Clinic Google Maps Location"
                 />
               </div>
               <div className="flex justify-start">
-                <a 
+                <a
                   href="https://www.google.com/maps/dir/?api=1&destination=Dr.+Imran+Shaikh+(Muskaan+Clinic),+Near+Sabunpura+Gandhi+Chowk,+Juna+Motor+Stand+Road,+Amravati,+Maharashtra+444601"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -292,11 +292,10 @@ export default function ContactSection() {
                               setContactCopied(true);
                               setTimeout(() => setContactCopied(false), 2000);
                             }}
-                            className={`text-[10px] font-bold px-2.5 py-1 rounded transition-colors ${
-                              contactCopied 
-                                ? "bg-emerald-500 text-white" 
-                                : "bg-slate-teal/10 text-slate-teal hover:bg-slate-teal hover:text-white"
-                            }`}
+                            className={`text-[10px] font-bold px-2.5 py-1 rounded transition-colors ${contactCopied
+                              ? "bg-emerald-500 text-white"
+                              : "bg-slate-teal/10 text-slate-teal hover:bg-slate-teal hover:text-white"
+                              }`}
                           >
                             {contactCopied ? "Copied! âœ“" : "Copy Message"}
                           </button>

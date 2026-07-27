@@ -40,7 +40,7 @@ export default function CalendarPage() {
   const modifiersStyles = {
     booked: {
       color: 'white',
-      backgroundColor: '#0A3832',
+      backgroundColor: '#12355B',
       fontWeight: 'bold',
       borderRadius: '50%'
     }
@@ -49,7 +49,7 @@ export default function CalendarPage() {
   return (
     <div className="space-y-6 animate-fade-in">
       <h1 className="text-3xl font-serif font-bold text-charcoal">Appointment Calendar</h1>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="bg-white border border-linen p-6 rounded-2xl shadow-sm col-span-1">
           <DayPicker
@@ -77,7 +77,7 @@ export default function CalendarPage() {
           <h2 className="text-xl font-bold text-charcoal mb-4">
             {selectedDate ? format(selectedDate, 'MMMM d, yyyy') : "Select a date"}
           </h2>
-          
+
           {selectedAppointments.length === 0 ? (
             <div className="text-center py-10 text-charcoal/50">
               No appointments scheduled for this date.
@@ -97,13 +97,12 @@ export default function CalendarPage() {
                     </div>
                   </div>
                   <div>
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
-                      app.status === "Pending" ? "bg-yellow-100 text-yellow-800" :
+                    <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${app.status === "Pending" ? "bg-yellow-100 text-yellow-800" :
                       app.status === "Confirmed" ? "bg-blue-100 text-blue-800" :
-                      app.status === "Completed" ? "bg-emerald-100 text-emerald-800" :
-                      app.status === "Cancelled" ? "bg-red-100 text-red-800" :
-                      "bg-gray-100 text-gray-800"
-                    }`}>
+                        app.status === "Completed" ? "bg-emerald-100 text-emerald-800" :
+                          app.status === "Cancelled" ? "bg-red-100 text-red-800" :
+                            "bg-gray-100 text-gray-800"
+                      }`}>
                       {app.status || "Pending"}
                     </span>
                   </div>
