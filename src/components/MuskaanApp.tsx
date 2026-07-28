@@ -1439,7 +1439,7 @@ export default function App() {
                     borderColor: "rgba(13, 148, 136, 0.6)",
                     transition: { duration: 0.3, ease: "easeOut" },
                   }}
-                  className="animate-map-float animate-map-border-glow map-reflection-container lg:col-span-7 h-[280px] rounded-2xl overflow-hidden border border-linen relative shadow-inner transition-colors duration-300 z-10"
+                  className="animate-map-border-glow map-reflection-container lg:col-span-7 h-[280px] rounded-2xl overflow-hidden border border-linen relative shadow-inner transition-colors duration-300 z-10"
                 >
                   <iframe
                     src={CLINIC_INFO.mapEmbedUrl}

@@ -18,7 +18,7 @@ export const CLINIC_INFO = {
     { days: "Monday – Saturday", timings: "10:00 AM – 2:30 PM, 6:30 PM – 9:30 PM" },
     { days: "Sunday", timings: "Closed" }
   ],
-  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3727.1855663731115!2d77.75549007604634!3d20.934947991390492!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd6a4b1fc7d2dcf%3A0xc3f8fc8c4593f6ea!2sIrwin%20Square%2C%20Amravati%2C%20Maharashtra%20444601!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
+  mapEmbedUrl: "https://maps.google.com/maps?q=Muskaan+Clinic,+Near+Sabunpura+Gandhi+Chowk,+Amravati,+Maharashtra+444601&t=&z=16&ie=UTF8&iwloc=&output=embed",
   googleBusinessProfileUrl: "https://maps.google.com/?cid=14121633519803131626", // Placeholder local business CID
   socialLinks: {
     facebook: "https://facebook.com/muskaanclinic",
