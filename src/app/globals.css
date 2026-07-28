@@ -426,3 +426,43 @@
     transform: none !important;
   }
 }
+
+/* =============================================
+   PREMIUM CTA MICRO-ANIMATIONS & RIPPLE
+   ============================================= */
+
+.btn-ripple-effect {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.btn-ripple-effect::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.45);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+  pointer-events: none;
+}
+
+.btn-ripple-effect:active::after {
+  animation: cta-ripple-burst 0.4s ease-out;
+}
+
+@keyframes cta-ripple-burst {
+  0% {
+    transform: scale(0, 0) translate(-50%, -50%);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(35, 35) translate(-50%, -50%);
+    opacity: 0;
+  }
+}

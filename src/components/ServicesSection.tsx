@@ -121,13 +121,16 @@ export default function ServicesSection({ onOpenBooking }: ServicesSectionProps)
               </p>
             </div>
 
-            <button
+            <motion.button
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98, transition: { type: "spring", stiffness: 400, damping: 17 } }}
               onClick={() => onOpenBooking(currentService.id)}
-              className="w-full bg-slate-teal hover:bg-charcoal text-white font-bold py-3 px-4 rounded-xl transition-colors text-center text-xs shadow-md shadow-slate-teal/10 cursor-pointer"
+              aria-label={`Book ${currentService.title} Consult`}
+              className="btn-ripple-effect w-full bg-slate-teal hover:bg-charcoal text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 ease-out text-center text-xs shadow-md shadow-slate-teal/10 hover:shadow-[0_10px_30px_rgba(13,148,136,0.20)] hover:brightness-110 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-teal/50"
               id={`service-book-btn-${currentService.id}`}
             >
               Book {currentService.title} Consult
-            </button>
+            </motion.button>
           </div>
 
           {/* Sub Services Detail Grid (4. Stagger Card Animation) */}

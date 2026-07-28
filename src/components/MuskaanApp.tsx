@@ -1085,7 +1085,12 @@ export default function App() {
                         </div>
 
                         <div className="border-t border-linen mt-6 pt-4 flex justify-between items-center">
-                          <button
+                          <motion.button
+                            initial={{ opacity: 0, y: 8 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
+                            whileHover={{ y: -2 }}
                             onClick={() => {
                               setActiveTab("services");
                               // Dispatch virtual click on service tabs if loaded
@@ -1105,17 +1110,24 @@ export default function App() {
                                 }, 50);
                               }, 100);
                             }}
-                            className="text-slate-teal font-bold text-xs hover:underline inline-flex items-center space-x-1"
+                            className="group relative text-slate-teal font-bold text-xs inline-flex items-center space-x-1 cursor-pointer transition-all duration-300 ease-out after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-slate-teal hover:after:w-full after:transition-all after:duration-300 after:ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-teal/50 rounded-xs"
                           >
-                            <span>View Catalog</span>
-                            <ChevronRight size={14} />
-                          </button>
-                          <button
+                            <span className="transition-transform duration-300 ease-out group-hover:translate-x-0.5">View Catalog</span>
+                            <ChevronRight size={14} className="transition-transform duration-300 ease-out group-hover:translate-x-2 group-hover:rotate-3" />
+                          </motion.button>
+                          <motion.button
+                            initial={{ opacity: 0, y: 8 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
+                            whileHover={{ y: -2, scale: 1.03 }}
+                            whileTap={{ scale: 0.97, transition: { type: "spring", stiffness: 400, damping: 17 } }}
                             onClick={() => handleOpenBooking(serv.id)}
-                            className="bg-linen/50 text-charcoal hover:bg-slate-teal hover:text-white font-semibold py-1.5 px-3.5 rounded-lg text-xs transition-colors cursor-pointer"
+                            aria-label={`Book Consult for ${serv.title}`}
+                            className="btn-ripple-effect bg-linen/50 text-charcoal hover:bg-slate-teal hover:text-white hover:brightness-110 hover:shadow-[0_10px_30px_rgba(13,148,136,0.20)] font-semibold py-1.5 px-3.5 rounded-lg text-xs transition-all duration-300 ease-out cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-teal/50"
                           >
                             Book Consult
-                          </button>
+                          </motion.button>
                         </div>
                       </div>
                     ))}
