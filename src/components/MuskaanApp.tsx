@@ -1336,42 +1336,108 @@ export default function App() {
 
             {/* CONTACT PREVIEW SECTION */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white border border-linen rounded-3xl p-6 sm:p-8 text-left">
-                <div className="lg:col-span-5 space-y-4">
-                  <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full">
-                    Clinic Coordinates
-                  </span>
-                  <h3 className="font-serif text-2xl font-bold text-charcoal">Location & Hours</h3>
-                  <p className="text-xs sm:text-sm text-charcoal/60 leading-relaxed">
-                    We are conveniently nested near **Irwin Square, Amravati**. If you require transport guides, our reception desk is open for live directions on dial.
-                  </p>
-
-                  <div className="space-y-3 pt-2 text-xs text-charcoal/70">
-                    <p className="flex items-start space-x-2.5">
-                      <MapPin size={16} className="text-slate-teal shrink-0 mt-0.5" />
-                      <span>{CLINIC_INFO.address}</span>
-                    </p>
-                    <p className="flex items-center space-x-2.5">
-                      <Phone size={16} className="text-slate-teal shrink-0" />
-                      <span>+91 {CLINIC_INFO.phone}</span>
-                    </p>
-                    <p className="flex items-center space-x-2.5">
-                      <Clock size={16} className="text-slate-teal shrink-0" />
-                      <span>{CLINIC_INFO.timings}</span>
-                    </p>
-                  </div>
-
-                  <button
-                    onClick={() => setActiveTab("contact")}
-                    className="bg-linen/50 hover:bg-linen text-charcoal font-bold py-2.5 px-5 rounded-xl text-xs transition-colors cursor-pointer inline-flex items-center space-x-1"
-                  >
-                    <span>View Interactive Maps & Details</span>
-                    <ChevronRight size={14} />
-                  </button>
+              <motion.div
+                initial={shouldReduceMotion ? { opacity: 0, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.98 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-20px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="animate-card-breathing-shadow grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white border border-linen rounded-3xl p-6 sm:p-8 text-left relative overflow-hidden"
+              >
+                {/* Premium Apple-Style Background Layer */}
+                <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden rounded-3xl">
+                  <div className="animate-loc-bg-radial absolute -inset-4 bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-slate-teal/10 via-seafoam/5 to-transparent blur-2xl opacity-40" />
+                  <span className="absolute top-4 left-10 text-slate-teal/15 text-xs font-bold select-none animate-icon-idle-float">+</span>
+                  <span className="absolute bottom-6 left-1/3 text-slate-teal/15 text-sm font-bold select-none animate-icon-idle-float" style={{ animationDelay: "1.5s" }}>+</span>
+                  <span className="absolute top-1/2 right-12 text-slate-teal/15 text-xs font-bold select-none animate-icon-idle-float" style={{ animationDelay: "3s" }}>+</span>
+                  <div className="absolute top-1/3 left-1/4 w-1.5 h-1.5 rounded-full bg-slate-teal/20 animate-icon-idle-float" style={{ animationDelay: "0.8s" }} />
+                  <div className="absolute bottom-1/4 right-1/3 w-2 h-2 rounded-full bg-seafoam/30 animate-icon-idle-float" style={{ animationDelay: "2.2s" }} />
                 </div>
 
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-20px" }}
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                      opacity: 1,
+                      transition: {
+                        staggerChildren: 0.08,
+                        delayChildren: 0.2,
+                      }
+                    }
+                  }}
+                  className="lg:col-span-5 space-y-4 z-10"
+                >
+                  <motion.div variants={{ hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }}>
+                    <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full">
+                      Clinic Coordinates
+                    </span>
+                  </motion.div>
+                  <motion.h3
+                    variants={{ hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }}
+                    className="font-serif text-2xl font-bold text-charcoal"
+                  >
+                    Location & Hours
+                  </motion.h3>
+                  <motion.p
+                    variants={{ hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }}
+                    className="text-xs sm:text-sm text-charcoal/60 leading-relaxed"
+                  >
+                    We are conveniently nested near **Irwin Square, Amravati**. If you require transport guides, our reception desk is open for live directions on dial.
+                  </motion.p>
+
+                  <div className="space-y-3 pt-2 text-xs text-charcoal/70">
+                    <motion.p
+                      variants={{ hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }}
+                      className="group flex items-start space-x-2.5"
+                    >
+                      <MapPin size={16} className="text-slate-teal shrink-0 mt-0.5 animate-icon-idle-float transition-all duration-300 group-hover:scale-[1.15] group-hover:rotate-[5deg] group-hover:drop-shadow-[0_0_8px_rgba(13,148,136,0.5)]" />
+                      <span>{CLINIC_INFO.address}</span>
+                    </motion.p>
+                    <motion.p
+                      variants={{ hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }}
+                      className="group flex items-center space-x-2.5"
+                    >
+                      <Phone size={16} className="text-slate-teal shrink-0 animate-icon-idle-float transition-all duration-300 group-hover:scale-[1.15] group-hover:rotate-[5deg] group-hover:drop-shadow-[0_0_8px_rgba(13,148,136,0.5)]" style={{ animationDelay: "1s" }} />
+                      <span>+91 {CLINIC_INFO.phone}</span>
+                    </motion.p>
+                    <motion.p
+                      variants={{ hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }}
+                      className="group flex items-center space-x-2.5"
+                    >
+                      <Clock size={16} className="text-slate-teal shrink-0 animate-icon-idle-float transition-all duration-300 group-hover:scale-[1.15] group-hover:rotate-[5deg] group-hover:drop-shadow-[0_0_8px_rgba(13,148,136,0.5)]" style={{ animationDelay: "2s" }} />
+                      <span>{CLINIC_INFO.timings}</span>
+                    </motion.p>
+                  </div>
+
+                  <motion.div variants={{ hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }} className="pt-1">
+                    <motion.button
+                      whileHover={shouldReduceMotion ? {} : { y: -2, scale: 1.03 }}
+                      whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
+                      onClick={() => setActiveTab("contact")}
+                      className="group bg-[linear-gradient(135deg,#0F766E_0%,#0D9488_100%)] hover:bg-[linear-gradient(135deg,#0D9488_0%,#11A89D_100%)] text-white font-bold py-3 px-6 rounded-xl text-xs sm:text-sm shadow-[0_8px_24px_rgba(13,148,136,0.25)] hover:shadow-[0_14px_32px_rgba(13,148,136,0.40)] transition-all duration-300 ease-out cursor-pointer inline-flex items-center space-x-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-teal/50"
+                    >
+                      <span>View Interactive Maps & Details</span>
+                      <ChevronRight size={16} className="transition-transform duration-300 ease-out group-hover:translate-x-[6px] shrink-0" />
+                    </motion.button>
+                  </motion.div>
+                </motion.div>
+
                 {/* Map Frame right side */}
-                <div className="lg:col-span-7 h-[280px] rounded-2xl overflow-hidden border border-linen relative shadow-inner">
+                <motion.div
+                  initial={shouldReduceMotion ? { opacity: 0, scale: 1 } : { opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+                  whileHover={(shouldReduceMotion || isMobile) ? {} : {
+                    scale: 1.01,
+                    boxShadow: "0 20px 35px -10px rgba(13, 148, 136, 0.3), 0 10px 15px -5px rgba(13, 148, 136, 0.15)",
+                    borderColor: "rgba(13, 148, 136, 0.6)",
+                    transition: { duration: 0.3, ease: "easeOut" },
+                  }}
+                  className="animate-map-float animate-map-border-glow map-reflection-container lg:col-span-7 h-[280px] rounded-2xl overflow-hidden border border-linen relative shadow-inner transition-colors duration-300 z-10"
+                >
                   <iframe
                     src={CLINIC_INFO.mapEmbedUrl}
                     width="100%"
@@ -1383,8 +1449,8 @@ export default function App() {
                     title="Home Clinic Coordinates Irwin Square Amravati"
                     className="w-full h-full"
                   />
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             </section>
 
           </div>
