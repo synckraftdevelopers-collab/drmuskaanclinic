@@ -114,7 +114,7 @@ export default function ContactSection() {
           className="text-center mb-12"
         >
           <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 shadow-2xs">
-            <span>Clinical Registry</span>
+            <span>Contact Us</span>
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-charcoal mt-3.5">
             Establish Contact
@@ -161,7 +161,7 @@ export default function ContactSection() {
                 <div className="space-y-1">
                   <span className="text-[10px] uppercase font-extrabold text-charcoal/50 group-hover:text-slate-teal transition-colors">Clinical Dial</span>
                   <p className="text-sm font-bold text-charcoal">+91 {CLINIC_INFO.phone}</p>
-                  <p className="text-[11px] text-charcoal/50 font-medium">Click to call the registry desk</p>
+                  <p className="text-[11px] text-charcoal/50 font-medium">Click to call clinic reception</p>
                 </div>
               </motion.a>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Calendar as CalendarIcon, Clock, User, Phone, Mail, FileText, CheckCircle2, ArrowRight, X, Sparkles, RefreshCw, MapPin, Upload, Video, Wifi, Globe, Activity, Pill, AlertCircle } from "lucide-react";
+import { Calendar as CalendarIcon, Clock, User, Phone, Mail, FileText, CheckCircle2, ArrowRight, X, Sparkles, RefreshCw, MapPin, Upload, Video, Wifi, Globe, Activity, Pill, AlertCircle, Hospital, MonitorSmartphone } from "lucide-react";
 import { CLINIC_SERVICES, TIME_SLOTS } from "../lib/content";
 import { Appointment } from "../types";
 import { buildWhatsAppUrl, buildWhatsAppMessage, ConsultationFormData } from "../lib/whatsapp";
@@ -326,26 +326,47 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="bg-white rounded-2xl border border-linen p-6 sm:p-8 shadow-xl max-w-3xl mx-auto relative overflow-y-auto max-h-[90vh] custom-scrollbar" 
+      className="bg-global-medical-gradient rounded-[28px] border border-slate-teal/10 p-6 sm:p-8 shadow-[0_30px_80px_rgba(15,23,42,0.18)] max-w-3xl mx-auto relative overflow-y-auto max-h-[90vh] custom-scrollbar" 
+      style={{ boxShadow: "0 30px 80px rgba(15,23,42,0.18)", borderColor: "rgba(13,148,136,0.08)" }}
       id="appointment-booking-form"
     >
+      {/* Subtle background decorations */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-slate-teal/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-sky-400/5 rounded-full blur-2xl pointer-events-none" aria-hidden="true" />
+
       {onClose && (
-        <button 
+        <motion.button 
           onClick={onClose}
-          className="absolute top-4 right-4 text-charcoal/40 hover:text-charcoal p-1 rounded-full hover:bg-linen/30 transition-colors z-10"
+          whileHover={{ rotate: 90, backgroundColor: "rgba(15,23,42,0.06)" }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          className="absolute top-4 right-4 text-charcoal/40 hover:text-charcoal w-9 h-9 flex items-center justify-center rounded-full border border-linen/60 transition-colors z-10"
+          aria-label="Close booking modal"
         >
-          <X size={24} />
-        </button>
+          <X size={18} />
+        </motion.button>
       )}
 
-      <div className="text-center mb-8">
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="text-center mb-8"
+      >
+        <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/10 px-3.5 py-1.5 rounded-full inline-block mb-3">
+          Muskaan Clinic
+        </span>
         <h3 className="font-serif text-3xl font-bold text-charcoal">
           Book Consultation
         </h3>
-        <p className="text-sm text-charcoal/60 max-w-md mx-auto mt-2">
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+          className="text-sm text-charcoal/60 max-w-md mx-auto mt-2"
+        >
           Choose your preferred mode of consultation and secure your appointment with Dr. Imran Shaikh.
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
         
@@ -354,54 +375,118 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
           <label className="block text-sm uppercase tracking-widest font-bold text-slate-teal mb-4 text-center">
             Select Consultation Mode
           </label>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <button
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {/* Offline Card — Soft Navy Blue (Light) */}
+            <motion.button
               type="button"
               onClick={() => setConsultationMode("Offline")}
-              className={`p-6 rounded-2xl border-2 text-left transition-all relative overflow-hidden flex flex-col justify-between h-40 ${
-                consultationMode === "Offline"
-                  ? "border-slate-teal bg-slate-teal/5 shadow-md"
-                  : "border-linen bg-white hover:bg-linen/20"
-              }`}
+              whileHover={{ y: -8, scale: 1.03, boxShadow: "0 25px 50px -12px rgba(11,31,77,0.18)" }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="p-6 rounded-2xl text-left relative overflow-hidden flex flex-col justify-between h-44 cursor-pointer"
+              style={{
+                background: consultationMode === "Offline"
+                  ? "linear-gradient(135deg, #DBEAFE 0%, #EEF2FF 100%)"
+                  : "linear-gradient(135deg, #EFF6FF 0%, #F0F4FF 100%)",
+                boxShadow: consultationMode === "Offline"
+                  ? "0 16px 40px -8px rgba(30,58,138,0.18), 0 0 0 2px rgba(59,130,246,0.35)"
+                  : "0 4px 20px -4px rgba(11,31,77,0.10)",
+                border: consultationMode === "Offline"
+                  ? "2px solid rgba(59,130,246,0.40)"
+                  : "2px solid rgba(147,197,253,0.50)"
+              }}
             >
-              <div>
-                <h4 className={`text-xl font-bold mb-2 ${consultationMode === "Offline" ? "text-slate-teal" : "text-charcoal"}`}>
-                  🏥 Offline Consultation
-                </h4>
-                <p className="text-sm text-charcoal/70">
-                  Visit Muskaan Clinic personally for examination and treatment.
-                </p>
-              </div>
-              {consultationMode === "Offline" && (
-                <div className="absolute bottom-4 right-4 text-slate-teal animate-scale-up">
-                  <CheckCircle2 size={24} className="fill-current" />
-                </div>
-              )}
-            </button>
+              {/* Decorative glow blob */}
+              <div className="absolute top-0 right-0 w-28 h-28 bg-blue-200/40 rounded-full blur-2xl pointer-events-none" aria-hidden="true" />
+              <div className="absolute bottom-0 left-0 w-20 h-20 bg-indigo-100/30 rounded-full blur-xl pointer-events-none" aria-hidden="true" />
 
-            <button
+              <div className="flex items-start space-x-3 relative z-10">
+                <motion.div
+                  animate={{ y: [0, -3, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  whileHover={{ scale: 1.15, rotate: 5 }}
+                  className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-sm"
+                  style={{ background: "linear-gradient(135deg, #BFDBFE, #C7D2FE)", border: "1px solid rgba(59,130,246,0.25)", color: "#1E3A8A" }}
+                  aria-hidden="true"
+                >
+                  <Hospital size={24} strokeWidth={2} />
+                </motion.div>
+                <div>
+                  <span className="text-[10px] uppercase tracking-widest font-extrabold block mb-0.5" style={{ color: "#3B82F6" }}>In-Person</span>
+                  <h4 className="text-base font-bold mb-1" style={{ color: "#1E3A8A" }}>Offline Consultation</h4>
+                  <p className="text-xs leading-relaxed" style={{ color: "#3B5899" }}>
+                    Visit Muskaan Clinic personally for examination and treatment.
+                  </p>
+                </div>
+              </div>
+
+              {/* Bottom tag */}
+              <div className="flex items-center justify-end relative z-10 mt-3">
+                {consultationMode === "Offline" ? (
+                  <motion.div initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
+                    <CheckCircle2 size={20} strokeWidth={2} style={{ color: "#3B82F6" }} />
+                  </motion.div>
+                ) : (
+                  <ArrowRight size={16} style={{ color: "#93C5FD" }} />
+                )}
+              </div>
+            </motion.button>
+
+            {/* Online Card — Soft Teal (Light) */}
+            <motion.button
               type="button"
               onClick={() => setConsultationMode("Online")}
-              className={`p-6 rounded-2xl border-2 text-left transition-all relative overflow-hidden flex flex-col justify-between h-40 ${
-                consultationMode === "Online"
-                  ? "border-slate-teal bg-slate-teal/5 shadow-md"
-                  : "border-linen bg-white hover:bg-linen/20"
-              }`}
+              whileHover={{ y: -8, scale: 1.03, boxShadow: "0 25px 50px -12px rgba(13,148,136,0.20)" }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="p-6 rounded-2xl text-left relative overflow-hidden flex flex-col justify-between h-44 cursor-pointer"
+              style={{
+                background: consultationMode === "Online"
+                  ? "linear-gradient(135deg, #CCFBF1 0%, #D1FAE5 100%)"
+                  : "linear-gradient(135deg, #F0FDF9 0%, #ECFDF5 100%)",
+                boxShadow: consultationMode === "Online"
+                  ? "0 16px 40px -8px rgba(13,148,136,0.20), 0 0 0 2px rgba(20,184,166,0.35)"
+                  : "0 4px 20px -4px rgba(13,148,136,0.10)",
+                border: consultationMode === "Online"
+                  ? "2px solid rgba(20,184,166,0.45)"
+                  : "2px solid rgba(110,231,183,0.50)"
+              }}
             >
-              <div>
-                <h4 className={`text-xl font-bold mb-2 ${consultationMode === "Online" ? "text-slate-teal" : "text-charcoal"}`}>
-                  💻 Online Consultation
-                </h4>
-                <p className="text-sm text-charcoal/70">
-                  Consult Dr. Imran Shaikh through secure Video Call or WhatsApp Call from your home.
-                </p>
-              </div>
-              {consultationMode === "Online" && (
-                <div className="absolute bottom-4 right-4 text-slate-teal animate-scale-up">
-                  <CheckCircle2 size={24} className="fill-current" />
+              {/* Decorative glow blob */}
+              <div className="absolute top-0 right-0 w-28 h-28 bg-teal-200/40 rounded-full blur-2xl pointer-events-none" aria-hidden="true" />
+              <div className="absolute bottom-0 left-0 w-20 h-20 bg-emerald-100/30 rounded-full blur-xl pointer-events-none" aria-hidden="true" />
+
+              <div className="flex items-start space-x-3 relative z-10">
+                <motion.div
+                  animate={{ y: [0, -3, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                  whileHover={{ scale: 1.15, rotate: 5 }}
+                  className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-sm"
+                  style={{ background: "linear-gradient(135deg, #99F6E4, #A7F3D0)", border: "1px solid rgba(20,184,166,0.30)", color: "#0F766E" }}
+                  aria-hidden="true"
+                >
+                  <MonitorSmartphone size={24} strokeWidth={2} />
+                </motion.div>
+                <div>
+                  <span className="text-[10px] uppercase tracking-widest font-extrabold block mb-0.5" style={{ color: "#14B8A6" }}>Video & WhatsApp</span>
+                  <h4 className="text-base font-bold mb-1" style={{ color: "#0F766E" }}>Online Consultation</h4>
+                  <p className="text-xs leading-relaxed" style={{ color: "#167A6E" }}>
+                    Consult Dr. Imran Shaikh through secure Video Call or WhatsApp from your home.
+                  </p>
                 </div>
-              )}
-            </button>
+              </div>
+
+              {/* Bottom tag */}
+              <div className="flex items-center justify-end relative z-10 mt-3">
+                {consultationMode === "Online" ? (
+                  <motion.div initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
+                    <CheckCircle2 size={20} strokeWidth={2} style={{ color: "#14B8A6" }} />
+                  </motion.div>
+                ) : (
+                  <ArrowRight size={16} style={{ color: "#5EEAD4" }} />
+                )}
+              </div>
+            </motion.button>
           </div>
         </div>
 

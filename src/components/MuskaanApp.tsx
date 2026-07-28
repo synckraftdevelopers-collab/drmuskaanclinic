@@ -433,7 +433,7 @@ export default function App() {
     else if (activeTab === "gallery") items.push({ name: "Gallery Portfolio", id: "gallery" });
     else if (activeTab === "testimonials") items.push({ name: "Patient Reviews", id: "testimonials" });
     else if (activeTab === "faq") items.push({ name: "FAQs & Guides", id: "faq" });
-    else if (activeTab === "contact") items.push({ name: "Contact Us & Registry", id: "contact" });
+    else if (activeTab === "contact") items.push({ name: "Contact Us", id: "contact" });
     return items;
   };
 
@@ -1331,7 +1331,7 @@ export default function App() {
                   </div>
 
                   <p className="text-[10px] text-linen/60 mt-6 text-center">
-                    Need assistance changing your timing? Please contact the clinical registry desk at 📞 +91 {CLINIC_INFO.phone}
+                    Need assistance changing your timing? Please contact the clinic reception desk at 📞 +91 {CLINIC_INFO.phone}
                   </p>
                 </div>
               </section>
@@ -1630,14 +1630,21 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 overflow-y-auto bg-charcoal/60 backdrop-blur-xs flex items-center justify-center p-4"
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            style={{ background: "rgba(15, 23, 42, 0.45)", backdropFilter: "blur(16px)" }}
+            className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4"
           >
+            {/* Soft radial glow behind the modal */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center" aria-hidden="true">
+              <div className="w-[550px] h-[550px] bg-slate-teal/25 rounded-full blur-[120px] animate-pulse" />
+            </div>
+
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="w-full max-w-2xl"
+              initial={{ scale: 0.92, y: 20, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.92, y: 20, opacity: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="w-full max-w-2xl relative z-10"
             >
               <AppointmentForm
                 preSelectedServiceId={preSelectedServiceId}
