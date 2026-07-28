@@ -54,13 +54,53 @@
     width: 100%;
     margin: 0;
     padding: 0;
-    background-color: #F0F7FC;
+    background:
+      radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.85), transparent 35%),
+      radial-gradient(circle at 80% 30%, rgba(13, 148, 136, 0.08), transparent 45%),
+      radial-gradient(circle at 60% 80%, rgba(56, 189, 248, 0.08), transparent 50%),
+      linear-gradient(
+        180deg,
+        #F8FCFE 0%,
+        #F3FAFD 35%,
+        #EEF8FC 70%,
+        #EAF6FB 100%
+      );
+    background-attachment: fixed;
+    min-height: 100vh;
   }
 
   body {
     font-family: var(--font-sans);
     color: #4A5568;
   }
+
+/* Reusable global medical gradient */
+.bg-global-medical-gradient {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.85), transparent 35%),
+    radial-gradient(circle at 80% 30%, rgba(13, 148, 136, 0.08), transparent 45%),
+    radial-gradient(circle at 60% 80%, rgba(56, 189, 248, 0.08), transparent 50%),
+    linear-gradient(
+      180deg,
+      #F8FCFE 0%,
+      #F3FAFD 35%,
+      #EEF8FC 70%,
+      #EAF6FB 100%
+    );
+  background-attachment: fixed;
+}
+
+/* Ensure individual page view containers inherit the global medical background without editing individual component files */
+#home-view-panel,
+#home-content-wrapper,
+#treatments-section,
+#about-doctor-section,
+#gallery-view-panel,
+#testimonials-section-wrapper,
+#faq-view-panel,
+#contact-view-panel {
+  background: transparent !important;
+}
 
   h1,
   h2,

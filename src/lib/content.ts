@@ -3,7 +3,7 @@ import { Service, Testimonial } from "../types";
 export const CLINIC_INFO = {
   name: "Muskaan Clinic",
   doctor: "Dr. Mohammad Imran Shaikh",
-  credentials: "BHMS CCMP Nasik University",
+  credentials: "BHMS, CCMP (Nasik University)",
   experience: "26+ Years",
   phone: "8698782272",
   whatsapp: "918698782272",
@@ -288,7 +288,7 @@ export const CLINIC_SERVICES: Service[] = [
 export const DOCTOR_PROFILE = {
   name: "Dr. Mohammad Imran Shaikh",
   title: "Founder & Chief Consultant",
-  credentials: "BHMS CCMP Nasik University",
+  credentials: "BHMS, CCMP (Nasik University)",
   experience: "Over 26 Years of Clinical Practice",
   philosophy: "I believe that true healing and visual confidence can only be achieved when we treat the human body as an integrated whole. By merging the scientific precision of modern medical aesthetics with the natural, systemic balancing power of classical homeopathy, we don't just treat symptomsâ€”we transform lives.",
   specialties: [

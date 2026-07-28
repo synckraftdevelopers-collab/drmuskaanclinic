@@ -449,7 +449,7 @@ export default function App() {
   })));
 
   return (
-    <div className="min-h-screen w-full flex flex-col bg-[#F0F7FC] text-charcoal font-sans relative antialiased selection:bg-slate-teal/10 selection:text-slate-teal">
+    <div className="min-h-screen w-full flex flex-col bg-global-medical-gradient text-charcoal font-sans relative antialiased selection:bg-slate-teal/10 selection:text-slate-teal">
 
       {/* 7. Scroll Indicator: Thin top progress bar */}
       <motion.div
@@ -923,8 +923,11 @@ export default function App() {
                               </div>
                               <div>
                                 <h4 className="font-serif font-bold text-sm text-charcoal">{DOCTOR_PROFILE.name}</h4>
-                                <p className="text-[10px] uppercase text-slate-teal font-extrabold mt-0.5">{DOCTOR_PROFILE.credentials}</p>
-                                <p className="text-xs text-charcoal/60 mt-1">{DOCTOR_PROFILE.experience}</p>
+                                <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-slate-teal/15 to-seafoam/15 border border-slate-teal/30 px-2.5 py-1 rounded-lg mt-1.5 shadow-2xs">
+                                  <span className="text-amber-500 text-xs">🎓</span>
+                                  <p className="text-[11px] uppercase text-slate-teal font-extrabold tracking-wider">{DOCTOR_PROFILE.credentials}</p>
+                                </div>
+                                <p className="text-xs text-charcoal/60 mt-1.5">{DOCTOR_PROFILE.experience}</p>
                               </div>
                             </div>
 
@@ -995,7 +998,7 @@ export default function App() {
             </motion.div>
 
             {/* FULL-WIDTH CONTENT AREA BACKGROUND WRAPPER */}
-            <div className="relative w-full overflow-hidden bg-[#DCEEF5] !mt-0 pt-8 sm:pt-10 md:pt-12 pb-12 sm:pb-16">
+            <div className="relative w-full overflow-hidden bg-[#DCEEF5] !mt-0 pt-8 sm:pt-10 md:pt-12 pb-12 sm:pb-16" id="home-content-wrapper">
               <ContentSectionBackground />
               <div className="relative z-10 space-y-16 w-full">
                 {/* EXPERIENCE STATS BADGES (Stagger Item 5: Statistics, with 5. Counter Animation) */}

@@ -80,14 +80,20 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
                   className="absolute bottom-0 left-0 w-full h-[45%]" 
                   style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0.45), rgba(0,0,0,0))' }} 
                 />
-                <div className="absolute bottom-0 left-0 p-8 sm:p-10 text-left w-full space-y-1.5">
+                <div className="absolute bottom-0 left-0 p-8 sm:p-10 text-left w-full space-y-2">
                   <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-tight">{DOCTOR_PROFILE.name}</h3>
-                  <p className="text-sm text-slate-teal font-semibold">{DOCTOR_PROFILE.credentials}</p>
-                  <p className="text-[11px] uppercase tracking-wider font-extrabold text-white/80 mt-1.5">{DOCTOR_PROFILE.title}</p>
+                  <div className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500/40 via-teal-500/40 to-blue-500/40 border border-emerald-400/50 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-lg">
+                    <span className="text-amber-300 text-sm sm:text-base animate-pulse">🎓</span>
+                    <p className="text-xs sm:text-sm text-emerald-200 font-extrabold tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                      {DOCTOR_PROFILE.credentials}
+                    </p>
+                  </div>
+                  <p className="text-[11px] uppercase tracking-wider font-extrabold text-white/90 pt-0.5">{DOCTOR_PROFILE.title}</p>
                 </div>
               </div>
-              <div className="bg-linen/30 p-4 border-t border-linen text-center text-xs font-semibold text-charcoal/70">
-                ⭐ BHMS CCMP Nasik University
+              <div className="bg-gradient-to-r from-slate-teal via-seafoam to-slate-teal p-4 border-t border-linen text-center font-bold text-white text-xs sm:text-sm shadow-inner tracking-wide flex items-center justify-center gap-2">
+                <span className="text-amber-300 text-base">⭐</span>
+                <span>{DOCTOR_PROFILE.credentials} — Maharashtra University of Health Sciences</span>
               </div>
             </div>
 
