@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Smile, MapPin, Phone, Mail, Clock, ShieldCheck, Heart, ExternalLink } from "lucide-react";
+import { Smile, MapPin, Phone, Mail, Clock, ShieldCheck, Heart, ExternalLink, CalendarCheck } from "lucide-react";
 import { motion } from "motion/react";
 import { CLINIC_INFO, DOCTOR_PROFILE } from "../lib/content";
 
@@ -91,12 +91,14 @@ export default function Footer({ setActiveTab, onOpenBooking }: FooterProps) {
                   <span className="pl-5 text-xs text-linen/75">{h.timings}</span>
                 </div>
               ))}
-              <div className="pt-2">
+              <div className="pt-3 w-full">
                 <button
                   onClick={onOpenBooking}
-                  className="w-full bg-slate-teal hover:bg-linen hover:text-charcoal text-white font-semibold py-2 px-4 rounded-lg transition-colors text-xs text-center cursor-pointer"
+                  aria-label="Book Priority Appointment"
+                  className="w-full inline-flex items-center justify-center gap-[6px] h-[44px] px-[18px] py-[10px] rounded-[12px] text-[14px] font-semibold text-white cursor-pointer transition-all duration-300 ease-out shadow-[0_10px_30px_rgba(13,148,136,0.30)] hover:shadow-[0_18px_40px_rgba(13,148,136,0.40)] hover:-translate-y-[2px] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-seafoam focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal btn-footer-priority"
                 >
-                  Book Priority Appointment
+                  <CalendarCheck size={16} className="shrink-0" />
+                  <span>Book Priority Appointment</span>
                 </button>
               </div>
             </div>
@@ -145,31 +147,37 @@ export default function Footer({ setActiveTab, onOpenBooking }: FooterProps) {
           <div className="lg:col-span-2 flex flex-col space-y-3">
             <div className="rounded-xl overflow-hidden shadow-inner h-48 bg-white/5 relative border border-white/15 w-full">
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3758.9993220711394!2d77.74541400539553!3d20.929580819598158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd6a4ac74cf6d15%3A0x415cdb27111ae8c5!2sDr.%20Imran%20Shaikh%20(Muskaan%20Clinic)!5e0!3m2!1sen!2sin!4v1784271634645!5m2!1sen!2sin"
+                src={CLINIC_INFO.mapEmbedUrl}
                 width="100%" 
                 height="100%" 
-                style={{ border: 0, opacity: 0.85 }} 
+                style={{ border: 0, opacity: 0.95 }} 
                 allowFullScreen={true} 
                 loading="lazy" 
-                referrerPolicy="strict-origin-when-cross-origin"
+                referrerPolicy="no-referrer-when-downgrade"
                 title="Muskaan Clinic Amravati Location Map"
+                className="w-full h-full"
               />
             </div>
             <div>
-              <a 
+              <motion.a 
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
                 href="https://www.google.com/maps/dir/?api=1&destination=Dr.+Imran+Shaikh+(Muskaan+Clinic),+Amravati"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center space-x-1.5 text-xs bg-slate-teal text-white hover:bg-white hover:text-charcoal font-bold py-1.5 px-3 rounded-md transition-colors shadow-sm"
+                aria-label="Get Directions to Muskaan Clinic Amravati"
+                className="inline-flex items-center justify-center gap-[8px] h-[48px] px-[28px] py-[14px] rounded-[14px] text-[15px] font-semibold text-white cursor-pointer transition-all duration-300 ease-out border border-white/[0.08] shadow-[0_12px_30px_rgba(13,148,136,0.28)] hover:shadow-[0_18px_40px_rgba(13,148,136,0.40)] hover:-translate-y-[2px] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal btn-premium-cta"
               >
-                <MapPin size={14} />
+                <MapPin size={18} className="shrink-0" />
                 <span>Get Directions</span>
-              </a>
+              </motion.a>
             </div>
           </div>
           <div className="space-y-3 text-sm text-linen/80 bg-white/5 p-5 rounded-xl border border-white/10">
-            <h4 className="font-serif text-white font-bold">Clinical Philosophy</h4>
-            <p className="text-xs leading-relaxed italic">
+            <h4 className="font-serif !text-white font-bold" style={{ color: '#FFFFFF' }}>Clinical Philosophy</h4>
+            <p className="text-xs leading-relaxed italic text-linen/90">
               "We combine the rapid external revitalization of advanced aesthetics with the gentle, deep systemic restoration of classical homeopathy to provide healthy smiles that last."
             </p>
             <p className="text-xs font-semibold text-right text-seafoam">— {DOCTOR_PROFILE.name}</p>

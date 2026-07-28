@@ -12,7 +12,7 @@ import {
   AnimatePresence
 } from "motion/react";
 import {
-  Sparkles, HeartPulse, Activity, Calendar, Clock, MapPin, Phone,
+  Sparkles, HeartPulse, Activity, Calendar, CalendarCheck, Clock, MapPin, Phone,
   ChevronRight, Star, HelpCircle, Bot, X, ShieldCheck, Award,
   MessageSquare, Users, Trash2, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight as ChevronRightIcon
 } from "lucide-react";
@@ -25,6 +25,7 @@ import AboutSection from "./AboutSection";
 import FeedbackSection from "./FeedbackSection";
 import GallerySection from "./GallerySection";
 import ContactSection from "./ContactSection";
+import ContentSectionBackground from "./ContentSectionBackground";
 
 import {
   CLINIC_INFO,
@@ -448,7 +449,7 @@ export default function App() {
   })));
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F0F7FC] text-charcoal font-sans relative antialiased selection:bg-slate-teal/10 selection:text-slate-teal">
+    <div className="min-h-screen w-full flex flex-col bg-[#F0F7FC] text-charcoal font-sans relative antialiased selection:bg-slate-teal/10 selection:text-slate-teal">
 
       {/* 7. Scroll Indicator: Thin top progress bar */}
       <motion.div
@@ -494,20 +495,21 @@ export default function App() {
       )}
 
       {/* Main Content Area */}
-      <main className="flex-grow">
+      <main className="flex-grow w-full">
 
         {/* VIEW 1: HOME PANEL */}
         {activeTab === "home" && (
-          <div className="space-y-16 pb-16" id="home-view-panel">
+          <div className="space-y-16 pb-16 bg-[#DCEEF5] w-full" id="home-view-panel">
 
             {/* HERO SECTION */}
-            <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="space-y-16">
+            <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="space-y-16 w-full">
               <section
                 onMouseMove={handleHeroMouseMove}
                 onMouseLeave={handleHeroMouseLeave}
-                className="relative overflow-hidden bg-gradient-to-br from-white via-linen/20 to-seafoam/15 py-16 sm:py-20 md:py-24 border-b border-linen"
+                className="relative w-full overflow-hidden bg-gradient-to-br from-white via-linen/20 to-seafoam/15 py-16 sm:py-20 md:py-24 border-b border-linen"
               >
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-seafoam/10 via-transparent to-transparent opacity-80" />
+                <div className="absolute inset-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-seafoam/10 via-transparent to-transparent opacity-80" />
+                <div className="absolute inset-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-seafoam/10 via-transparent to-transparent opacity-80" />
 
                 {/* 8. Floating Particles */}
                 <FloatingParticles />
@@ -523,7 +525,19 @@ export default function App() {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="absolute -top-20 -left-20 w-96 h-96 bg-slate-teal/10 rounded-full blur-3xl pointer-events-none"
+                  className="absolute -top-20 -left-20 w-[28rem] h-[28rem] bg-slate-teal/12 rounded-full blur-3xl pointer-events-none"
+                />
+                <motion.div
+                  animate={shouldReduceMotion ? {} : {
+                    x: [0, 50, -40, 0],
+                    y: [0, -50, 40, 0],
+                  }}
+                  transition={{
+                    duration: 25,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute top-1/3 -left-20 w-[28rem] h-[28rem] bg-seafoam/15 rounded-full blur-3xl pointer-events-none"
                 />
                 <motion.div
                   animate={shouldReduceMotion ? {} : {
@@ -978,188 +992,194 @@ export default function App() {
                   </button>
                 </div>
               </section>
-
-              {/* EXPERIENCE STATS BADGES (Stagger Item 5: Statistics, with 5. Counter Animation) */}
-              <motion.section id="stats-section" variants={fadeUpItem} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="bg-white border border-linen rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col sm:flex-row justify-evenly items-center gap-6 text-center">
-                  {CLINIC_STATS.map((st, i) => (
-                    <div key={i} className="flex-1 w-full flex flex-col items-center justify-center space-y-2">
-                      <AnimatedCounter value={st.value} suffix={st.suffix} />
-                      <p className="text-[10px] sm:text-xs uppercase font-extrabold text-charcoal/50 leading-tight">
-                        {st.label}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </motion.section>
             </motion.div>
 
-            {/* WHY CHOOSE US SECTION */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-              <div className="text-center mb-10">
-                <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full">
-                  Clinical Standards
-                </span>
-                <h2 className="font-serif text-3xl font-bold text-charcoal mt-3">Why Patients Trust Muskaan</h2>
-                <p className="text-xs sm:text-sm text-charcoal/60 mt-1 max-w-md mx-auto">Discover the foundational pillars that make Dr. Imran's clinical guidance supreme in Amravati.</p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {WHY_CHOOSE_US.map((wc, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-white border border-linen p-6 rounded-2xl shadow-xs text-left space-y-3"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-slate-teal/10 text-slate-teal flex items-center justify-center">
-                      {idx === 0 && <Award size={20} />}
-                      {idx === 1 && <Activity size={20} />}
-                      {idx === 2 && <Sparkles size={20} />}
-                    </div>
-                    <h3 className="font-serif font-bold text-sm text-charcoal">{wc.title}</h3>
-                    <p className="text-xs text-charcoal/60 leading-relaxed">{wc.description}</p>
+            {/* FULL-WIDTH CONTENT AREA BACKGROUND WRAPPER */}
+            <div className="relative w-full overflow-hidden bg-[#DCEEF5] !mt-0 pt-8 sm:pt-10 md:pt-12 pb-12 sm:pb-16">
+              <ContentSectionBackground />
+              <div className="relative z-10 space-y-16 w-full">
+                {/* EXPERIENCE STATS BADGES (Stagger Item 5: Statistics, with 5. Counter Animation) */}
+                <motion.section id="stats-section" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="bg-white border border-linen rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col sm:flex-row justify-evenly items-center gap-6 text-center">
+                    {CLINIC_STATS.map((st, i) => (
+                      <div key={i} className="flex-1 w-full flex flex-col items-center justify-center space-y-2">
+                        <AnimatedCounter value={st.value} suffix={st.suffix} />
+                        <p className="text-[10px] sm:text-xs uppercase font-extrabold text-charcoal/50 leading-tight">
+                          {st.label}
+                        </p>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </section>
+                </motion.section>
 
-            {/* TREATMENTS CATALOG GRID */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-10">
-                <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full">
-                  Treatment Portfolios
-                </span>
-                <h2 className="font-serif text-3xl font-bold text-charcoal mt-3">Our Dedicated Disciplines</h2>
-                <p className="text-xs sm:text-sm text-charcoal/60 mt-1 max-w-md mx-auto">Click any specialty to view comprehensive treatment descriptions, session timings, and medical benefits.</p>
-              </div>
+                {/* WHY CHOOSE US SECTION */}
+                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                  <div className="text-center mb-10">
+                    <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full">
+                      Clinical Standards
+                    </span>
+                    <h2 className="font-serif text-3xl font-bold text-charcoal mt-3">Why Patients Trust Muskaan</h2>
+                    <p className="text-xs sm:text-sm text-charcoal/60 mt-1 max-w-md mx-auto">Discover the foundational pillars that make Dr. Imran's clinical guidance supreme in Amravati.</p>
+                  </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {CLINIC_SERVICES.map((serv) => (
-                  <div
-                    key={serv.id}
-                    className="bg-white border border-linen p-6 rounded-2xl shadow-xs hover:shadow-md transition-all flex flex-col justify-between text-left"
-                  >
-                    <div className="space-y-4">
-                      <div className="w-10 h-10 rounded-full bg-slate-teal/10 text-slate-teal flex items-center justify-center">
-                        {serv.id === 'hair' && <Sparkles size={20} />}
-                        {serv.id === 'skin' && <HeartPulse size={20} />}
-                        {serv.id === 'homeopathy' && <Activity size={20} />}
-                        {serv.id === 'infertility' && (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="28"
-                            height="28"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="#2A9D8F"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {WHY_CHOOSE_US.map((wc, idx) => (
+                      <div
+                        key={idx}
+                        className="bg-white border border-linen p-6 rounded-2xl shadow-xs text-left space-y-3"
+                      >
+                        <div className="w-10 h-10 rounded-xl bg-slate-teal/10 text-slate-teal flex items-center justify-center">
+                          {idx === 0 && <Award size={20} />}
+                          {idx === 1 && <Activity size={20} />}
+                          {idx === 2 && <Sparkles size={20} />}
+                        </div>
+                        <h3 className="font-serif font-bold text-sm text-charcoal">{wc.title}</h3>
+                        <p className="text-xs text-charcoal/60 leading-relaxed">{wc.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+
+                {/* TREATMENTS CATALOG GRID */}
+                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="text-center mb-10">
+                    <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full">
+                      Treatment Portfolios
+                    </span>
+                    <h2 className="font-serif text-3xl font-bold text-charcoal mt-3">Our Dedicated Disciplines</h2>
+                    <p className="text-xs sm:text-sm text-charcoal/60 mt-1 max-w-md mx-auto">Click any specialty to view comprehensive treatment descriptions, session timings, and medical benefits.</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {CLINIC_SERVICES.map((serv) => (
+                      <div
+                        key={serv.id}
+                        className="bg-white border border-linen p-6 rounded-2xl shadow-xs hover:shadow-md transition-all flex flex-col justify-between text-left"
+                      >
+                        <div className="space-y-4">
+                          <div className="w-10 h-10 rounded-full bg-slate-teal/10 text-slate-teal flex items-center justify-center">
+                            {serv.id === 'hair' && <Sparkles size={20} />}
+                            {serv.id === 'skin' && <HeartPulse size={20} />}
+                            {serv.id === 'homeopathy' && <Activity size={20} />}
+                            {serv.id === 'infertility' && (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="28"
+                                height="28"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#2A9D8F"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              >
+                                <path d="M 12 13 v 8" />
+                                <path d="M 9 18 h 6" />
+                                <path d="M 2.2 10.5 c -1.3 -0.6 -1.3 -2.6 0 -3.3 l 1.6 -1.1 a 2.8 2.8 0 0 1 3.6 0.4 l 3 3 c 0.4 0.4 1 0.4 1.4 0 l 3 -3 a 2.8 2.8 0 0 1 3.6 -0.4 l 1.6 1.1 c 1.3 0.7 1.3 2.7 0 3.3 l -3.3 1.8 c -1.3 0.7 -3.7 1.2 -6.1 1.2 s -4.8 -0.5 -6.1 -1.2 Z" />
+                              </svg>
+                            )}
+                          </div>
+                          <h3 className="font-serif text-xl font-bold text-charcoal">{serv.title}</h3>
+                          <p className="text-xs text-charcoal/60 leading-relaxed font-semibold">"{serv.tagline}"</p>
+                          <p className="text-xs text-charcoal/70 leading-relaxed line-clamp-3">{serv.description}</p>
+                        </div>
+
+                        <div className="border-t border-linen mt-6 pt-4 flex justify-between items-center">
+                          <button
+                            onClick={() => {
+                              setActiveTab("services");
+                              // Dispatch virtual click on service tabs if loaded
+                              setTimeout(() => {
+                                const btn = document.getElementById(`service-tab-${serv.id}`);
+                                if (btn) btn.click();
+
+                                setTimeout(() => {
+                                  const targetSection = document.getElementById('treatments-section');
+                                  if (targetSection) {
+                                    const yOffset = -80;
+                                    const y = targetSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                                    window.scrollTo({ top: y, behavior: 'smooth' });
+                                  } else {
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                  }
+                                }, 50);
+                              }, 100);
+                            }}
+                            className="text-slate-teal font-bold text-xs hover:underline inline-flex items-center space-x-1"
                           >
-                            <path d="M 12 13 v 8" />
-                            <path d="M 9 18 h 6" />
-                            <path d="M 2.2 10.5 c -1.3 -0.6 -1.3 -2.6 0 -3.3 l 1.6 -1.1 a 2.8 2.8 0 0 1 3.6 0.4 l 3 3 c 0.4 0.4 1 0.4 1.4 0 l 3 -3 a 2.8 2.8 0 0 1 3.6 -0.4 l 1.6 1.1 c 1.3 0.7 1.3 2.7 0 3.3 l -3.3 1.8 c -1.3 0.7 -3.7 1.2 -6.1 1.2 s -4.8 -0.5 -6.1 -1.2 Z" />
-                          </svg>
-                        )}
+                            <span>View Catalog</span>
+                            <ChevronRight size={14} />
+                          </button>
+                          <button
+                            onClick={() => handleOpenBooking(serv.id)}
+                            className="bg-linen/50 text-charcoal hover:bg-slate-teal hover:text-white font-semibold py-1.5 px-3.5 rounded-lg text-xs transition-colors cursor-pointer"
+                          >
+                            Book Consult
+                          </button>
+                        </div>
                       </div>
-                      <h3 className="font-serif text-xl font-bold text-charcoal">{serv.title}</h3>
-                      <p className="text-xs text-charcoal/60 leading-relaxed font-semibold">"{serv.tagline}"</p>
-                      <p className="text-xs text-charcoal/70 leading-relaxed line-clamp-3">{serv.description}</p>
-                    </div>
-
-                    <div className="border-t border-linen mt-6 pt-4 flex justify-between items-center">
-                      <button
-                        onClick={() => {
-                          setActiveTab("services");
-                          // Dispatch virtual click on service tabs if loaded
-                          setTimeout(() => {
-                            const btn = document.getElementById(`service-tab-${serv.id}`);
-                            if (btn) btn.click();
-
-                            setTimeout(() => {
-                              const targetSection = document.getElementById('treatments-section');
-                              if (targetSection) {
-                                const yOffset = -80;
-                                const y = targetSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                                window.scrollTo({ top: y, behavior: 'smooth' });
-                              } else {
-                                window.scrollTo({ top: 0, behavior: 'smooth' });
-                              }
-                            }, 50);
-                          }, 100);
-                        }}
-                        className="text-slate-teal font-bold text-xs hover:underline inline-flex items-center space-x-1"
-                      >
-                        <span>View Catalog</span>
-                        <ChevronRight size={14} />
-                      </button>
-                      <button
-                        onClick={() => handleOpenBooking(serv.id)}
-                        className="bg-linen/50 text-charcoal hover:bg-slate-teal hover:text-white font-semibold py-1.5 px-3.5 rounded-lg text-xs transition-colors cursor-pointer"
-                      >
-                        Book Consult
-                      </button>
-                    </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </section>
+                </section>
 
-            {/* TESTIMONIALS CAROUSEL PREVIEW */}
-            <section className="bg-linen/10 py-16 px-4 sm:px-6 lg:px-8 border-y border-linen/60">
-              <div className="max-w-4xl mx-auto text-center space-y-6">
-                <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full">
-                  Verified Patient Stories
-                </span>
-                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-charcoal">Real Journeys of Renewal</h2>
+                {/* TESTIMONIALS CAROUSEL PREVIEW */}
+                <section className="bg-linen/10 py-16 px-4 sm:px-6 lg:px-8 border-y border-linen/60">
+                  <div className="max-w-4xl mx-auto text-center space-y-6">
+                    <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full">
+                      Verified Patient Stories
+                    </span>
+                    <h2 className="font-serif text-2xl sm:text-3xl font-bold text-charcoal">Real Journeys of Renewal</h2>
 
-                {/* Carousel Card */}
-                <div className="bg-white border border-linen p-6 sm:p-10 rounded-3xl shadow-xs relative text-left">
-                  <span className="text-6xl text-linen/40 font-serif absolute top-4 left-6 leading-none">“</span>
-                  <div className="space-y-4 relative z-10">
-                    <p className="font-serif italic text-sm sm:text-base md:text-lg text-charcoal/80 leading-relaxed pt-2">
-                      "{defaultReviews[testimonialIndex].comment}"
-                    </p>
-                    <div className="border-t border-linen pt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                      <div className="flex items-center space-x-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                        <span className="font-bold text-sm text-charcoal">{defaultReviews[testimonialIndex].name}</span>
-                        <span className="text-xs text-charcoal/40">({defaultReviews[testimonialIndex].service})</span>
+                    {/* Carousel Card */}
+                    <div className="bg-white border border-linen p-6 sm:p-10 rounded-3xl shadow-xs relative text-left">
+                      <span className="text-6xl text-linen/40 font-serif absolute top-4 left-6 leading-none">“</span>
+                      <div className="space-y-4 relative z-10">
+                        <p className="font-serif italic text-sm sm:text-base md:text-lg text-charcoal/80 leading-relaxed pt-2">
+                          "{defaultReviews[testimonialIndex].comment}"
+                        </p>
+                        <div className="border-t border-linen pt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                          <div className="flex items-center space-x-2">
+                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                            <span className="font-bold text-sm text-charcoal">{defaultReviews[testimonialIndex].name}</span>
+                            <span className="text-xs text-charcoal/40">({defaultReviews[testimonialIndex].service})</span>
+                          </div>
+                          <div className="flex items-center space-x-1">
+                            {[1, 2, 3, 4, 5].map((s) => (
+                              <Star key={s} size={14} className="text-amber-400 fill-amber-400" />
+                            ))}
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-center space-x-1">
-                        {[1, 2, 3, 4, 5].map((s) => (
-                          <Star key={s} size={14} className="text-amber-400 fill-amber-400" />
-                        ))}
+
+                      {/* Controls */}
+                      <div className="flex justify-end space-x-2 mt-4 pt-2">
+                        <button
+                          onClick={() => setTestimonialIndex(testimonialIndex === 0 ? defaultReviews.length - 1 : testimonialIndex - 1)}
+                          className="p-1.5 rounded-full bg-linen/20 border border-linen hover:bg-linen/50 transition-colors cursor-pointer text-charcoal"
+                          aria-label="Previous story"
+                        >
+                          <ChevronLeft size={16} />
+                        </button>
+                        <button
+                          onClick={() => setTestimonialIndex(testimonialIndex === defaultReviews.length - 1 ? 0 : testimonialIndex + 1)}
+                          className="p-1.5 rounded-full bg-linen/20 border border-linen hover:bg-linen/50 transition-colors cursor-pointer text-charcoal"
+                          aria-label="Next story"
+                        >
+                          <ChevronRightIcon size={16} />
+                        </button>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Controls */}
-                  <div className="flex justify-end space-x-2 mt-4 pt-2">
                     <button
-                      onClick={() => setTestimonialIndex(testimonialIndex === 0 ? defaultReviews.length - 1 : testimonialIndex - 1)}
-                      className="p-1.5 rounded-full bg-linen/20 border border-linen hover:bg-linen/50 transition-colors cursor-pointer text-charcoal"
-                      aria-label="Previous story"
+                      onClick={() => setActiveTab("testimonials")}
+                      className="text-slate-teal font-bold text-xs hover:underline"
                     >
-                      <ChevronLeft size={16} />
-                    </button>
-                    <button
-                      onClick={() => setTestimonialIndex(testimonialIndex === defaultReviews.length - 1 ? 0 : testimonialIndex + 1)}
-                      className="p-1.5 rounded-full bg-linen/20 border border-linen hover:bg-linen/50 transition-colors cursor-pointer text-charcoal"
-                      aria-label="Next story"
-                    >
-                      <ChevronRightIcon size={16} />
+                      Read All Verified Testimonials & Submit Yours
                     </button>
                   </div>
-                </div>
-
-                <button
-                  onClick={() => setActiveTab("testimonials")}
-                  className="text-slate-teal font-bold text-xs hover:underline"
-                >
-                  Read All Verified Testimonials & Submit Yours
-                </button>
+                </section>
               </div>
-            </section>
+            </div>
 
             {/* FAQ ACCORDION TOP 5 */}
             <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1221,13 +1241,18 @@ export default function App() {
                   <p className="text-sm text-linen/80 leading-relaxed">
                     Skip waiting queues. Select your procedure and secure a priority slot. Your timing will be registered directly onto our clinical boards and opened on WhatsApp to Dr. Shaikh's cabin crew.
                   </p>
-                  <button
+                  <motion.button
+                    initial={{ opacity: 0, y: 8 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
                     onClick={() => handleOpenBooking()}
-                    className="inline-flex items-center space-x-2 bg-slate-teal hover:bg-white hover:text-charcoal text-white font-bold py-3.5 px-8 rounded-xl shadow-md transition-all text-sm cursor-pointer"
+                    aria-label="Initiate Priority Booking"
+                    className="inline-flex items-center justify-center gap-[8px] h-[48px] px-[28px] py-[14px] rounded-[14px] text-[15px] font-semibold text-white cursor-pointer transition-all duration-300 ease-out border border-white/[0.08] shadow-[0_12px_30px_rgba(13,148,136,0.28)] hover:shadow-[0_18px_40px_rgba(13,148,136,0.40)] hover:-translate-y-[2px] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal btn-premium-cta"
                   >
-                    <Calendar size={16} />
+                    <CalendarCheck size={18} className="shrink-0" />
                     <span>Initiate Priority Booking</span>
-                  </button>
+                  </motion.button>
                 </div>
               </div>
             </section>
@@ -1344,6 +1369,7 @@ export default function App() {
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                     title="Home Clinic Coordinates Irwin Square Amravati"
+                    className="w-full h-full"
                   />
                 </div>
               </div>
