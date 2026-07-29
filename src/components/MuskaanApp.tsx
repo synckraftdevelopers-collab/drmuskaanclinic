@@ -487,9 +487,48 @@ export default function App() {
                 </React.Fragment>
               ))}
             </nav>
-            <div className="text-[10px] uppercase tracking-wider text-slate-teal font-extrabold bg-slate-teal/10 px-2 py-0.5 rounded-md self-start sm:self-auto">
-              Verified Medical Board
-            </div>
+            <style>{`
+              @keyframes premiumBadgePulse {
+                0% { box-shadow: 0 8px 20px rgba(37,99,235,0.10), 0 0 0 0 rgba(13,148,136,0.20); }
+                15% { box-shadow: 0 8px 20px rgba(37,99,235,0.10), 0 0 0 10px rgba(13,148,136,0); }
+                100% { box-shadow: 0 8px 20px rgba(37,99,235,0.10), 0 0 0 0 rgba(13,148,136,0); }
+              }
+              .hover-shadow-strong:hover {
+                box-shadow: 0 12px 28px rgba(37,99,235,0.18) !important;
+                animation: none !important;
+                border-color: #0D9488 !important;
+              }
+              @keyframes premiumDotPulse {
+                0% { transform: scale(1); opacity: 0.8; }
+                20% { transform: scale(1.8); opacity: 0; }
+                100% { transform: scale(1); opacity: 0; }
+              }
+            `}</style>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              tabIndex={0}
+              aria-label="Verified Medical Board"
+              className="group relative flex items-center self-start sm:self-auto h-[28px] sm:h-[30px] px-[12px] sm:px-[14px] rounded-full cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0D9488] focus-visible:ring-offset-2 transition-all duration-300 hover:-translate-y-[2px] hover:scale-[1.03] bg-[linear-gradient(135deg,#FFFFFF,#F6FBFF)] border border-[rgba(37,99,235,0.18)] hover-shadow-strong"
+              style={{
+                animation: "premiumBadgePulse 8s infinite ease-out"
+              }}
+            >
+              <div className="relative flex items-center justify-center mr-2">
+                <div 
+                  className="absolute -top-0.5 -left-1 w-1 h-1 rounded-full bg-[#22C55E]"
+                  style={{ animation: "premiumDotPulse 6s infinite ease-out" }}
+                />
+                <ShieldCheck 
+                  size={15} 
+                  className="text-[#0D9488] transition-transform duration-300 group-hover:rotate-[5deg]" 
+                />
+              </div>
+              <span className="text-[10px] sm:text-[11px] font-[700] tracking-[0.5px] uppercase text-[#0B1F4D] whitespace-nowrap">
+                Verified Medical Board
+              </span>
+            </motion.div>
           </div>
         </div>
       )}
@@ -1236,7 +1275,19 @@ export default function App() {
 
               <div className="text-center mt-6">
                 <button
-                  onClick={() => setActiveTab("faq")}
+                  onClick={() => {
+                    setActiveTab("faq");
+                    setTimeout(() => {
+                      const targetSection = document.getElementById("faq-view-panel");
+                      if (targetSection) {
+                        const yOffset = -80;
+                        const y = targetSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                        window.scrollTo({ top: y, behavior: "smooth" });
+                      } else {
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }
+                    }, 50);
+                  }}
                   className="text-slate-teal font-bold text-xs hover:underline"
                 >
                   View Complete List of FAQs

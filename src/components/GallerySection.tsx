@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { GALLERY_CATEGORIES, GALLERY_IMAGES, CLINIC_CONFIG } from "../lib/content";
 import { Sparkles, HeartPulse, Award, CheckCircle2, Image as ImageIcon, Smile, BookOpen, Activity } from "lucide-react";
@@ -8,6 +8,8 @@ import { motion } from "motion/react";
 
 export default function GallerySection() {
   const [activeCategory, setActiveCategory] = useState("all");
+  const [allPortfolioItems] = useState(GALLERY_IMAGES);
+  const [filteredPortfolioItems, setFilteredPortfolioItems] = useState(GALLERY_IMAGES);
 
   const getCategoryIcon = (catId: string) => {
     switch (catId) {
@@ -171,16 +173,47 @@ export default function GallerySection() {
     return true;
   });
 
-  const filteredImages = GALLERY_IMAGES.filter(img => {
-    // If the category requires approval and beforeAfterApproved is false, hide the image completely
-    const categoryObj = GALLERY_CATEGORIES.find(cat => cat.id === img.category);
-    if (categoryObj?.requiresApproval && !CLINIC_CONFIG.beforeAfterApproved) {
-      return false;
+  const handleFilterClick = (catId: string) => {
+    const cleanCatId = catId.trim();
+    setActiveCategory(cleanCatId);
+
+    let newFiltered = [];
+    if (cleanCatId === "all") {
+      newFiltered = [...allPortfolioItems];
+    } else {
+      newFiltered = allPortfolioItems.filter(img => {
+        // Robust check: match by id or label, case-insensitive, no extra spaces
+        const imgCat = img.category.trim().toLowerCase();
+        const catTarget = cleanCatId.toLowerCase();
+        const idMatch = imgCat === catTarget;
+        const categoryObj = GALLERY_CATEGORIES.find(c => c.id === cleanCatId);
+        const labelMatch = categoryObj ? imgCat === categoryObj.label.trim().toLowerCase() : false;
+        
+        return idMatch || labelMatch;
+      });
     }
 
-    if (activeCategory === "all") return true;
-    return img.category === activeCategory;
-  });
+    // Apply before_after approval check
+    newFiltered = newFiltered.filter(img => {
+      const categoryObj = GALLERY_CATEGORIES.find(cat => cat.id === img.category);
+      if (categoryObj?.requiresApproval && !CLINIC_CONFIG.beforeAfterApproved) {
+        return false;
+      }
+      return true;
+    });
+
+    console.log("--- Portfolio Debug ---");
+    console.log("Selected category:", cleanCatId);
+    console.log("Total portfolio items:", allPortfolioItems.length);
+    console.log("Filtered items count:", newFiltered.length);
+
+    setFilteredPortfolioItems(newFiltered);
+  };
+
+  useEffect(() => {
+    handleFilterClick("all");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white" id="gallery-view-panel">
@@ -202,7 +235,7 @@ export default function GallerySection() {
         {/* Category Tabs */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
           <button
-            onClick={() => setActiveCategory("all")}
+            onClick={() => handleFilterClick("all")}
             className={`flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeCategory === "all"
                 ? "bg-slate-teal text-white shadow-xs"
@@ -217,7 +250,7 @@ export default function GallerySection() {
           {visibleCategories.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
+              onClick={() => handleFilterClick(cat.id)}
               className={`flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 activeCategory === cat.id
                   ? "bg-slate-teal text-white shadow-xs"
@@ -233,15 +266,17 @@ export default function GallerySection() {
 
 
         {/* Images Grid (4. Stagger Card Animation) */}
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-10px" }}
-          variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" 
-          id="gallery-images-container"
-        >
-          {filteredImages.map((img) => (
+        {filteredPortfolioItems.length > 0 ? (
+          <motion.div 
+            key={activeCategory} // Force re-mount to re-trigger stagger animation
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-10px" }}
+            variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[300px]" 
+            id="gallery-images-container"
+          >
+            {filteredPortfolioItems.map((img) => (
             <motion.div 
               key={img.id}
               variants={{
@@ -270,9 +305,16 @@ export default function GallerySection() {
                   </p>
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+          <div className="flex flex-col items-center justify-center py-20 bg-linen/20 rounded-2xl border border-linen min-h-[300px]">
+            <ImageIcon size={48} className="text-slate-teal/30 mb-4" />
+            <h3 className="text-xl font-bold text-charcoal">No portfolio available</h3>
+            <p className="text-sm text-charcoal/60 mt-2">There are currently no items to display in this category.</p>
+          </div>
+        )}
 
       </div>
     </section>

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Phone, Clock, Menu, X, Calendar } from "lucide-react";
+import { PhoneCall, Clock3, MapPin, Award, Menu, X, Calendar } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { CLINIC_INFO } from "../lib/content";
 
@@ -33,24 +33,36 @@ export default function Header({ activeTab, setActiveTab, onOpenBooking }: Heade
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-linen shadow-xs">
       {/* Top bar with quick info */}
-      <div className="hidden md:block bg-charcoal text-linen/90 py-2 px-6 text-xs">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center space-x-6">
-            <span className="flex items-center space-x-2">
-              <Phone size={14} className="text-seafoam" />
-              <span>Call: +91 {CLINIC_INFO.phone}</span>
+      <div className="hidden md:block bg-charcoal text-[rgba(255,255,255,0.85)] py-2 px-6">
+        <div className="max-w-7xl mx-auto flex justify-between items-center text-[14px] lg:text-[15px] leading-[1.5] tracking-[0.2px]">
+          <div className="flex items-center md:space-x-[40px] lg:space-x-[56px]">
+            <span className="flex items-center space-x-[10px] group transition-colors duration-[250ms] cursor-default">
+              <PhoneCall size={18} className="text-[#2DD4BF] transition-transform duration-[250ms] group-hover:scale-[1.08]" aria-hidden="true" />
+              <span className="transition-colors duration-[250ms] text-[rgba(255,255,255,0.85)] group-hover:text-[#FFFFFF]">
+                <span className="font-[500]">Call: </span>
+                <span className="font-[600] text-[#FFFFFF]">+91 {CLINIC_INFO.phone}</span>
+              </span>
             </span>
-            <span className="flex items-center space-x-2">
-              <Clock size={14} className="text-seafoam" />
-              <span>Mon – Sat: 10:00 AM – 2:30 PM, 6:30 PM – 9:30 PM</span>
+            <span className="flex items-center space-x-[10px] group transition-colors duration-[250ms] cursor-default">
+              <Clock3 size={18} className="text-[#2DD4BF] transition-transform duration-[250ms] group-hover:scale-[1.08]" aria-hidden="true" />
+              <span className="transition-colors duration-[250ms] text-[rgba(255,255,255,0.85)] group-hover:text-[#FFFFFF]">
+                <span className="font-[500]">Mon – Sat: </span>
+                <span className="font-[600] text-[#FFFFFF]">10:00 AM – 2:30 PM | 6:30 PM – 9:30 PM</span>
+              </span>
             </span>
           </div>
-          <div className="flex items-center space-x-4">
-            <span className="bg-slate-teal/40 text-seafoam font-medium px-2 py-0.5 rounded text-[10px] tracking-wider uppercase">
-              {CLINIC_INFO.city}, {CLINIC_INFO.state}
+          <div className="flex items-center md:space-x-[40px] lg:space-x-[56px]">
+            <span className="flex items-center space-x-[10px] group transition-colors duration-[250ms] cursor-default">
+              <MapPin size={18} className="text-[#2DD4BF] transition-transform duration-[250ms] group-hover:scale-[1.08]" aria-hidden="true" />
+              <span className="font-[500] text-[rgba(255,255,255,0.85)] group-hover:text-[#FFFFFF] transition-colors duration-[250ms]">
+                {CLINIC_INFO.city}, {CLINIC_INFO.state}
+              </span>
             </span>
-            <span className="text-[11px] font-semibold text-white">
-              {CLINIC_INFO.experience} of Clinical Practice
+            <span className="flex items-center space-x-[10px] group transition-colors duration-[250ms] cursor-default">
+              <Award size={18} className="text-[#2DD4BF] transition-transform duration-[250ms] group-hover:scale-[1.08]" aria-hidden="true" />
+              <span className="font-[600] text-[#FFFFFF] group-hover:text-[#FFFFFF] transition-colors duration-[250ms]">
+                {CLINIC_INFO.experience} of Clinical Practice
+              </span>
             </span>
           </div>
         </div>

@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Star, MessageSquare, Quote, User, Sparkles, RefreshCw, ThumbsUp, Send } from "lucide-react";
-import { motion } from "motion/react";
+import { Star, MessageSquare, Quote, User, Sparkles, RefreshCw, ThumbsUp, Send, Trash2 } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 import { Testimonial } from "../types";
 
 function AnimatedRatingDisplay({ target }: { target: number }) {
@@ -47,11 +47,30 @@ export default function FeedbackSection() {
 
   const fetchFeedbacks = async () => {
     try {
-      const response = await fetch("/api/feedback");
-      if (response.ok) {
-        const data = await response.json();
-        setFeedbacks(data);
+      let staticFeedbacks = [];
+      try {
+        const response = await fetch("/api/feedback");
+        if (response.ok) {
+          staticFeedbacks = await response.json();
+        }
+      } catch (e) {
+        console.warn("Could not fetch static feedbacks", e);
       }
+      
+      const localData = localStorage.getItem("muskaan_reviews");
+      let localReviews = localData ? JSON.parse(localData) : [];
+      
+      const originalLength = localReviews.length;
+      localReviews = localReviews.filter((r: Testimonial) => r.name.toLowerCase() !== "aryan");
+      if (localReviews.length !== originalLength) {
+        localStorage.setItem("muskaan_reviews", JSON.stringify(localReviews));
+      }
+      
+      let allFeedbacks = [...localReviews, ...staticFeedbacks];
+      // Hard filter any remaining "aryan" reviews coming from the server memory
+      allFeedbacks = allFeedbacks.filter((r: Testimonial) => r.name.toLowerCase() !== "aryan");
+      
+      setFeedbacks(allFeedbacks);
     } catch (err) {
       console.error("Error fetching feedback:", err);
     } finally {
@@ -76,24 +95,22 @@ export default function FeedbackSection() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/feedback", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          rating,
-          comment,
-          service
-        })
-      });
+      const newReview: Testimonial = {
+        id: `local-${Date.now()}`,
+        name: name.trim(),
+        rating,
+        comment: comment.trim(),
+        service,
+        date: new Date().toISOString().split('T')[0],
+      };
 
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.error || "Failed to submit review.");
-      }
+      const localData = localStorage.getItem("muskaan_reviews");
+      const localReviews = localData ? JSON.parse(localData) : [];
+      const updatedLocalReviews = [newReview, ...localReviews];
+      localStorage.setItem("muskaan_reviews", JSON.stringify(updatedLocalReviews));
 
-      const newFeedback = await response.json();
-      setSuccessMessage("Thank you! Your testimonial has been submitted successfully and published.");
+      setSuccessMessage("Verified Review Submitted");
+      setTimeout(() => setSuccessMessage(""), 3000);
       
       // Clear form
       setName("");
@@ -109,6 +126,17 @@ export default function FeedbackSection() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleDeleteReview = (idToRemove: string) => {
+    if (!idToRemove.startsWith("local-")) return;
+    const localData = localStorage.getItem("muskaan_reviews");
+    let localReviews = localData ? JSON.parse(localData) : [];
+    localReviews = localReviews.filter((r: Testimonial) => r.id !== idToRemove);
+    localStorage.setItem("muskaan_reviews", JSON.stringify(localReviews));
+    setSuccessMessage("Review Removed");
+    setTimeout(() => setSuccessMessage(""), 3000);
+    fetchFeedbacks();
   };
 
   const getRatingSummary = () => {
@@ -309,17 +337,20 @@ export default function FeedbackSection() {
                   />
                 </div>
 
-                {successMessage && (
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="p-3.5 bg-gradient-to-r from-emerald-500/15 via-teal-500/15 to-emerald-500/15 text-emerald-800 rounded-xl text-xs font-bold text-center border border-emerald-400/40 shadow-[0_0_20px_rgba(16,185,129,0.2)] flex items-center justify-center gap-2 backdrop-blur-md" 
-                    id="feedback-success-msg"
-                  >
-                    <span className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs shadow-xs">✔</span>
-                    <span>Verified Review Submitted</span>
-                  </motion.div>
-                )}
+                <AnimatePresence>
+                  {successMessage && (
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      className="p-3.5 bg-gradient-to-r from-emerald-500/15 via-teal-500/15 to-emerald-500/15 text-emerald-800 rounded-xl text-xs font-bold text-center border border-emerald-400/40 shadow-[0_0_20px_rgba(16,185,129,0.2)] flex items-center justify-center gap-2 backdrop-blur-md" 
+                      id="feedback-success-msg"
+                    >
+                      <span className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs shadow-xs">✔</span>
+                      <span>{successMessage}</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 {errorMessage && (
                   <motion.div 
@@ -360,11 +391,7 @@ export default function FeedbackSection() {
           </div>
 
           {/* Column 2: Testimonials List (4. Stagger Card Animation) */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-10px" }}
-            variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
+          <div 
             className="lg:col-span-7 space-y-6" 
             id="testimonials-feed"
           >
@@ -378,13 +405,12 @@ export default function FeedbackSection() {
                 <p className="text-xs text-charcoal/50 font-bold">No verified reviews available yet. Be the first to post!</p>
               </div>
             ) : (
-              feedbacks.map((item) => (
+              feedbacks.map((item, index) => (
                 <motion.div 
                   key={item.id}
-                  variants={{
-                    hidden: { opacity: 0, y: 20 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.08 }}
                   className="bg-white border border-linen rounded-2xl p-6 shadow-xs relative overflow-hidden flex flex-col justify-between"
                   id={`patient-testimonial-${item.id}`}
                 >
@@ -419,12 +445,24 @@ export default function FeedbackSection() {
                       <span className="w-2 h-2 rounded-full bg-emerald-500" />
                       <span>{item.name}</span>
                     </span>
-                    <span className="text-[10px] font-semibold">{item.date}</span>
+                    <div className="flex items-center space-x-3">
+                      <span className="text-[10px] font-semibold">{item.date}</span>
+                      {item.id.startsWith("local-") && (
+                        <button 
+                          onClick={() => handleDeleteReview(item.id)} 
+                          className="text-red-400 hover:text-red-600 transition-colors cursor-pointer p-1" 
+                          aria-label="Delete review"
+                          title="Remove your review"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </motion.div>
               ))
             )}
-          </motion.div>
+          </div>
 
         </div>
 
