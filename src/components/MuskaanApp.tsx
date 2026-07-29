@@ -1363,7 +1363,7 @@ export default function App() {
 
                           <div className="grid grid-cols-2 gap-1.5 pt-2 text-[11px] text-linen/85 font-semibold">
                             <div className="flex items-center space-x-1">
-                              <Calendar size={12} className="text-seafoam" />
+                              <CalendarCheck size={12} className="text-seafoam" />
                               <span>{app.date}</span>
                             </div>
                             <div className="flex items-center space-x-1">
