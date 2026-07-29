@@ -1056,18 +1056,37 @@ export default function App() {
 
                 {/* WHY CHOOSE US SECTION */}
                 <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                  <div className="text-center mb-10">
+                  <motion.div 
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "100px" }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    className="text-center mb-10"
+                  >
                     <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full">
                       Clinical Standards
                     </span>
                     <h2 className="font-serif text-3xl font-bold text-charcoal mt-3">Why Patients Trust Muskaan</h2>
                     <p className="text-xs sm:text-sm text-charcoal/60 mt-1 max-w-md mx-auto">Discover the foundational pillars that make Dr. Imran's clinical guidance supreme in Amravati.</p>
-                  </div>
+                  </motion.div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <motion.div 
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "100px" }}
+                    variants={{
+                      hidden: { opacity: 0 },
+                      visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } }
+                    }}
+                    className="grid grid-cols-1 md:grid-cols-3 gap-6"
+                  >
                     {WHY_CHOOSE_US.map((wc, idx) => (
-                      <div
+                      <motion.div
                         key={idx}
+                        variants={{
+                          hidden: { opacity: 0, y: 25 },
+                          visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                        }}
                         className="bg-white border border-linen p-6 rounded-2xl shadow-xs text-left space-y-3"
                       >
                         <div className="w-10 h-10 rounded-xl bg-slate-teal/10 text-slate-teal flex items-center justify-center">
@@ -1077,9 +1096,9 @@ export default function App() {
                         </div>
                         <h3 className="font-serif font-bold text-sm text-charcoal">{wc.title}</h3>
                         <p className="text-xs text-charcoal/60 leading-relaxed">{wc.description}</p>
-                      </div>
+                      </motion.div>
                     ))}
-                  </div>
+                  </motion.div>
                 </section>
 
                 {/* TREATMENTS CATALOG GRID */}

@@ -33,12 +33,34 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
   const x = useTransform(scrollYProgress, [0, 1], [-10, 10]);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.03, 1]);
 
+  const fadeInUp: any = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  };
+
+  const staggerContainer: any = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
+      }
+    }
+  };
+
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white text-left" id="about-doctor-section">
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white text-left overflow-hidden" id="about-doctor-section">
       <div className="max-w-7xl mx-auto">
         
         {/* Visual Header */}
-        <div className="text-center mb-12">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "100px" }}
+          variants={fadeInUp}
+          className="text-center mb-12"
+        >
           <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full">
             Chief Consultant
           </span>
@@ -48,16 +70,22 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
           <p className="text-charcoal/70 text-sm max-w-xl mx-auto mt-2">
             Meet the doctor bringing the ultimate integration of modern medical aesthetics and classical homeopathy to Amravati.
           </p>
-        </div>
+        </motion.div>
 
         {/* Doctor Bio Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "100px" }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"
+        >
           
           {/* Column 1: Graphic / Metric Cards */}
           <div className="lg:col-span-5 grid grid-cols-2 gap-4">
             
             {/* Dr Profile card */}
-            <div className="col-span-2 bg-linen/30 border border-linen rounded-2xl flex flex-col overflow-hidden">
+            <motion.div variants={fadeInUp} className="col-span-2 bg-linen/30 border border-linen rounded-2xl flex flex-col overflow-hidden">
               <div ref={imgRef} className="relative h-[460px] w-full overflow-hidden">
                 <motion.div
                   style={{
@@ -95,30 +123,30 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
                 <span className="text-amber-300 text-base">⭐</span>
                 <span>{DOCTOR_PROFILE.credentials} — Maharashtra University of Health Sciences</span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Metric 1 */}
-            <div className="bg-white border border-linen p-5 rounded-2xl text-center space-y-2">
+            <motion.div variants={fadeInUp} className="bg-white border border-linen p-5 rounded-2xl text-center space-y-2">
               <AnimatedCounter value={26} suffix="+" className="text-3xl font-serif font-bold text-slate-teal block tabular-nums" />
               <span className="text-[10px] uppercase font-extrabold text-charcoal/60 tracking-wider block">Years of Practice</span>
               <p className="text-xs text-charcoal/70">Continuous clinical service in Amravati</p>
-            </div>
+            </motion.div>
 
             {/* Metric 2 */}
-            <div className="bg-white border border-linen p-5 rounded-2xl text-center space-y-2">
+            <motion.div variants={fadeInUp} className="bg-white border border-linen p-5 rounded-2xl text-center space-y-2">
               <AnimatedCounter value={15000} suffix="+" className="text-3xl font-serif font-bold text-slate-teal block tabular-nums" />
               <span className="text-[10px] uppercase font-extrabold text-charcoal/60 tracking-wider block">Happy Patients</span>
               <p className="text-xs text-charcoal/70">Across Vidarbha and central India</p>
-            </div>
+            </motion.div>
 
             {/* Trust badge */}
-            <div className="col-span-2 bg-charcoal text-white p-4 rounded-xl flex items-center space-x-3">
+            <motion.div variants={fadeInUp} className="col-span-2 bg-charcoal text-white p-4 rounded-xl flex items-center space-x-3">
               <ShieldCheck className="text-seafoam shrink-0" size={24} />
               <div className="text-left">
                 <span className="text-[10px] uppercase tracking-wider text-seafoam font-bold">Clinical Philosophy</span>
                 <p className="text-xs text-linen/90 leading-tight mt-0.5">Dual-mode constitutional healing focusing on permanent side-effect-free recoveries.</p>
               </div>
-            </div>
+            </motion.div>
 
           </div>
 
@@ -126,16 +154,16 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
           <div className="lg:col-span-7 space-y-6">
             
             {/* Dr Philosophy quote */}
-            <div className="bg-linen/20 border-l-4 border-slate-teal rounded-r-2xl p-6 relative">
+            <motion.div variants={fadeInUp} className="bg-linen/20 border-l-4 border-slate-teal rounded-r-2xl p-6 relative">
               <Quote size={40} className="absolute top-2 right-2 text-slate-teal/10 rotate-180" />
               <h3 className="font-serif text-lg font-bold text-charcoal mb-2">My Message to Patients</h3>
               <p className="text-sm italic text-charcoal/80 leading-relaxed font-serif">
                 "{DOCTOR_PROFILE.philosophy}"
               </p>
-            </div>
+            </motion.div>
 
             {/* Bio text */}
-            <div className="space-y-3">
+            <motion.div variants={fadeInUp} className="space-y-3">
               <h4 className="font-serif text-xl font-bold text-charcoal border-b border-linen pb-2 flex items-center space-x-2">
                 <BookOpen size={18} className="text-slate-teal" />
                 <span>Professional Biography</span>
@@ -143,36 +171,26 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
               <p className="text-sm text-charcoal/75 leading-relaxed">
                 {DOCTOR_PROFILE.bio}
               </p>
-            </div>
+            </motion.div>
 
             {/* Areas of special expertise */}
-            <div>
+            <motion.div variants={fadeInUp}>
               <h4 className="font-serif text-xs uppercase tracking-wider font-bold text-charcoal/60 mb-3">Core Specialty Portfolios</h4>
-              <motion.div 
-                initial="hidden" 
-                whileInView="visible" 
-                viewport={{ once: true, margin: "-10px" }}
-                variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-2"
-              >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {DOCTOR_PROFILE.specialties.map((spec, idx) => (
-                  <motion.div 
+                  <div 
                     key={idx} 
-                    variants={{
-                      hidden: { opacity: 0, y: 25 },
-                      visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
-                    }}
                     className="flex items-center space-x-2 text-xs text-charcoal/80 font-semibold bg-linen/20 py-2 px-3 rounded-lg border border-linen"
                   >
                     <Sparkles size={14} className="text-slate-teal shrink-0" />
                     <span>{spec}</span>
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
-            </div>
+              </div>
+            </motion.div>
 
             {/* Accolades */}
-            <div className="border-t border-linen pt-6 space-y-3">
+            <motion.div variants={fadeInUp} className="border-t border-linen pt-6 space-y-3">
               <h4 className="font-serif text-xs uppercase tracking-wider font-bold text-charcoal/60">Selected Achievements & Milestones</h4>
               <ul className="space-y-2">
                 {DOCTOR_PROFILE.achievements.map((ach, idx) => (
@@ -182,10 +200,10 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
 
             {/* CTA */}
-            <div className="pt-4">
+            <motion.div variants={fadeInUp} className="pt-4">
               <motion.button
                 whileHover={{ y: -2, scale: 1.01, boxShadow: "0 15px 30px -5px rgba(13,148,136,0.40)" }}
                 whileTap={{ scale: 0.98 }}
@@ -196,11 +214,11 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
               >
                 <span>Request Clinical Evaluation with Dr. Shaikh</span>
               </motion.button>
-            </div>
+            </motion.div>
 
           </div>
 
-        </div>
+        </motion.div>
 
       </div>
     </section>
