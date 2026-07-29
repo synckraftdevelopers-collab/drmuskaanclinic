@@ -1083,8 +1083,23 @@ export default function App() {
                 </section>
 
                 {/* TREATMENTS CATALOG GRID */}
-                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="text-center mb-10">
+                {/* TREATMENTS CATALOG GRID */}
+                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                  <style>{`
+                    @keyframes cardShine {
+                      0% { transform: translateX(-100%) skewX(-20deg); }
+                      15% { transform: translateX(200%) skewX(-20deg); }
+                      100% { transform: translateX(200%) skewX(-20deg); }
+                    }
+                  `}</style>
+                  {/* Decorative Background */}
+                  <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden opacity-5">
+                    <div className="absolute top-10 left-10 w-64 h-64 bg-slate-teal rounded-full mix-blend-multiply filter blur-3xl animate-pulse" />
+                    <div className="absolute bottom-10 right-10 w-64 h-64 bg-slate-teal rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-teal/20 via-transparent to-transparent" />
+                  </div>
+
+                  <div className="text-center mb-10 relative z-10">
                     <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full">
                       Treatment Portfolios
                     </span>
@@ -1092,14 +1107,43 @@ export default function App() {
                     <p className="text-xs sm:text-sm text-charcoal/60 mt-1 max-w-md mx-auto">Click any specialty to view comprehensive treatment descriptions, session timings, and medical benefits.</p>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {CLINIC_SERVICES.map((serv) => (
-                      <div
+                  <motion.div 
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-20px" }}
+                    variants={{
+                      hidden: { opacity: 0, y: 25 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut", staggerChildren: 0.12 } }
+                    }}
+                    className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10"
+                  >
+                    {CLINIC_SERVICES.map((serv, idx) => (
+                      <motion.div
                         key={serv.id}
-                        className="bg-white border border-linen p-6 rounded-2xl shadow-xs hover:shadow-md transition-all flex flex-col justify-between text-left"
+                        variants={{
+                          hidden: { opacity: 0, y: 25, scale: 0.95 },
+                          visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: "easeOut" } }
+                        }}
+                        animate={{ 
+                          y: [0, -6, 0], 
+                          boxShadow: [
+                            "0 18px 45px rgba(15,23,42,0.08)", 
+                            "0 22px 50px rgba(13,148,136,0.12)", 
+                            "0 18px 45px rgba(15,23,42,0.08)"
+                          ] 
+                        }}
+                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: idx * 0.5 }}
+                        whileHover={{ y: -10, scale: 1.03, boxShadow: "0 30px 70px rgba(15,23,42,0.14)", transition: { duration: 0.3 } }}
+                        className="group relative bg-[linear-gradient(180deg,#FFFFFF,#FCFEFF)] border border-linen hover:border-[rgba(13,148,136,0.35)] p-6 rounded-2xl transition-all duration-300 flex flex-col justify-between text-left overflow-hidden cursor-pointer"
                       >
-                        <div className="space-y-4">
-                          <div className="w-10 h-10 rounded-full bg-slate-teal/10 text-slate-teal flex items-center justify-center">
+                        {/* Shine Effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-[0.06] pointer-events-none" style={{ animation: 'cardShine 8s ease-in-out infinite' }} />
+                        <div className="space-y-4 relative z-10">
+                          <motion.div 
+                            animate={{ y: [0, -3, 0] }} 
+                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: idx * 0.2 }}
+                            className="w-10 h-10 rounded-full bg-slate-teal/10 text-slate-teal flex items-center justify-center transition-all duration-300 group-hover:scale-[1.15] group-hover:rotate-10 group-hover:drop-shadow-[0_0_8px_rgba(13,148,136,0.4)]"
+                          >
                             {serv.id === 'hair' && <Sparkles size={20} />}
                             {serv.id === 'skin' && <HeartPulse size={20} />}
                             {serv.id === 'homeopathy' && <Activity size={20} />}
@@ -1120,13 +1164,13 @@ export default function App() {
                                 <path d="M 2.2 10.5 c -1.3 -0.6 -1.3 -2.6 0 -3.3 l 1.6 -1.1 a 2.8 2.8 0 0 1 3.6 0.4 l 3 3 c 0.4 0.4 1 0.4 1.4 0 l 3 -3 a 2.8 2.8 0 0 1 3.6 -0.4 l 1.6 1.1 c 1.3 0.7 1.3 2.7 0 3.3 l -3.3 1.8 c -1.3 0.7 -3.7 1.2 -6.1 1.2 s -4.8 -0.5 -6.1 -1.2 Z" />
                               </svg>
                             )}
-                          </div>
-                          <h3 className="font-serif text-xl font-bold text-charcoal">{serv.title}</h3>
-                          <p className="text-xs text-charcoal/60 leading-relaxed font-semibold">"{serv.tagline}"</p>
-                          <p className="text-xs text-charcoal/70 leading-relaxed line-clamp-3">{serv.description}</p>
+                          </motion.div>
+                          <h3 className="font-serif text-xl font-bold text-charcoal transition-colors duration-300 group-hover:text-slate-teal group-hover:tracking-[0.2px]">{serv.title}</h3>
+                          <p className="text-xs text-charcoal/60 leading-relaxed font-semibold transition-opacity duration-300 opacity-[0.88] group-hover:opacity-100">"{serv.tagline}"</p>
+                          <p className="text-xs text-charcoal/70 leading-relaxed line-clamp-3 transition-opacity duration-300 opacity-[0.88] group-hover:opacity-100">{serv.description}</p>
                         </div>
 
-                        <div className="border-t border-linen mt-6 pt-4 flex justify-between items-center">
+                        <div className="border-t border-linen mt-6 pt-4 flex justify-between items-center relative z-10">
                           <motion.button
                             initial={{ opacity: 0, y: 8 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -1152,28 +1196,32 @@ export default function App() {
                                 }, 50);
                               }, 100);
                             }}
-                            className="group relative text-slate-teal font-bold text-xs inline-flex items-center space-x-1 cursor-pointer transition-all duration-300 ease-out after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-slate-teal hover:after:w-full after:transition-all after:duration-300 after:ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-teal/50 rounded-xs"
+                            className="group/link relative text-slate-teal font-bold text-xs inline-flex items-center space-x-1 cursor-pointer transition-all duration-300 ease-out focus:outline-none rounded-xs"
                           >
-                            <span className="transition-transform duration-300 ease-out group-hover:translate-x-0.5">View Catalog</span>
-                            <ChevronRight size={14} className="transition-transform duration-300 ease-out group-hover:translate-x-2 group-hover:rotate-3" />
+                            <span className="transition-transform duration-250 ease-out group-hover/link:translate-x-[3px] relative">
+                              View Catalog
+                              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-slate-teal transition-all duration-250 ease-out group-hover/link:w-full" />
+                            </span>
+                            <ChevronRight size={14} className="transition-transform duration-250 ease-out group-hover/link:translate-x-[8px]" />
                           </motion.button>
                           <motion.button
                             initial={{ opacity: 0, y: 8 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
-                            whileHover={{ y: -2, scale: 1.03 }}
+                            whileHover={{ y: -3, scale: 1.04, boxShadow: "0 10px 30px -5px rgba(13,148,136,0.30)" }}
                             whileTap={{ scale: 0.97, transition: { type: "spring", stiffness: 400, damping: 17 } }}
                             onClick={() => handleOpenBooking(serv.id)}
                             aria-label={`Book Consult for ${serv.title}`}
-                            className="btn-ripple-effect bg-linen/50 text-charcoal hover:bg-slate-teal hover:text-white hover:brightness-110 hover:shadow-[0_10px_30px_rgba(13,148,136,0.20)] font-semibold py-1.5 px-3.5 rounded-lg text-xs transition-all duration-300 ease-out cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-teal/50"
+                            style={{ background: "linear-gradient(135deg, #f8fafc, #f1f5f9)" }}
+                            className="btn-ripple-effect text-charcoal hover:!bg-[linear-gradient(135deg,#0D9488,#0F766E)] hover:text-white font-semibold py-1.5 px-3.5 rounded-lg text-xs transition-all duration-300 ease-out cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-teal/50"
                           >
                             Book Consult
                           </motion.button>
                         </div>
-                      </div>
+                      </motion.div>
                     ))}
-                  </div>
+                  </motion.div>
                 </section>
 
                 {/* TESTIMONIALS CAROUSEL PREVIEW */}
