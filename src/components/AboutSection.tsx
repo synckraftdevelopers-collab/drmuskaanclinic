@@ -159,8 +159,8 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
                   <motion.div 
                     key={idx} 
                     variants={{
-                      hidden: { opacity: 0, y: 15 },
-                      visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                      hidden: { opacity: 0, y: 25 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
                     }}
                     className="flex items-center space-x-2 text-xs text-charcoal/80 font-semibold bg-linen/20 py-2 px-3 rounded-lg border border-linen"
                   >
@@ -186,13 +186,16 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
 
             {/* CTA */}
             <div className="pt-4">
-              <button
+              <motion.button
+                whileHover={{ y: -2, scale: 1.01, boxShadow: "0 15px 30px -5px rgba(13,148,136,0.40)" }}
+                whileTap={{ scale: 0.98 }}
                 onClick={onOpenBooking}
-                className="bg-slate-teal hover:bg-charcoal text-white font-bold py-3 px-6 rounded-xl shadow-md transition-colors text-xs cursor-pointer inline-flex items-center space-x-2"
+                style={{ background: "linear-gradient(135deg, #0D9488, #0F766E)" }}
+                className="text-white font-bold py-3 px-6 rounded-xl shadow-[0_4px_14px_rgba(13,148,136,0.25)] transition-all text-xs cursor-pointer inline-flex items-center space-x-2"
                 id="doctor-profile-book-btn"
               >
                 <span>Request Clinical Evaluation with Dr. Shaikh</span>
-              </button>
+              </motion.button>
             </div>
 
           </div>

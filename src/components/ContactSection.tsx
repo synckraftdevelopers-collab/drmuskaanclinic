@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { CLINIC_INFO } from "../lib/content";
 import { motion } from "motion/react";
-import { Phone, Mail, MapPin, Clock, Send, MessageSquare, RefreshCw, AlertCircle, CheckCircle } from "lucide-react";
+import { PhoneCall, Mail, MapPinned, Clock3, Send, MessageCircle, RefreshCw, AlertCircle, CheckCircle } from "lucide-react";
 import { buildContactWhatsAppUrl, buildContactWhatsAppMessage } from "../lib/whatsapp";
 
 export default function ContactSection() {
@@ -144,7 +144,7 @@ export default function ContactSection() {
                   hidden: { opacity: 0, y: 20 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
                 }}
-                whileHover={{ y: -6, scale: 1.02, boxShadow: "0 20px 35px -10px rgba(13, 148, 136, 0.18)", borderColor: "#0D9488" }}
+                whileHover={{ y: -4, scale: 1.01, boxShadow: "0 20px 35px -10px rgba(13, 148, 136, 0.18)", borderColor: "#0D9488" }}
                 transition={{ duration: 0.3 }}
                 href={`tel:+91${CLINIC_INFO.phone}`}
                 className="bg-white/95 backdrop-blur-md border border-linen p-5 rounded-2xl flex items-start space-x-4 transition-all text-left group shadow-[0_4px_20px_rgb(0,0,0,0.04)]"
@@ -153,10 +153,10 @@ export default function ContactSection() {
                 <motion.div
                   animate={{ y: [0, -3, 0] }}
                   transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                  whileHover={{ scale: 1.15, rotate: 5, boxShadow: "0 0 15px rgba(13, 148, 136, 0.4)" }}
+                  whileHover={{ scale: 1.10, rotate: 5, boxShadow: "0 0 15px rgba(13, 148, 136, 0.4)" }}
                   className="w-10 h-10 rounded-xl bg-slate-teal/10 text-slate-teal flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110"
                 >
-                  <Phone size={18} />
+                  <PhoneCall size={18} />
                 </motion.div>
                 <div className="space-y-1">
                   <span className="text-[10px] uppercase font-extrabold text-charcoal/50 group-hover:text-slate-teal transition-colors">Clinical Dial</span>
@@ -171,7 +171,7 @@ export default function ContactSection() {
                   hidden: { opacity: 0, y: 20 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
                 }}
-                whileHover={{ y: -6, scale: 1.02, boxShadow: "0 20px 35px -10px rgba(16, 185, 129, 0.22)", borderColor: "#10B981" }}
+                whileHover={{ y: -4, scale: 1.01, boxShadow: "0 20px 35px -10px rgba(16, 185, 129, 0.22)", borderColor: "#10B981" }}
                 transition={{ duration: 0.3 }}
                 href={`https://wa.me/${CLINIC_INFO.whatsapp}`}
                 target="_blank"
@@ -182,10 +182,10 @@ export default function ContactSection() {
                 <motion.div
                   animate={{ y: [0, -3, 0] }}
                   transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  whileHover={{ scale: 1.15, rotate: 5, boxShadow: "0 0 15px rgba(16, 185, 129, 0.4)" }}
+                  whileHover={{ scale: 1.10, rotate: 5, boxShadow: "0 0 15px rgba(16, 185, 129, 0.4)" }}
                   className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110 animate-pulse"
                 >
-                  <MessageSquare size={18} />
+                  <MessageCircle size={18} />
                 </motion.div>
                 <div className="space-y-1">
                   <span className="text-[10px] uppercase font-extrabold text-charcoal/50 group-hover:text-emerald-600 transition-colors">WhatsApp Chat</span>
@@ -200,7 +200,7 @@ export default function ContactSection() {
                   hidden: { opacity: 0, y: 20 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
                 }}
-                whileHover={{ y: -6, scale: 1.02, boxShadow: "0 20px 35px -10px rgba(13, 148, 136, 0.18)", borderColor: "#0D9488" }}
+                whileHover={{ y: -4, scale: 1.01, boxShadow: "0 20px 35px -10px rgba(13, 148, 136, 0.18)", borderColor: "#0D9488" }}
                 transition={{ duration: 0.3 }}
                 href={`mailto:${CLINIC_INFO.email}`}
                 className="bg-white/95 backdrop-blur-md border border-linen p-5 rounded-2xl flex items-start space-x-4 transition-all text-left group shadow-[0_4px_20px_rgb(0,0,0,0.04)]"
@@ -209,7 +209,7 @@ export default function ContactSection() {
                 <motion.div
                   animate={{ y: [0, -3, 0] }}
                   transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  whileHover={{ scale: 1.15, rotate: 5, boxShadow: "0 0 15px rgba(13, 148, 136, 0.4)" }}
+                  whileHover={{ scale: 1.10, rotate: 5, boxShadow: "0 0 15px rgba(13, 148, 136, 0.4)" }}
                   className="w-10 h-10 rounded-xl bg-slate-teal/10 text-slate-teal flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110"
                 >
                   <Mail size={18} />
@@ -227,17 +227,17 @@ export default function ContactSection() {
                   hidden: { opacity: 0, y: 20 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
                 }}
-                whileHover={{ y: -6, scale: 1.02, boxShadow: "0 20px 35px -10px rgba(13, 148, 136, 0.18)", borderColor: "#0D9488" }}
+                whileHover={{ y: -4, scale: 1.01, boxShadow: "0 20px 35px -10px rgba(13, 148, 136, 0.18)", borderColor: "#0D9488" }}
                 transition={{ duration: 0.3 }}
                 className="bg-white/95 backdrop-blur-md border border-linen p-5 rounded-2xl flex items-start space-x-4 transition-all text-left group shadow-[0_4px_20px_rgb(0,0,0,0.04)]"
               >
                 <motion.div
                   animate={{ y: [0, -3, 0] }}
                   transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-                  whileHover={{ scale: 1.15, rotate: 5, boxShadow: "0 0 15px rgba(13, 148, 136, 0.4)" }}
+                  whileHover={{ scale: 1.10, rotate: 5, boxShadow: "0 0 15px rgba(13, 148, 136, 0.4)" }}
                   className="w-10 h-10 rounded-xl bg-linen text-charcoal flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110"
                 >
-                  <Clock size={18} />
+                  <Clock3 size={18} />
                 </motion.div>
                 <div className="space-y-1">
                   <span className="text-[10px] uppercase font-extrabold text-charcoal/50 group-hover:text-slate-teal transition-colors">Clinic Timing</span>
@@ -254,17 +254,17 @@ export default function ContactSection() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              whileHover={{ y: -6, scale: 1.01, boxShadow: "0 20px 35px -10px rgba(13, 148, 136, 0.18)", borderColor: "#0D9488" }}
+              whileHover={{ y: -4, scale: 1.01, boxShadow: "0 20px 35px -10px rgba(13, 148, 136, 0.18)", borderColor: "#0D9488" }}
               transition={{ duration: 0.3 }}
               className="bg-white/95 backdrop-blur-md border border-linen p-6 rounded-2xl text-left flex items-start space-x-4 transition-all group shadow-[0_4px_20px_rgb(0,0,0,0.04)]"
             >
               <motion.div
                 animate={{ y: [0, -4, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                whileHover={{ scale: 1.15, rotate: 5, boxShadow: "0 0 15px rgba(13, 148, 136, 0.4)" }}
+                whileHover={{ scale: 1.10, rotate: 5, boxShadow: "0 0 15px rgba(13, 148, 136, 0.4)" }}
                 className="w-12 h-12 rounded-xl bg-slate-teal/10 text-slate-teal flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110"
               >
-                <MapPin size={22} />
+                <MapPinned size={22} />
               </motion.div>
               <div className="space-y-1">
                 <span className="text-[10px] uppercase font-extrabold text-charcoal/50 group-hover:text-slate-teal transition-colors">Physical Location</span>
@@ -313,7 +313,7 @@ export default function ContactSection() {
                   aria-label="Get Directions to Muskaan Clinic Amravati"
                   className="inline-flex items-center justify-center gap-[8px] h-[48px] px-[28px] py-[14px] rounded-[14px] text-[15px] font-semibold text-white cursor-pointer transition-all duration-300 ease-out border border-white/[0.08] shadow-[0_12px_30px_rgba(13,148,136,0.28)] hover:shadow-[0_18px_40px_rgba(13,148,136,0.40)] hover:-translate-y-[2px] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal btn-premium-cta"
                 >
-                  <MapPin size={18} className="shrink-0" />
+                  <MapPinned size={18} className="shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3" />
                   <span>Get Directions</span>
                 </motion.a>
               </div>
@@ -352,7 +352,7 @@ export default function ContactSection() {
                     placeholder="Enter your name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-white border border-linen/80 rounded-xl px-4 py-3 text-xs text-charcoal focus:outline-none focus:border-[#0D9488] focus:ring-4 focus:ring-[#0D9488]/10 shadow-2xs transition-all duration-300 font-semibold"
+                    className="w-full bg-white border border-linen/80 rounded-xl px-4 py-3 text-xs text-charcoal outline-none focus:border-[#0D9488] focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)] shadow-2xs transition-all duration-300 font-semibold"
                     required
                   />
                 </div>
@@ -367,7 +367,7 @@ export default function ContactSection() {
                     placeholder="10-digit Indian format (e.g. 9876543210)"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full bg-white border border-linen/80 rounded-xl px-4 py-3 text-xs text-charcoal focus:outline-none focus:border-[#0D9488] focus:ring-4 focus:ring-[#0D9488]/10 shadow-2xs transition-all duration-300 font-semibold"
+                    className="w-full bg-white border border-linen/80 rounded-xl px-4 py-3 text-xs text-charcoal outline-none focus:border-[#0D9488] focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)] shadow-2xs transition-all duration-300 font-semibold"
                     required
                   />
                 </div>
@@ -382,7 +382,7 @@ export default function ContactSection() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     rows={4}
-                    className="w-full bg-white border border-linen/80 rounded-xl px-4 py-3 text-xs text-charcoal focus:outline-none focus:border-[#0D9488] focus:ring-4 focus:ring-[#0D9488]/10 shadow-2xs transition-all duration-300 resize-y font-semibold placeholder:text-charcoal/40"
+                    className="w-full bg-white border border-linen/80 rounded-xl px-4 py-3 text-xs text-charcoal outline-none focus:border-[#0D9488] focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)] shadow-2xs transition-all duration-300 resize-y font-semibold placeholder:text-charcoal/40"
                     required
                   />
                 </div>
@@ -448,8 +448,8 @@ export default function ContactSection() {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  whileHover={isSubmitting ? {} : { y: -3, scale: 1.03, boxShadow: "0 12px 30px -5px rgba(29, 78, 216, 0.45)" }}
-                  whileTap={isSubmitting ? {} : { scale: 0.97 }}
+                  whileHover={isSubmitting ? {} : { y: -2, scale: 1.01, boxShadow: "0 15px 30px -5px rgba(29, 78, 216, 0.40)" }}
+                  whileTap={isSubmitting ? {} : { scale: 0.98 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   style={{ background: "linear-gradient(135deg, #0B1F4D, #1D4ED8)" }}
                   className="w-full flex items-center justify-center space-x-2.5 text-white font-bold py-3.5 px-5 rounded-xl text-xs transition-all cursor-pointer disabled:opacity-50 shadow-md group relative overflow-hidden"

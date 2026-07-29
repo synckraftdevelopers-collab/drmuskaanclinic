@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sparkles, HeartPulse, Activity, CheckCircle2, Clock, ShieldCheck, Baby } from "lucide-react";
+import { Sparkles, HeartPulse, Activity, CheckCircle2, Clock3 as Clock, ShieldCheck, Baby } from "lucide-react";
 import { motion } from "motion/react";
 import { CLINIC_SERVICES } from "../lib/content";
 
@@ -122,11 +122,12 @@ export default function ServicesSection({ onOpenBooking }: ServicesSectionProps)
             </div>
 
             <motion.button
-              whileHover={{ y: -2, scale: 1.02 }}
+              whileHover={{ y: -2, scale: 1.01, boxShadow: "0 15px 30px -5px rgba(13,148,136,0.40)" }}
               whileTap={{ scale: 0.98, transition: { type: "spring", stiffness: 400, damping: 17 } }}
               onClick={() => onOpenBooking(currentService.id)}
               aria-label={`Book ${currentService.title} Consult`}
-              className="btn-ripple-effect w-full bg-slate-teal hover:bg-charcoal text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 ease-out text-center text-xs shadow-md shadow-slate-teal/10 hover:shadow-[0_10px_30px_rgba(13,148,136,0.20)] hover:brightness-110 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-teal/50"
+              style={{ background: "linear-gradient(135deg, #0D9488, #0F766E)" }}
+              className="btn-ripple-effect w-full text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 ease-out text-center text-xs shadow-md shadow-slate-teal/10 hover:shadow-[0_10px_30px_rgba(13,148,136,0.20)] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-teal/50"
               id={`service-book-btn-${currentService.id}`}
             >
               Book {currentService.title} Consult
@@ -146,10 +147,11 @@ export default function ServicesSection({ onOpenBooking }: ServicesSectionProps)
               <motion.div 
                 key={idx}
                 variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+                  hidden: { opacity: 0, y: 25 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
                 }}
-                className="bg-white border border-linen rounded-xl sm:rounded-2xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all space-y-3 sm:space-y-4 overflow-hidden w-full"
+                whileHover={{ y: -4, scale: 1.01, boxShadow: "0 15px 35px -5px rgba(13,148,136,0.12)", borderColor: "rgba(13,148,136,0.3)" }}
+                className="bg-white border border-linen rounded-xl sm:rounded-2xl p-5 sm:p-6 shadow-[0_4px_20px_rgb(0,0,0,0.04)] transition-all space-y-3 sm:space-y-4 overflow-hidden w-full"
               >
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 sm:gap-2">
                   <div className="min-w-0">

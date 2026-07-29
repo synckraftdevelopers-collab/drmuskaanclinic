@@ -280,10 +280,11 @@ export default function GallerySection() {
             <motion.div 
               key={img.id}
               variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+                hidden: { opacity: 0, y: 25 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
               }}
-              className="bg-white border border-linen rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-all group flex flex-col text-left"
+              whileHover={{ y: -4, scale: 1.01, boxShadow: "0 15px 35px -5px rgba(13,148,136,0.12)", borderColor: "rgba(13,148,136,0.3)" }}
+              className="bg-white border border-linen rounded-2xl overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] transition-all group flex flex-col text-left"
               id={`gallery-item-${img.id}`}
             >
               {/* Image Container with SVG illustration representing the space */}

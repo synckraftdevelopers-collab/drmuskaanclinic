@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { PhoneCall, Clock3, MapPin, Award, Menu, X, Calendar } from "lucide-react";
+import { PhoneCall, Clock3, MapPinned, ShieldCheck, Menu, X, CalendarCheck } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { CLINIC_INFO } from "../lib/content";
 
@@ -53,13 +53,13 @@ export default function Header({ activeTab, setActiveTab, onOpenBooking }: Heade
           </div>
           <div className="flex items-center md:space-x-[40px] lg:space-x-[56px]">
             <span className="flex items-center space-x-[10px] group transition-colors duration-[250ms] cursor-default">
-              <MapPin size={18} className="text-[#2DD4BF] transition-transform duration-[250ms] group-hover:scale-[1.08]" aria-hidden="true" />
+              <MapPinned size={18} className="text-[#2DD4BF] transition-transform duration-[250ms] group-hover:scale-[1.08]" aria-hidden="true" />
               <span className="font-[500] text-[rgba(255,255,255,0.85)] group-hover:text-[#FFFFFF] transition-colors duration-[250ms]">
                 {CLINIC_INFO.city}, {CLINIC_INFO.state}
               </span>
             </span>
             <span className="flex items-center space-x-[10px] group transition-colors duration-[250ms] cursor-default">
-              <Award size={18} className="text-[#2DD4BF] transition-transform duration-[250ms] group-hover:scale-[1.08]" aria-hidden="true" />
+              <ShieldCheck size={18} className="text-[#2DD4BF] transition-transform duration-[250ms] group-hover:scale-[1.08]" aria-hidden="true" />
               <span className="font-[600] text-[#FFFFFF] group-hover:text-[#FFFFFF] transition-colors duration-[250ms]">
                 {CLINIC_INFO.experience} of Clinical Practice
               </span>
@@ -112,14 +112,13 @@ export default function Header({ activeTab, setActiveTab, onOpenBooking }: Heade
           ))}
         </nav>
 
-        {/* CTA Button */}
         <div className="hidden sm:flex items-center space-x-4">
           <button
             onClick={onOpenBooking}
-            className="flex items-center space-x-2 bg-slate-teal hover:bg-charcoal text-white font-semibold py-2.5 px-5 rounded-full shadow-md shadow-slate-teal/10 hover:shadow-lg transition-all transform hover:-translate-y-0.5 text-xs sm:text-sm cursor-pointer"
+            className="flex items-center space-x-2 bg-gradient-to-r from-slate-teal to-[#0d7c73] hover:from-[#0b655e] hover:to-[#084b46] text-white font-semibold py-2.5 px-6 rounded-full shadow-[0_4px_14px_rgba(13,148,136,0.25)] hover:shadow-[0_6px_20px_rgba(13,148,136,0.4)] transition-all duration-300 transform hover:-translate-y-1 hover:scale-102 group focus:ring-4 focus:ring-slate-teal/20 outline-none text-xs sm:text-sm cursor-pointer"
             id="header-booking-btn"
           >
-            <Calendar size={16} className="text-seafoam" />
+            <CalendarCheck size={16} className="text-seafoam transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3" />
             <span>Book Consultation</span>
           </button>
         </div>
@@ -167,10 +166,10 @@ export default function Header({ activeTab, setActiveTab, onOpenBooking }: Heade
                     setMobileMenuOpen(false);
                     onOpenBooking();
                   }}
-                  className="flex items-center justify-center space-x-2 bg-slate-teal text-white font-bold py-3 px-4 rounded-full shadow-md text-sm cursor-pointer"
+                  className="flex items-center justify-center space-x-2 bg-gradient-to-r from-slate-teal to-[#0d7c73] hover:from-[#0b655e] hover:to-[#084b46] text-white font-bold py-3 px-4 rounded-full shadow-[0_4px_14px_rgba(13,148,136,0.25)] hover:shadow-[0_6px_20px_rgba(13,148,136,0.4)] transition-all duration-300 transform hover:-translate-y-1 hover:scale-102 group text-sm cursor-pointer"
                   id="mobile-booking-btn"
                 >
-                  <Calendar size={16} />
+                  <CalendarCheck size={16} className="transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3" />
                   <span>Book Appointment</span>
                 </button>
                 <div className="text-center text-xs text-charcoal/60 pt-2 space-y-1">

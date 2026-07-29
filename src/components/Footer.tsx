@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Smile, MapPin, Phone, Mail, Clock, ShieldCheck, Heart, ExternalLink, CalendarCheck } from "lucide-react";
+import { Smile, MapPinned, PhoneCall, Mail, Clock3, ShieldCheck, Heart, ExternalLink, CalendarCheck } from "lucide-react";
 import { motion } from "motion/react";
 import { CLINIC_INFO, DOCTOR_PROFILE } from "../lib/content";
 
@@ -16,10 +16,10 @@ export default function Footer({ setActiveTab, onOpenBooking }: FooterProps) {
   return (
     <footer className="bg-charcoal text-white pt-16 pb-8 border-t-4 border-slate-teal overflow-hidden relative">
       <motion.div 
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 25 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -85,7 +85,7 @@ export default function Footer({ setActiveTab, onOpenBooking }: FooterProps) {
               {CLINIC_INFO.hours.map((h, i) => (
                 <div key={i} className="flex flex-col space-y-0.5">
                   <span className="font-semibold text-white flex items-center space-x-1.5">
-                    <Clock size={14} className="text-seafoam" />
+                    <Clock3 size={14} className="text-seafoam" />
                     <span>{h.days}</span>
                   </span>
                   <span className="pl-5 text-xs text-linen/75">{h.timings}</span>
@@ -95,9 +95,9 @@ export default function Footer({ setActiveTab, onOpenBooking }: FooterProps) {
                 <button
                   onClick={onOpenBooking}
                   aria-label="Book Priority Appointment"
-                  className="w-full inline-flex items-center justify-center gap-[6px] h-[44px] px-[18px] py-[10px] rounded-[12px] text-[14px] font-semibold text-white cursor-pointer transition-all duration-300 ease-out shadow-[0_10px_30px_rgba(13,148,136,0.30)] hover:shadow-[0_18px_40px_rgba(13,148,136,0.40)] hover:-translate-y-[2px] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-seafoam focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal btn-footer-priority"
+                  className="w-full inline-flex items-center justify-center gap-[6px] h-[44px] px-[18px] py-[10px] rounded-[12px] text-[14px] font-semibold text-white cursor-pointer transition-all duration-300 ease-out shadow-[0_10px_30px_rgba(13,148,136,0.30)] hover:shadow-[0_18px_40px_rgba(13,148,136,0.40)] hover:-translate-y-[2px] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-seafoam focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal bg-gradient-to-r from-slate-teal to-[#0d7c73] hover:from-[#0b655e] hover:to-[#084b46] group"
                 >
-                  <CalendarCheck size={16} className="shrink-0" />
+                  <CalendarCheck size={16} className="shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3" />
                   <span>Book Priority Appointment</span>
                 </button>
               </div>
@@ -111,11 +111,11 @@ export default function Footer({ setActiveTab, onOpenBooking }: FooterProps) {
             </h3>
             <ul className="space-y-3 text-sm text-linen/80">
               <li className="flex items-start space-x-2.5">
-                <MapPin size={16} className="text-seafoam shrink-0 mt-1" />
+                <MapPinned size={16} className="text-seafoam shrink-0 mt-1" />
                 <span className="leading-tight">{CLINIC_INFO.address}</span>
               </li>
               <li className="flex items-start space-x-2.5">
-                <Phone size={16} className="text-seafoam shrink-0 mt-1" />
+                <PhoneCall size={16} className="text-seafoam shrink-0 mt-1" />
                 <span>
                   Primary: +91 {CLINIC_INFO.phone}<br />
                   WhatsApp: +91 {CLINIC_INFO.phone}
@@ -168,9 +168,9 @@ export default function Footer({ setActiveTab, onOpenBooking }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Get Directions to Muskaan Clinic Amravati"
-                className="inline-flex items-center justify-center gap-[8px] h-[48px] px-[28px] py-[14px] rounded-[14px] text-[15px] font-semibold text-white cursor-pointer transition-all duration-300 ease-out border border-white/[0.08] shadow-[0_12px_30px_rgba(13,148,136,0.28)] hover:shadow-[0_18px_40px_rgba(13,148,136,0.40)] hover:-translate-y-[2px] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal btn-premium-cta"
+                className="inline-flex items-center justify-center gap-[8px] h-[48px] px-[28px] py-[14px] rounded-[14px] text-[15px] font-semibold text-white cursor-pointer transition-all duration-300 ease-out border border-white/[0.08] shadow-[0_12px_30px_rgba(13,148,136,0.28)] hover:shadow-[0_18px_40px_rgba(13,148,136,0.40)] hover:-translate-y-[2px] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal bg-gradient-to-r from-slate-teal to-[#0d7c73] hover:from-[#0b655e] hover:to-[#084b46] group"
               >
-                <MapPin size={18} className="shrink-0" />
+                <MapPinned size={18} className="shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3" />
                 <span>Get Directions</span>
               </motion.a>
             </div>

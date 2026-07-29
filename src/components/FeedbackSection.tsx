@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Star, MessageSquare, Quote, User, Sparkles, RefreshCw, ThumbsUp, Send, Trash2 } from "lucide-react";
+import { Star, MessageCircle, Quote, UserCircle, Sparkles, RefreshCw, ThumbsUp, Send, Trash2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Testimonial } from "../types";
 
@@ -247,7 +247,7 @@ export default function FeedbackSection() {
             >
               <div className="border-b border-linen/80 pb-3.5">
                 <h3 className="font-serif text-lg font-bold text-charcoal flex items-center space-x-2">
-                  <MessageSquare size={18} className="text-slate-teal" />
+                  <MessageCircle size={18} className="text-slate-teal" />
                   <span>Share Your Experience</span>
                 </h3>
                 <p className="text-xs text-charcoal/60 mt-1 font-medium">
@@ -262,13 +262,13 @@ export default function FeedbackSection() {
                     Your Name *
                   </label>
                   <div className="relative">
-                    <User size={14} className="absolute left-3.5 top-3 text-charcoal/40" />
+                    <UserCircle size={14} className="absolute left-3.5 top-3 text-charcoal/40" />
                     <input
                       type="text"
                       placeholder="Jane Doe"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full bg-white border border-linen/80 rounded-xl pl-9 pr-3.5 py-2.5 text-xs text-charcoal focus:outline-none focus:border-[#0D9488] focus:ring-4 focus:ring-[#0D9488]/10 shadow-2xs transition-all duration-300 font-semibold"
+                      className="w-full bg-white border border-linen/80 rounded-xl pl-9 pr-3.5 py-2.5 text-xs text-charcoal outline-none focus:border-[#0D9488] focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)] shadow-2xs transition-all duration-300 font-semibold"
                       required
                     />
                   </div>
@@ -282,7 +282,7 @@ export default function FeedbackSection() {
                   <select
                     value={service}
                     onChange={(e) => setService(e.target.value)}
-                    className="w-full bg-white border border-linen/80 rounded-xl px-3.5 py-2.5 text-xs text-charcoal focus:outline-none focus:border-[#0D9488] focus:ring-4 focus:ring-[#0D9488]/10 shadow-2xs transition-all duration-300 font-semibold"
+                    className="w-full bg-white border border-linen/80 rounded-xl px-3.5 py-2.5 text-xs text-charcoal outline-none focus:border-[#0D9488] focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)] shadow-2xs transition-all duration-300 font-semibold"
                   >
                     <option value="Hair Restoration">Hair Restoration (PRP / Meso)</option>
                     <option value="Skin Care & Aesthetics">Skin Care (Peels / Hydra)</option>
@@ -332,7 +332,7 @@ export default function FeedbackSection() {
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                     rows={3}
-                    className="w-full bg-white border border-linen/80 rounded-xl px-3.5 py-2.5 text-xs text-charcoal focus:outline-none focus:border-[#0D9488] focus:ring-4 focus:ring-[#0D9488]/10 shadow-2xs transition-all duration-300 resize-none font-semibold"
+                    className="w-full bg-white border border-linen/80 rounded-xl px-3.5 py-2.5 text-xs text-charcoal outline-none focus:border-[#0D9488] focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)] shadow-2xs transition-all duration-300 resize-none font-semibold"
                     required
                   />
                 </div>
@@ -366,8 +366,8 @@ export default function FeedbackSection() {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  whileHover={isSubmitting ? {} : { y: -3, scale: 1.02, boxShadow: "0 10px 25px -5px rgba(30, 58, 138, 0.4)" }}
-                  whileTap={isSubmitting ? {} : { scale: 0.97 }}
+                  whileHover={isSubmitting ? {} : { y: -2, scale: 1.01, boxShadow: "0 15px 30px -5px rgba(30, 58, 138, 0.40)" }}
+                  whileTap={isSubmitting ? {} : { scale: 0.98 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   style={{ background: "linear-gradient(135deg, #0B1F4D, #1E3A8A)" }}
                   className="w-full flex items-center justify-center space-x-2.5 text-white font-bold py-3 px-5 rounded-xl text-xs transition-all cursor-pointer disabled:opacity-50 shadow-md group relative overflow-hidden"
@@ -408,10 +408,11 @@ export default function FeedbackSection() {
               feedbacks.map((item, index) => (
                 <motion.div 
                   key={item.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 25 }}
                   animate={{ opacity: 1, y: 0 }}
+                  whileHover={{ y: -4, scale: 1.01, boxShadow: "0 15px 35px -5px rgba(13,148,136,0.12)", borderColor: "rgba(13,148,136,0.3)" }}
                   transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.08 }}
-                  className="bg-white border border-linen rounded-2xl p-6 shadow-xs relative overflow-hidden flex flex-col justify-between"
+                  className="bg-white border border-linen rounded-2xl p-6 shadow-[0_4px_20px_rgb(0,0,0,0.04)] relative overflow-hidden flex flex-col justify-between transition-colors"
                   id={`patient-testimonial-${item.id}`}
                 >
                   <Quote size={40} className="absolute -top-1 -right-1 text-linen/30 rotate-180" />

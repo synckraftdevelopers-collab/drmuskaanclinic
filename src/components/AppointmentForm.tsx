@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Calendar as CalendarIcon, Clock, User, Phone, Mail, FileText, CheckCircle2, ArrowRight, X, Sparkles, RefreshCw, MapPin, Upload, Video, Wifi, Globe, Activity, Pill, AlertCircle, Hospital, MonitorSmartphone } from "lucide-react";
+import { CalendarCheck as CalendarIcon, Clock3 as Clock, UserCircle as User, PhoneCall as Phone, Mail, FileText, CheckCircle2, ArrowRight, X, Sparkles, RefreshCw, MapPinned as MapPin, Upload, Video, Wifi, Globe, Activity, Pill, AlertCircle, Hospital, MonitorSmartphone } from "lucide-react";
 import { CLINIC_SERVICES, TIME_SLOTS } from "../lib/content";
 import { Appointment } from "../types";
 import { buildWhatsAppUrl, buildWhatsAppMessage, ConsultationFormData } from "../lib/whatsapp";
@@ -522,7 +522,7 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                 <select
                   value={subService}
                   onChange={(e) => setSubService(e.target.value)}
-                  className="w-full bg-white border border-linen rounded-xl px-4 py-3.5 text-sm text-charcoal focus:outline-none focus:border-slate-teal focus:ring-2 focus:ring-slate-teal/20 transition-all font-medium"
+                  className="w-full bg-white border border-linen rounded-xl px-4 py-3.5 text-sm text-charcoal outline-none focus:border-slate-teal focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)] focus:ring-2 focus:ring-slate-teal/20 transition-all font-medium"
                 >
                   {selectedService.subServices.map((sub, idx) => (
                     <option key={idx} value={sub.name}>
@@ -546,7 +546,7 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                   min={getMinDate()}
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-slate-teal transition-all font-semibold"
+                  className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal outline-none focus:border-slate-teal focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)] transition-all font-semibold"
                   required
                 />
               </div>
@@ -559,7 +559,7 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                 <select
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
-                  className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-slate-teal transition-all font-semibold"
+                  className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal outline-none focus:border-slate-teal focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)] transition-all font-semibold"
                   required
                   disabled={isSunday}
                 >
@@ -588,7 +588,7 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                     placeholder="Patient's Full Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-slate-teal"
+                    className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal outline-none focus:border-slate-teal focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)]"
                     required
                   />
                 </div>
@@ -599,7 +599,7 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                     placeholder="10-digit mobile number"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-slate-teal"
+                    className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal outline-none focus:border-slate-teal focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)]"
                     required
                   />
                 </div>
@@ -613,7 +613,7 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                     placeholder="Years"
                     value={age}
                     onChange={(e) => setAge(e.target.value)}
-                    className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-slate-teal"
+                    className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal outline-none focus:border-slate-teal focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)]"
                     required
                   />
                 </div>
@@ -622,7 +622,7 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                   <select
                     value={gender}
                     onChange={(e) => setGender(e.target.value)}
-                    className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-slate-teal font-semibold"
+                    className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal outline-none focus:border-slate-teal focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)] font-semibold"
                   >
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -636,7 +636,7 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                     placeholder="City"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-slate-teal"
+                    className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal outline-none focus:border-slate-teal focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)]"
                     required
                   />
                 </div>
@@ -657,7 +657,7 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                     <select
                       value={meetingPlatform}
                       onChange={(e) => setMeetingPlatform(e.target.value)}
-                      className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-slate-teal font-semibold"
+                      className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal outline-none focus:border-slate-teal focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)] font-semibold"
                     >
                       <option value="Google Meet">Google Meet</option>
                       <option value="Zoom">Zoom</option>
@@ -675,7 +675,7 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                     value={symptoms}
                     onChange={(e) => setSymptoms(e.target.value)}
                     rows={4}
-                    className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-slate-teal resize-none"
+                    className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal outline-none focus:border-slate-teal focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)] resize-none"
                   />
                   <p className="text-[10px] text-right text-charcoal/40 mt-1">{symptoms.length}/1000</p>
                 </div>
@@ -733,7 +733,7 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                       value={medicineDetails}
                       onChange={(e) => setMedicineDetails(e.target.value)}
                       rows={2}
-                      className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-slate-teal resize-none"
+                      className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal outline-none focus:border-slate-teal focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)] resize-none"
                     />
                   </div>
                 )}
@@ -745,7 +745,7 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                     placeholder="10-digit mobile number"
                     value={emergencyContact}
                     onChange={(e) => setEmergencyContact(e.target.value)}
-                    className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-slate-teal"
+                    className="w-full bg-white border border-linen rounded-xl px-4 py-3 text-sm text-charcoal outline-none focus:border-slate-teal focus:ring-0 focus:shadow-[0_0_0_4px_rgba(13,148,136,0.10)]"
                   />
                 </div>
 
@@ -765,9 +765,10 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                whileHover={isSubmitting ? {} : { scale: 1.01 }}
+                whileHover={isSubmitting ? {} : { y: -2, scale: 1.01, boxShadow: "0 15px 30px -5px rgba(13,148,136,0.40)" }}
                 whileTap={isSubmitting ? {} : { scale: 0.98 }}
-                className="w-full flex items-center justify-center space-x-2 bg-slate-teal hover:bg-charcoal text-white font-bold py-4 px-6 rounded-xl shadow-md transition-all cursor-pointer text-base disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ background: "linear-gradient(135deg, #0D9488, #0F766E)" }}
+                className="w-full flex items-center justify-center space-x-2 text-white font-bold py-4 px-6 rounded-xl shadow-[0_4px_14px_rgba(13,148,136,0.25)] transition-all cursor-pointer text-base disabled:opacity-50 disabled:cursor-not-allowed group"
               >
                 {isSubmitting ? (
                   <>
@@ -776,9 +777,9 @@ export default function AppointmentForm({ onClose, onAppointmentCreated, preSele
                   </>
                 ) : (
                   <>
-                    <Sparkles size={20} className="text-seafoam" />
+                    <Sparkles size={20} className="text-seafoam transition-transform duration-300 group-hover:scale-110" />
                     <span>Submit Request</span>
-                    <ArrowRight size={20} className="ml-1" />
+                    <ArrowRight size={20} className="ml-1 transition-transform duration-300 group-hover:translate-x-1" />
                   </>
                 )}
               </motion.button>

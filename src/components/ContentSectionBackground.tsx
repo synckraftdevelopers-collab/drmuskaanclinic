@@ -75,37 +75,40 @@ export default function ContentSectionBackground() {
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0" aria-hidden="true">
+      <div className="absolute inset-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-seafoam/10 via-transparent to-transparent opacity-50" />
+      <div className="absolute inset-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-seafoam/10 via-transparent to-transparent opacity-50" />
+
       {/* 3. Animated Gradient Mesh */}
       <div className="absolute inset-0 w-full h-full animate-content-mesh" />
 
       {/* 1. Floating Medical Gradient Blobs (7 large circles, blur 120px) */}
       <div 
         className="absolute top-[5%] left-[3%] w-[450px] h-[450px] rounded-full animate-content-blob-20" 
-        style={{ backgroundColor: "rgba(13,148,136,0.08)", filter: "blur(120px)" }} 
+        style={{ backgroundColor: "rgba(13,148,136,0.05)", filter: "blur(120px)" }} 
       />
       <div 
         className="absolute top-[20%] right-[5%] w-[500px] h-[500px] rounded-full animate-content-blob-25" 
-        style={{ backgroundColor: "rgba(20,184,166,0.06)", filter: "blur(120px)" }} 
+        style={{ backgroundColor: "rgba(20,184,166,0.04)", filter: "blur(120px)" }} 
       />
       <div 
         className="absolute top-[40%] left-[15%] w-[550px] h-[550px] rounded-full animate-content-blob-30" 
-        style={{ backgroundColor: "rgba(37,99,235,0.05)", filter: "blur(120px)" }} 
+        style={{ backgroundColor: "rgba(37,99,235,0.04)", filter: "blur(120px)" }} 
       />
       <div 
         className="absolute top-[55%] right-[12%] w-[480px] h-[480px] rounded-full animate-content-blob-35" 
-        style={{ backgroundColor: "rgba(13,148,136,0.07)", filter: "blur(120px)" }} 
+        style={{ backgroundColor: "rgba(13,148,136,0.05)", filter: "blur(120px)" }} 
       />
       <div 
         className="absolute top-[75%] left-[8%] w-[520px] h-[520px] rounded-full animate-content-blob-22" 
-        style={{ backgroundColor: "rgba(20,184,166,0.06)", filter: "blur(120px)" }} 
+        style={{ backgroundColor: "rgba(20,184,166,0.04)", filter: "blur(120px)" }} 
       />
       <div 
         className="absolute top-[85%] right-[20%] w-[460px] h-[460px] rounded-full animate-content-blob-28" 
-        style={{ backgroundColor: "rgba(37,99,235,0.05)", filter: "blur(120px)" }} 
+        style={{ backgroundColor: "rgba(37,99,235,0.04)", filter: "blur(120px)" }} 
       />
       <div 
         className="absolute top-[30%] left-[55%] w-[400px] h-[400px] rounded-full animate-content-blob-32" 
-        style={{ backgroundColor: "rgba(13,148,136,0.06)", filter: "blur(120px)" }} 
+        style={{ backgroundColor: "rgba(13,148,136,0.05)", filter: "blur(120px)" }} 
       />
 
       {/* 6. Soft Pulse Glow */}
@@ -135,7 +138,7 @@ export default function ContentSectionBackground() {
             top: p.top,
             width: `${p.size}px`,
             height: `${p.size}px`,
-            opacity: 0.12,
+            opacity: 0.05,
             animationDelay: p.delay
           }}
         />
