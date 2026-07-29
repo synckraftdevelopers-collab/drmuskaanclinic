@@ -1484,10 +1484,28 @@ export default function App() {
                 </p>
               </div>
 
-              <div className="space-y-4">
+              <motion.div 
+                className="space-y-4"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20px" }}
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.1
+                    }
+                  }
+                }}
+              >
                 {CLINIC_FAQS.map((faq, idx) => (
-                  <div
+                  <motion.div
                     key={idx}
+                    variants={{
+                      hidden: { opacity: 0, y: 20 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                    }}
                     className="bg-white border border-linen rounded-2xl overflow-hidden shadow-xs transition-all"
                   >
                     <button
@@ -1504,14 +1522,24 @@ export default function App() {
                       />
                     </button>
 
-                    {expandedFaqIndex === idx && (
-                      <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-charcoal/75 border-t border-linen/50 bg-[#F0F7FC] animate-fade-in leading-relaxed text-left">
-                        {faq.answer}
-                      </div>
-                    )}
-                  </div>
+                    <AnimatePresence initial={false}>
+                      {expandedFaqIndex === idx && (
+                        <motion.div 
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                        >
+                          <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-charcoal/75 border-t border-linen/50 bg-[#F0F7FC] leading-relaxed text-left">
+                            {faq.answer}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
 
               {/* Consultation appeal */}
               <div className="mt-10 bg-white border border-linen rounded-2xl p-6 text-center space-y-4">
