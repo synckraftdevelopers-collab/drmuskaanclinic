@@ -57,6 +57,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased overflow-x-hidden max-w-full bg-global-medical-gradient">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <JsonLd />
       </head>
       <body className="min-h-full w-full max-w-full flex flex-col overflow-x-hidden bg-global-medical-gradient">

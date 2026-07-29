@@ -129,6 +129,8 @@ export default function Header({ activeTab, setActiveTab, onOpenBooking }: Heade
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="text-charcoal focus:outline-none p-1.5 rounded-md hover:bg-linen/50 transition-colors"
             id="mobile-menu-toggle"
+            aria-label={mobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

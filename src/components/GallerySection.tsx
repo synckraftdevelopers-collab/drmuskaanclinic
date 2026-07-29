@@ -32,7 +32,6 @@ export default function GallerySection() {
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-center transition-transform duration-500 hover:scale-105"
-            priority
           />
         </div>
       );
@@ -47,7 +46,6 @@ export default function GallerySection() {
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-center transition-transform duration-500 hover:scale-105"
-            priority
           />
         </div>
       );
@@ -62,7 +60,6 @@ export default function GallerySection() {
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-center transition-transform duration-500 hover:scale-105"
-            priority
           />
         </div>
       );
@@ -77,7 +74,6 @@ export default function GallerySection() {
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-center transition-transform duration-500 hover:scale-105"
-            priority
           />
         </div>
       );
@@ -92,7 +88,6 @@ export default function GallerySection() {
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 hover:scale-105"
-            priority
           />
         </div>
       );
@@ -107,7 +102,6 @@ export default function GallerySection() {
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-[center_20%] transition-transform duration-500 hover:scale-105"
-            priority
           />
         </div>
       );
@@ -122,7 +116,6 @@ export default function GallerySection() {
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-center transition-transform duration-500 hover:scale-105"
-            priority
           />
         </div>
       );
