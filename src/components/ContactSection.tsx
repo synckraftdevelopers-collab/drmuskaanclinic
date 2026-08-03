@@ -241,7 +241,7 @@ export default function ContactSection() {
                 </motion.div>
                 <div className="space-y-1">
                   <span className="text-[10px] uppercase font-extrabold text-charcoal/50 group-hover:text-slate-teal transition-colors">Clinic Timing</span>
-                  <p className="text-xs font-bold text-charcoal">10:00 AM – 2:30 PM</p>
+                  <p className="text-xs font-bold text-charcoal">10:30 AM – 2:30 PM</p>
                   <p className="text-xs font-bold text-charcoal">6:30 PM – 9:30 PM</p>
                   <p className="text-[10px] text-charcoal/40 font-medium">Monday – Saturday</p>
                 </div>

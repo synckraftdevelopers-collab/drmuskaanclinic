@@ -37,7 +37,7 @@ export default function JsonLd() {
           'Friday',
           'Saturday'
         ],
-        opens: '10:00',
+        opens: '10:30',
         closes: '14:30'
       },
       {

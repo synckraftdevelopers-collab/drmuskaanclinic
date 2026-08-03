@@ -33,8 +33,8 @@ export function getMedicalClinicSchema() {
       {
         "@type": "OpeningHoursSpecification",
         "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        "opens": "10:00",
-        "closes": "13:30"
+        "opens": "10:30",
+        "closes": "14:30"
       },
       {
         "@type": "OpeningHoursSpecification",

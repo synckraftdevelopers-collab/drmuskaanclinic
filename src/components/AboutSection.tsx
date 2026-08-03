@@ -2,8 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
-import { Award, Briefcase, Users, Calendar, BookOpen, Quote, Sparkles, ShieldCheck } from "lucide-react";
-import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
+import { Award, Briefcase, Users, Calendar, BookOpen, Quote, Sparkles, ShieldCheck, ChevronLeft, ChevronRight } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { DOCTOR_PROFILE } from "../lib/content";
 import { AnimatedCounter } from "./MuskaanApp";
 
@@ -11,27 +11,45 @@ interface AboutSectionProps {
   onOpenBooking: () => void;
 }
 
+const doctorGallery = [
+  {
+    src: "/doctor-gallery/dr-imran-clinic-portrait.jpg",
+    alt: "Dr. Mohammad Imran Shaikh standing in his consultation room at Muskaan Clinic",
+    position: "object-[62%_center]",
+  },
+  {
+    src: "/doctor-gallery/dr-imran-consultation-portrait.jpg",
+    alt: "Dr. Mohammad Imran Shaikh seated at his consultation desk",
+    position: "object-center",
+  },
+  {
+    src: "/doctor-gallery/dr-imran-at-work.jpg",
+    alt: "Dr. Mohammad Imran Shaikh preparing clinical notes at his desk",
+    position: "object-center",
+  },
+  {
+    src: "/doctor-gallery/dr-imran-treatment-room.jpg",
+    alt: "Dr. Mohammad Imran Shaikh in a Muskaan Clinic treatment room",
+    position: "object-center",
+  },
+];
+
 export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
-  const imgRef = React.useRef<HTMLDivElement>(null);
-  const shouldReduceMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = React.useState(false);
+  const [[activeDoctorPhoto, slideDirection], setActiveDoctorPhoto] = React.useState<[number, number]>([0, 0]);
 
-  React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const moveDoctorPhoto = (direction: number) => {
+    setActiveDoctorPhoto(([currentPhoto]) => [
+      (currentPhoto + direction + doctorGallery.length) % doctorGallery.length,
+      direction,
+    ]);
+  };
 
-  const { scrollYProgress } = useScroll({
-    target: imgRef,
-    offset: ["start end", "end start"]
-  });
-
-  // 2. Doctor Image Parallax: X=10px, Y=20px, Scale max 1.03
-  const y = useTransform(scrollYProgress, [0, 1], [-20, 20]);
-  const x = useTransform(scrollYProgress, [0, 1], [-10, 10]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.03, 1]);
+  const selectDoctorPhoto = (photoIndex: number) => {
+    setActiveDoctorPhoto(([currentPhoto]) => [
+      photoIndex,
+      photoIndex >= currentPhoto ? 1 : -1,
+    ]);
+  };
 
   const fadeInUp: any = {
     hidden: { opacity: 0, y: 30 },
@@ -86,29 +104,73 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
             
             {/* Dr Profile card */}
             <motion.div variants={fadeInUp} className="col-span-2 bg-linen/30 border border-linen rounded-2xl flex flex-col overflow-hidden">
-              <div ref={imgRef} className="relative h-[460px] w-full overflow-hidden">
-                <motion.div
-                  style={{
-                    y: (shouldReduceMotion || isMobile) ? 0 : y,
-                    x: (shouldReduceMotion || isMobile) ? 0 : x,
-                    scale: (shouldReduceMotion || isMobile) ? 1 : scale,
-                  }}
-                  className="absolute inset-0 w-full h-full"
+              <div className="relative h-[460px] w-full overflow-hidden">
+                <AnimatePresence initial={false} custom={slideDirection}>
+                  <motion.div
+                    key={doctorGallery[activeDoctorPhoto].src}
+                    custom={slideDirection}
+                    initial={{ opacity: 0, x: slideDirection >= 0 ? 40 : -40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: slideDirection >= 0 ? -40 : 40 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.12}
+                    onDragEnd={(_, info) => {
+                      if (info.offset.x < -50) moveDoctorPhoto(1);
+                      if (info.offset.x > 50) moveDoctorPhoto(-1);
+                    }}
+                    className="absolute inset-0 cursor-grab active:cursor-grabbing"
+                  >
+                    <Image
+                      src={doctorGallery[activeDoctorPhoto].src}
+                      alt={doctorGallery[activeDoctorPhoto].alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className={"object-cover " + doctorGallery[activeDoctorPhoto].position}
+                      priority={activeDoctorPhoto === 0}
+                      draggable={false}
+                    />
+                  </motion.div>
+                </AnimatePresence>
+
+                <button
+                  type="button"
+                  onClick={() => moveDoctorPhoto(-1)}
+                  className="absolute left-3 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/40 bg-charcoal/45 p-2 text-white shadow-lg backdrop-blur-sm transition hover:bg-slate-teal focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
+                  aria-label="Show previous doctor photo"
                 >
-                  <Image
-                    src="/profile photo.png"
-                    alt={DOCTOR_PROFILE.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover object-[center_18%]"
-                    priority
-                  />
-                </motion.div>
+                  <ChevronLeft size={20} aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => moveDoctorPhoto(1)}
+                  className="absolute right-3 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/40 bg-charcoal/45 p-2 text-white shadow-lg backdrop-blur-sm transition hover:bg-slate-teal focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
+                  aria-label="Show next doctor photo"
+                >
+                  <ChevronRight size={20} aria-hidden="true" />
+                </button>
+
+                <div className="absolute right-4 top-4 z-20 flex items-center gap-1.5 rounded-full bg-charcoal/45 px-3 py-2 backdrop-blur-sm" aria-label={"Photo " + (activeDoctorPhoto + 1) + " of " + doctorGallery.length}>
+                  {doctorGallery.map((photo, index) => (
+                    <button
+                      key={photo.src}
+                      type="button"
+                      onClick={() => selectDoctorPhoto(index)}
+                      className={"h-2 rounded-full transition-all cursor-pointer " + (
+                        activeDoctorPhoto === index ? "w-6 bg-white" : "w-2 bg-white/55 hover:bg-white/80"
+                      )}
+                      aria-label={"Show doctor photo " + (index + 1)}
+                      aria-current={activeDoctorPhoto === index ? "true" : undefined}
+                    />
+                  ))}
+                </div>
+
                 <div 
                   className="absolute bottom-0 left-0 w-full h-[45%]" 
                   style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0.45), rgba(0,0,0,0))' }} 
                 />
-                <div className="absolute bottom-0 left-0 p-8 sm:p-10 text-left w-full space-y-2">
+                <div className="absolute bottom-0 left-0 z-10 p-8 sm:p-10 text-left w-full space-y-2">
                   <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-tight">{DOCTOR_PROFILE.name}</h3>
                   <div className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500/40 via-teal-500/40 to-blue-500/40 border border-emerald-400/50 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-lg">
                     <span className="text-amber-300 text-sm sm:text-base animate-pulse">🎓</span>

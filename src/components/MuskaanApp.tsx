@@ -980,10 +980,6 @@ export default function App() {
                                 <PhoneCall size={14} className="text-slate-teal shrink-0" />
                                 <span>+91 {CLINIC_INFO.phone}</span>
                               </div>
-                              <div className="flex items-center space-x-2">
-                                <Clock size={14} className="text-slate-teal shrink-0" />
-                                <span>{CLINIC_INFO.timings}</span>
-                              </div>
                             </div>
 
                             {/* Status badge with pulse glow */}

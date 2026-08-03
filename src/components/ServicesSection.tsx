@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sparkles, HeartPulse, Activity, CheckCircle2, Clock3 as Clock, ShieldCheck, Baby } from "lucide-react";
+import { Sparkles, HeartPulse, Activity, CheckCircle2, ShieldCheck, Baby } from "lucide-react";
 import { motion } from "motion/react";
 import { CLINIC_SERVICES } from "../lib/content";
 
@@ -236,10 +236,6 @@ export default function ServicesSection({ onOpenBooking }: ServicesSectionProps)
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 sm:gap-2 relative z-10">
                   <div className="min-w-0">
                     <h4 className="font-serif text-lg sm:text-lg font-bold text-charcoal break-words leading-tight transition-colors duration-300 group-hover:text-slate-teal group-hover:tracking-[0.2px]">{sub.name}</h4>
-                    <span className="inline-flex items-center space-x-1.5 text-xs text-charcoal/50 font-bold bg-linen/50 px-2.5 py-1 rounded-md mt-1.5">
-                      <Clock size={12} className="text-slate-teal shrink-0 transition-transform duration-300 group-hover:scale-125 group-hover:-rotate-12 group-hover:drop-shadow-[0_0_8px_rgba(13,148,136,0.5)]" />
-                      <span className="truncate">Est: {sub.duration}</span>
-                    </span>
                   </div>
                   {sub.priceEstimate && (
                     <span className="text-[10px] uppercase tracking-wider font-extrabold text-slate-teal bg-slate-teal/10 border border-slate-teal/20 px-2.5 py-1 rounded-full text-center shrink-0 self-start">

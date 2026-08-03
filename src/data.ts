@@ -262,9 +262,7 @@ export const DOCTOR_PROFILE = {
   bio: "Dr. Mohammad Imran Shaikh is one of Amravati's most respected medical professionals. With over two and a half decades of dedicated clinical experience, he has pioneered a unique hybrid medical approach. Dr. Shaikh initially trained as a classical homeopath, mastering the delicate art of constitutional remedies. Driven by a passion to help patients restore their outward confidence alongside internal health, he specialized in advanced medical cosmetology and trichology. Today, his clinic stands as a leading sanctuary in Amravati, combining top-tier medical hair and skin procedures with sweet homeopathic therapies for permanent, beautiful health.",
   achievements: [
     "Successfully treated over 15,000+ patients in Amravati & Vidarbha region.",
-    "Pioneered customized aesthetic-homeopathy integration protocols for alopecia.",
-    "Keynote speaker at national dermatological and homeopathic conferences.",
-    "Certified trainer in advanced PRP and cosmetic peel techniques."
+    "Pioneered customized aesthetic-homeopathy integration protocols for alopecia."
   ]
 };
 
@@ -277,7 +275,7 @@ export const CLINIC_INFO = {
   mobile: "+91 94228 12345",
   email: "drimranshaikhamt@gmail.com",
   hours: [
-    { days: "Monday – Saturday", timings: "10:00 AM – 2:30 PM, 6:30 PM – 9:30 PM" },
+    { days: "Monday – Saturday", timings: "10:30 AM – 2:30 PM, 6:30 PM – 9:30 PM" },
     { days: "Sunday", timings: "Closed" }
   ],
   googleMapEmbedUrl: "https://maps.google.com/maps?q=Muskaan+Clinic,+Near+Sabunpura+Gandhi+Chowk,+Amravati,+Maharashtra+444601&t=&z=16&ie=UTF8&iwloc=&output=embed"

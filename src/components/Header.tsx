@@ -47,7 +47,7 @@ export default function Header({ activeTab, setActiveTab, onOpenBooking }: Heade
               <Clock3 size={18} className="text-[#2DD4BF] transition-transform duration-[250ms] group-hover:scale-[1.08]" aria-hidden="true" />
               <span className="transition-colors duration-[250ms] text-[rgba(255,255,255,0.85)] group-hover:text-[#FFFFFF]">
                 <span className="font-[500]">Mon – Sat: </span>
-                <span className="font-[600] text-[#FFFFFF]">10:00 AM – 2:30 PM | 6:30 PM – 9:30 PM</span>
+                <span className="font-[600] text-[#FFFFFF]">10:30 AM – 2:30 PM | 6:30 PM – 9:30 PM</span>
               </span>
             </span>
           </div>
