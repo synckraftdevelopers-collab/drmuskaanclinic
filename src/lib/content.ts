@@ -484,8 +484,8 @@ export const WHY_CHOOSE_US = [
   },
   {
     title: "Integrated Dual Therapy",
-    image: "/trust/integrated-dual-therapy.webp",
-    imageAlt: "Clinician combining digital aesthetic diagnostics with homeopathic care",
+    image: "/trust/integrated-dual-therapy-ai.png",
+    imageAlt: "Male doctor consulting with a patient in a premium integrated therapy clinic setting",
     description: "The unique synergy of cutting-edge external aesthetic cosmetology with internal constitutional homeopathy for permanent recoveries.",
     icon: "Activity"
   },
