@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sparkles, HeartPulse, Activity, CheckCircle2, ShieldCheck, Baby } from "lucide-react";
+import Image from "next/image";
+import { Sparkles, HeartPulse, Activity, CheckCircle2, ShieldCheck, Clock3, ArrowUpRight } from "lucide-react";
 import { motion } from "motion/react";
 import { CLINIC_SERVICES } from "../lib/content";
 
@@ -9,10 +10,34 @@ interface ServicesSectionProps {
   onOpenBooking: (serviceId?: string) => void;
 }
 
-export default function ServicesSection({ onOpenBooking }: ServicesSectionProps) {
-  const [selectedServiceId, setSelectedServiceId] = useState<"hair" | "skin" | "homeopathy" | "infertility">("hair");
+type ServiceId = "hair" | "skin" | "homeopathy" | "infertility";
 
-  const currentService = CLINIC_SERVICES.find(s => s.id === selectedServiceId) || CLINIC_SERVICES[0];
+const SERVICE_IMAGES: Record<ServiceId, { src: string; alt: string }> = {
+  hair: {
+    src: "/services/hair-restoration.png",
+    alt: "A clinician performing a modern scalp and hair assessment",
+  },
+  skin: {
+    src: "/services/skin-care.png",
+    alt: "A clinician carrying out a gentle facial skin assessment",
+  },
+  homeopathy: {
+    src: "/services/homeopathy.png",
+    alt: "A personalized homeopathic consultation with remedies and clinical notes",
+  },
+  infertility: {
+    src: "/services/fertility-care.png",
+    alt: "A couple receiving private and supportive fertility counseling",
+  },
+};
+
+export default function ServicesSection({ onOpenBooking }: ServicesSectionProps) {
+  const [selectedServiceId, setSelectedServiceId] = useState<ServiceId>("hair");
+
+  const currentService =
+    CLINIC_SERVICES.find((service) => service.id === selectedServiceId) ??
+    CLINIC_SERVICES[0];
+  const currentServiceImage = SERVICE_IMAGES[selectedServiceId];
 
   const getServiceIcon = (id: string, colorClass: string, size: number) => {
     switch (id) {
@@ -35,7 +60,7 @@ export default function ServicesSection({ onOpenBooking }: ServicesSectionProps)
             strokeLinecap="round"
             strokeLinejoin="round"
             className={colorClass}
-            style={{ display: 'block', margin: 'auto' }}
+            style={{ display: "block", margin: "auto" }}
           >
             <path d="M 12 13 v 8" />
             <path d="M 9 18 h 6" />
@@ -48,224 +73,358 @@ export default function ServicesSection({ onOpenBooking }: ServicesSectionProps)
   };
 
   return (
-    <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-linen/25 text-left overflow-x-hidden relative" id="treatments-section">
-      <style>{`
-        @keyframes cardShine {
-          0% { transform: translateX(-100%) skewX(-20deg); }
-          15% { transform: translateX(200%) skewX(-20deg); }
-          100% { transform: translateX(200%) skewX(-20deg); }
-        }
-      `}</style>
-      {/* Decorative Background */}
-      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden opacity-5">
-        <div className="absolute top-10 left-10 w-64 h-64 bg-slate-teal rounded-full mix-blend-multiply filter blur-3xl animate-pulse" />
-        <div className="absolute bottom-10 right-10 w-64 h-64 bg-slate-teal rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-teal/20 via-transparent to-transparent" />
+    <section
+      className="relative overflow-x-hidden bg-[linear-gradient(180deg,#F8FBFD_0%,#FFFFFF_46%,#F3F8FB_100%)] px-4 py-16 text-left sm:px-6 sm:py-20 lg:px-8"
+      id="treatments-section"
+    >
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute -left-28 top-24 h-72 w-72 rounded-full bg-slate-teal/[0.06] blur-3xl" />
+        <div className="absolute -right-24 bottom-20 h-80 w-80 rounded-full bg-ocean-teal/[0.08] blur-3xl" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-teal/20 to-transparent" />
       </div>
 
-      <motion.div 
+      <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-20px" }}
-        variants={{ 
-          hidden: { opacity: 0, y: 30 }, 
-          visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.15, delayChildren: 0.1 } } 
+        variants={{
+          hidden: { opacity: 0, y: 30 },
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+              duration: 0.8,
+              ease: "easeOut",
+              staggerChildren: 0.15,
+              delayChildren: 0.1,
+            },
+          },
         }}
-        className="max-w-7xl mx-auto w-full"
+        className="mx-auto w-full max-w-7xl"
       >
-        
-        {/* Section Header */}
-        <motion.div 
-          variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } } }}
-          className="text-center mb-8 sm:mb-12"
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.6, ease: "easeOut" },
+            },
+          }}
+          className="mb-8 text-center sm:mb-12"
         >
-          <motion.div variants={{ hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } } }}>
-            <span className="text-[10px] sm:text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full inline-block">
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, scale: 0.95 },
+              visible: {
+                opacity: 1,
+                scale: 1,
+                transition: { duration: 0.5, ease: "easeOut" },
+              },
+            }}
+          >
+            <span className="inline-block rounded-full bg-slate-teal/15 px-3 py-1 text-[10px] font-extrabold uppercase tracking-widest text-slate-teal sm:px-3.5 sm:py-1.5 sm:text-xs">
               Clinical Catalog
             </span>
           </motion.div>
-          <motion.h2 
-            variants={{ hidden: { opacity: 0, y: 25 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } } }}
-            className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold text-charcoal mt-4 sm:mt-3 px-2 sm:px-0"
+          <motion.h2
+            variants={{
+              hidden: { opacity: 0, y: 25 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.7, ease: "easeOut" },
+              },
+            }}
+            className="mt-4 px-2 font-serif text-2xl font-bold text-charcoal sm:mt-3 sm:px-0 sm:text-4xl lg:text-5xl"
           >
             Bespoke Medical & Holistic Care
           </motion.h2>
-          <motion.p 
-            variants={{ hidden: { opacity: 0, y: 25 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } } }}
-            className="text-charcoal/70 text-xs sm:text-base max-w-2xl mx-auto mt-3 sm:mt-2 px-2 sm:px-0 leading-relaxed"
+          <motion.p
+            variants={{
+              hidden: { opacity: 0, y: 25 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.7, ease: "easeOut" },
+              },
+            }}
+            className="mx-auto mt-3 max-w-2xl px-2 text-xs leading-relaxed text-charcoal/70 sm:mt-2 sm:px-0 sm:text-base"
           >
             Explore our specialized treatments. We combine advanced dermo-cosmetic aesthetics with personalized constitutional homeopathy for permanent skin and hair health.
           </motion.p>
         </motion.div>
 
-        {/* Categories Tab Selector */}
-        <motion.div 
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
-          className="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mb-8 sm:mb-10 max-w-4xl mx-auto w-full px-1 sm:px-0 relative z-10"
+        <motion.div
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
+          className="mx-auto mb-10 grid w-full max-w-5xl grid-cols-2 gap-2 rounded-2xl border border-slate-teal/10 bg-white/80 p-2 shadow-[0_18px_50px_rgba(18,53,91,0.08)] backdrop-blur-sm lg:grid-cols-4"
+          role="tablist"
+          aria-label="Treatment categories"
         >
-          {CLINIC_SERVICES.map((serv, idx) => (
-            <motion.button
-              key={serv.id}
-              variants={{
-                hidden: { opacity: 0, y: 25, scale: 0.95 },
-                visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: "easeOut" } }
-              }}
-              animate={{ y: [0, -3, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: idx * 0.2 }}
-              whileHover={{ y: -5, scale: 1.02, boxShadow: "0 15px 30px rgba(13,148,136,0.15)", borderColor: "rgba(13,148,136,0.3)", transition: { duration: 0.3 } }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setSelectedServiceId(serv.id as any)}
-              className={`w-full sm:w-auto flex items-center space-x-3 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl border text-left transition-all duration-300 cursor-pointer flex-1 group relative overflow-hidden ${
-                selectedServiceId === serv.id
-                  ? "bg-slate-teal/5 sm:bg-white border-slate-teal text-slate-teal ring-2 ring-slate-teal/20 shadow-[0_10px_30px_rgba(13,148,136,0.15)]"
-                  : "bg-white/60 border-linen hover:bg-white hover:border-[rgba(13,148,136,0.35)] text-charcoal/70 hover:shadow-[0_15px_40px_rgba(15,23,42,0.08)]"
-              }`}
-              id={`service-tab-${serv.id}`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-[0.06] pointer-events-none" style={{ animation: 'cardShine 8s ease-in-out infinite' }} />
-              <div className={`w-10 h-10 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-[1.15] group-hover:rotate-6 relative z-10 ${
-                selectedServiceId === serv.id ? "bg-slate-teal text-white" : "bg-linen text-slate-teal"
-              }`}>
-                {getServiceIcon(serv.id, "", 20)}
-              </div>
-              <div className="flex-1 min-w-0 relative z-10">
-                <h3 className="font-serif font-bold text-sm sm:text-sm leading-tight break-words transition-colors duration-300 group-hover:text-slate-teal group-hover:tracking-[0.2px]">{serv.title}</h3>
-                <p className="text-[10px] uppercase font-semibold tracking-wider text-charcoal/50 mt-0.5 break-words">{serv.id === 'homeopathy' ? 'Internal Healing' : serv.id === 'infertility' ? "Specialized Women's Health" : 'Advanced Procedure'}</p>
-              </div>
-            </motion.button>
-          ))}
+          {CLINIC_SERVICES.map((service) => {
+            const serviceId = service.id as ServiceId;
+            const isSelected = selectedServiceId === serviceId;
+
+            return (
+              <motion.button
+                key={service.id}
+                variants={{
+                  hidden: { opacity: 0, y: 12 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.4, ease: "easeOut" },
+                  },
+                }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setSelectedServiceId(serviceId)}
+                className={
+                  "group relative flex min-h-20 items-center gap-3 overflow-hidden rounded-xl px-3 py-3 text-left transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-teal/50 sm:px-4 " +
+                  (isSelected
+                    ? "bg-slate-teal text-white shadow-[0_10px_24px_rgba(18,53,91,0.22)]"
+                    : "text-charcoal hover:bg-linen/35")
+                }
+                role="tab"
+                aria-selected={isSelected}
+                aria-controls="sub-services-grid"
+                id={"service-tab-" + service.id}
+              >
+                <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg ring-1 ring-white/20 sm:h-14 sm:w-14">
+                  <Image
+                    src={SERVICE_IMAGES[serviceId].src}
+                    alt=""
+                    fill
+                    sizes="56px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div
+                    className={
+                      "absolute inset-0 " +
+                      (isSelected ? "bg-slate-teal/15" : "bg-charcoal/10")
+                    }
+                  />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <span
+                    className={
+                      "mb-1 block text-[9px] font-extrabold uppercase tracking-[0.18em] " +
+                      (isSelected ? "text-white/65" : "text-charcoal/45")
+                    }
+                  >
+                    {service.subServices.length} treatments
+                  </span>
+                  <h3 className="font-serif text-xs font-bold leading-tight sm:text-sm">
+                    {service.title}
+                  </h3>
+                </div>
+                <span
+                  className={
+                    "absolute inset-x-4 bottom-0 h-0.5 rounded-full transition-opacity " +
+                    (isSelected ? "bg-ocean-teal opacity-100" : "opacity-0")
+                  }
+                />
+              </motion.button>
+            );
+          })}
         </motion.div>
 
-        {/* Highlight Banner of selected Service */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-start min-h-[900px] sm:min-h-0 transition-all duration-300">
-          
-          {/* Main Info Column */}
-          <motion.div 
-            key={`main-info-outer-${currentService.id}`}
+        <div className="grid min-h-[900px] grid-cols-1 items-start gap-6 transition-all duration-300 sm:min-h-0 sm:gap-8 lg:grid-cols-3">
+          <motion.div
+            key={"main-info-" + currentService.id}
             initial={{ opacity: 0, y: 25, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="lg:col-span-1 sticky top-24 w-full relative z-10"
+            className="sticky top-24 z-10 w-full lg:col-span-1"
           >
             <motion.div
-              animate={{ 
-                y: [0, -6, 0], 
-                boxShadow: ["0 18px 45px rgba(15,23,42,0.08)", "0 22px 50px rgba(13,148,136,0.12)", "0 18px 45px rgba(15,23,42,0.08)"] 
+              animate={{
+                y: [0, -6, 0],
+                boxShadow: [
+                  "0 18px 45px rgba(15,23,42,0.08)",
+                  "0 22px 50px rgba(13,148,136,0.12)",
+                  "0 18px 45px rgba(15,23,42,0.08)",
+                ],
               }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              whileHover={{ y: -10, scale: 1.03, boxShadow: "0 30px 70px rgba(15,23,42,0.14)", borderColor: "rgba(13,148,136,0.35)", transition: { duration: 0.3 } }}
-              className="bg-[linear-gradient(180deg,#FFFFFF,#FCFEFF)] border border-linen hover:border-[rgba(13,148,136,0.35)] rounded-xl sm:rounded-2xl p-5 sm:p-8 space-y-4 sm:space-y-6 w-full relative overflow-hidden group transition-all duration-300"
+              whileHover={{
+                y: -10,
+                scale: 1.03,
+                boxShadow: "0 30px 70px rgba(15,23,42,0.14)",
+                borderColor: "rgba(13,148,136,0.35)",
+                transition: { duration: 0.3 },
+              }}
+              className="group relative w-full overflow-hidden rounded-xl border border-linen bg-[linear-gradient(180deg,#FFFFFF,#FCFEFF)] transition-all duration-300 hover:border-[rgba(13,148,136,0.35)] sm:rounded-2xl"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-[0.06] pointer-events-none" style={{ animation: 'cardShine 8s ease-in-out infinite' }} />
+              <div className="relative aspect-[16/9] w-full overflow-hidden">
+                <Image
+                  src={currentServiceImage.src}
+                  alt={currentServiceImage.alt}
+                  fill
+                  sizes="(min-width: 1024px) 400px, 100vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/45 via-transparent to-transparent" />
+                <span className="absolute bottom-3 left-4 rounded-full bg-white/90 px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-teal backdrop-blur-sm">
+                  Personalized Care
+                </span>
+              </div>
 
-            <div className="flex items-center space-x-3 relative z-10">
-              <motion.div 
-                animate={{ y: [0, -3, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="w-10 h-10 sm:w-12 sm:h-12 bg-slate-teal rounded-lg sm:rounded-xl flex items-center justify-center text-white shrink-0 shadow-lg shadow-slate-teal/20 transition-all duration-500 group-hover:scale-[1.15] group-hover:rotate-10 group-hover:shadow-[0_0_15px_rgba(13,148,136,0.6)]"
-              >
-                <div>
-                  {getServiceIcon(currentService.id, "text-linen", 24)}
+              <div className="space-y-4 p-5 sm:space-y-6 sm:p-8">
+                <div className="relative z-10 flex items-center space-x-3">
+                  <motion.div
+                    animate={{ y: [0, -3, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-teal text-white shadow-lg shadow-slate-teal/20 transition-all duration-500 group-hover:scale-[1.15] group-hover:rotate-10 sm:h-12 sm:w-12 sm:rounded-xl"
+                  >
+                    {getServiceIcon(currentService.id, "text-linen", 24)}
+                  </motion.div>
+                  <h3 className="font-serif text-xl font-bold leading-tight text-charcoal transition-colors duration-300 group-hover:text-slate-teal sm:text-2xl">
+                    {currentService.title}
+                  </h3>
                 </div>
-              </motion.div>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-charcoal break-words leading-tight transition-colors duration-300 group-hover:text-slate-teal group-hover:tracking-[0.2px]">{currentService.title}</h3>
-            </div>
-            
-            <p className="text-sm font-semibold text-slate-teal italic transition-opacity duration-300 opacity-[0.88] group-hover:opacity-100 relative z-10">
-              "{currentService.tagline}"
-            </p>
 
-            <p className="text-sm text-charcoal/80 leading-relaxed transition-opacity duration-300 opacity-[0.88] group-hover:opacity-100 relative z-10">
-              {currentService.description}
-            </p>
+                <p className="relative z-10 text-sm font-semibold italic text-slate-teal opacity-[0.88]">
+                  &ldquo;{currentService.tagline}&rdquo;
+                </p>
+                <p className="relative z-10 text-sm leading-relaxed text-charcoal/80 opacity-[0.88]">
+                  {currentService.description}
+                </p>
 
-            {/* Synergy box */}
-            <div className="bg-linen/40 border border-linen p-5 rounded-xl space-y-2 text-left relative z-10">
-              <h4 className="font-serif text-xs uppercase font-extrabold text-charcoal tracking-wide flex items-center space-x-1.5">
-                <ShieldCheck size={14} className="text-slate-teal" />
-                <span>The Homeopathic Synergy</span>
-              </h4>
-              <p className="text-xs text-charcoal/70 leading-normal">
-                {currentService.homeopathicSynergy}
-              </p>
-            </div>
+                <div className="relative z-10 space-y-2 rounded-xl border border-linen bg-linen/40 p-5 text-left">
+                  <h4 className="flex items-center space-x-1.5 font-serif text-xs font-extrabold uppercase tracking-wide text-charcoal">
+                    <ShieldCheck size={14} className="text-slate-teal" />
+                    <span>The Homeopathic Synergy</span>
+                  </h4>
+                  <p className="text-xs leading-normal text-charcoal/70">
+                    {currentService.homeopathicSynergy}
+                  </p>
+                </div>
 
-            <motion.button
-              whileHover={{ y: -3, scale: 1.04, boxShadow: "0 15px 30px -5px rgba(13,148,136,0.40)" }}
-              whileTap={{ scale: 0.97, transition: { type: "spring", stiffness: 400, damping: 17 } }}
-              onClick={() => onOpenBooking(currentService.id)}
-              aria-label={`Book ${currentService.title} Consult`}
-              style={{ background: "linear-gradient(135deg, #0D9488, #0F766E)" }}
-              className="btn-ripple-effect w-full text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 ease-out text-center text-xs shadow-md shadow-slate-teal/10 hover:shadow-[0_10px_30px_rgba(13,148,136,0.20)] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-teal/50 relative z-10"
-              id={`service-book-btn-${currentService.id}`}
-            >
-              Book {currentService.title} Consult
-            </motion.button>
+                <motion.button
+                  whileHover={{
+                    y: -3,
+                    scale: 1.04,
+                    boxShadow: "0 15px 30px -5px rgba(13,148,136,0.40)",
+                  }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => onOpenBooking(currentService.id)}
+                  aria-label={"Book " + currentService.title + " Consult"}
+                  style={{ background: "linear-gradient(135deg, #0D9488, #0F766E)" }}
+                  className="relative z-10 w-full cursor-pointer rounded-xl px-4 py-3 text-center text-xs font-bold text-white shadow-md shadow-slate-teal/10 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-teal/50"
+                  id={"service-book-btn-" + currentService.id}
+                >
+                  Book {currentService.title} Consult
+                </motion.button>
+              </div>
             </motion.div>
           </motion.div>
 
-          {/* Sub Services Detail Grid (4. Stagger Card Animation) */}
-          <motion.div 
+          <motion.div
+            key={currentService.id}
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-10px" }}
-            variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
-            className="lg:col-span-2 space-y-4 sm:space-y-6 w-full" 
+            animate="visible"
+            variants={{ visible: { transition: { staggerChildren: 0.07 } } }}
+            className="w-full lg:col-span-2"
             id="sub-services-grid"
+            role="tabpanel"
+            aria-labelledby={"service-tab-" + currentService.id}
           >
-            {currentService.subServices.map((sub, idx) => (
-              <motion.div 
-                key={idx}
-                variants={{
-                  hidden: { opacity: 0, y: 25, scale: 0.95 },
-                  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: "easeOut" } }
-                }}
-                className="w-full relative z-10"
-              >
-                <motion.div
-                  animate={{ 
-                    y: [0, -6, 0], 
-                    boxShadow: ["0 18px 45px rgba(15,23,42,0.08)", "0 22px 50px rgba(13,148,136,0.12)", "0 18px 45px rgba(15,23,42,0.08)"] 
-                  }}
-                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: idx * 0.25 }}
-                  whileHover={{ y: -10, scale: 1.03, boxShadow: "0 30px 70px rgba(15,23,42,0.14)", borderColor: "rgba(13,148,136,0.35)", transition: { duration: 0.3 } }}
-                  className="bg-[linear-gradient(180deg,#FFFFFF,#FCFEFF)] border border-linen hover:border-[rgba(13,148,136,0.35)] rounded-xl sm:rounded-2xl p-5 sm:p-6 space-y-3 sm:space-y-4 overflow-hidden w-full group relative cursor-pointer transition-all duration-300"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-[0.06] pointer-events-none" style={{ animation: 'cardShine 8s ease-in-out infinite' }} />
-                  
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 sm:gap-2 relative z-10">
-                  <div className="min-w-0">
-                    <h4 className="font-serif text-lg sm:text-lg font-bold text-charcoal break-words leading-tight transition-colors duration-300 group-hover:text-slate-teal group-hover:tracking-[0.2px]">{sub.name}</h4>
-                  </div>
-                  {sub.priceEstimate && (
-                    <span className="text-[10px] uppercase tracking-wider font-extrabold text-slate-teal bg-slate-teal/10 border border-slate-teal/20 px-2.5 py-1 rounded-full text-center shrink-0 self-start">
-                      {sub.priceEstimate}
-                    </span>
-                  )}
-                </div>
-
-                <p className="text-sm text-charcoal/70 leading-relaxed transition-opacity duration-300 opacity-[0.88] group-hover:opacity-100 relative z-10">
-                  {sub.description}
+            <div className="mb-5 flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
+              <div>
+                <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-ocean-teal">
+                  Available care plans
                 </p>
+                <h3 className="mt-1 font-serif text-2xl font-bold text-charcoal">
+                  {currentService.title} treatments
+                </h3>
+              </div>
+              <p className="text-sm font-medium text-charcoal/55">
+                {currentService.subServices.length} personalized options
+              </p>
+            </div>
 
-                <div className="border-t border-linen pt-4 text-left relative z-10">
-                  <h5 className="text-xs uppercase font-bold text-charcoal/60 tracking-wider mb-2">Key Clinical Benefits</h5>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {sub.benefits.map((ben, bIdx) => (
-                      <div key={bIdx} className="flex items-start space-x-2 text-xs text-charcoal/80">
-                        <CheckCircle2 size={14} className="text-emerald-500 shrink-0 mt-0.5 transition-all duration-300 group-hover:scale-[1.15] group-hover:rotate-6 group-hover:drop-shadow-[0_0_6px_rgba(16,185,129,0.5)]" style={{ animationDelay: `${bIdx * 0.15}s` }} />
-                        <span>{ben}</span>
-                      </div>
-                    ))}
+            <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
+              {currentService.subServices.map((treatment, index) => (
+                <motion.article
+                  key={treatment.name}
+                  variants={{
+                    hidden: { opacity: 0, y: 18 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { duration: 0.5, ease: "easeOut" },
+                    },
+                  }}
+                  whileHover={{ y: -5 }}
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-teal/10 bg-white shadow-[0_12px_35px_rgba(18,53,91,0.08)] transition-[border-color,box-shadow] duration-300 hover:border-ocean-teal/30 hover:shadow-[0_22px_50px_rgba(18,53,91,0.13)]"
+                >
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-linen/30">
+                    <Image
+                      src={treatment.image}
+                      alt={treatment.imageAlt}
+                      fill
+                      sizes="(min-width: 1280px) 390px, (min-width: 1024px) 66vw, 100vw"
+                      className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/5 to-transparent" />
+                    <span className="absolute left-4 top-4 flex h-8 min-w-8 items-center justify-center rounded-full border border-white/30 bg-charcoal/55 px-2 text-[10px] font-extrabold tracking-wider text-white backdrop-blur-md">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-white/90 px-2.5 py-1.5 text-[10px] font-bold text-charcoal shadow-sm backdrop-blur-md">
+                      <Clock3 size={12} className="text-ocean-teal" />
+                      {treatment.duration}
+                    </span>
+                    <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3">
+                      <span className="rounded-full bg-ocean-teal px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-[0.14em] text-white shadow-sm">
+                        {treatment.priceEstimate || "Personalized care"}
+                      </span>
+                    </div>
                   </div>
-                </div>
-                </motion.div>
-              </motion.div>
-            ))}
+
+                  <div className="flex flex-1 flex-col p-5 sm:p-6">
+                    <h4 className="font-serif text-xl font-bold leading-tight text-charcoal transition-colors duration-300 group-hover:text-ocean-teal">
+                      {treatment.name}
+                    </h4>
+                    <p className="mt-3 text-sm leading-relaxed text-charcoal/65">
+                      {treatment.description}
+                    </p>
+
+                    <div className="mt-5 border-t border-linen/80 pt-4">
+                      <h5 className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-charcoal/50">
+                        Key benefits
+                      </h5>
+                      <div className="mt-3 grid gap-2">
+                        {treatment.benefits.map((benefit) => (
+                          <div
+                            key={benefit}
+                            className="flex items-start gap-2 text-xs leading-relaxed text-charcoal/75"
+                          >
+                            <CheckCircle2
+                              size={15}
+                              className="mt-0.5 shrink-0 text-ocean-teal"
+                              aria-hidden="true"
+                            />
+                            <span>{benefit}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => onOpenBooking(currentService.id)}
+                      className="mt-6 inline-flex w-full items-center justify-between rounded-xl bg-linen/35 px-4 py-3 text-xs font-bold text-charcoal transition-colors hover:bg-slate-teal hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-teal/50"
+                      aria-label={"Book a consultation for " + treatment.name}
+                    >
+                      <span>Book consultation</span>
+                      <ArrowUpRight size={16} aria-hidden="true" />
+                    </button>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
           </motion.div>
-
         </div>
-
       </motion.div>
     </section>
   );

@@ -1,5 +1,7 @@
 export interface SubService {
   name: string;
+  image: string;
+  imageAlt: string;
   description: string;
   benefits: string[];
   duration: string;

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import {
   motion,
   useInView,
@@ -20,7 +21,10 @@ import Header from "./Header";
 import Footer from "./Footer";
 import AppointmentForm from "./AppointmentForm";
 import AIGuide from "./AIGuide";
+import MuskaanAssistantAvatar from "./MuskaanAssistantAvatar";
 import ServicesSection from "./ServicesSection";
+import HomeDisciplinesShowcase from "./HomeDisciplinesShowcase";
+import ClinicProfileCard from "./ClinicProfileCard";
 import AboutSection from "./AboutSection";
 import FeedbackSection from "./FeedbackSection";
 import GallerySection from "./GallerySection";
@@ -936,73 +940,38 @@ export default function App() {
                         />
                       </motion.div>
 
-                      {/* ── THE CARD (unchanged, lifted on hover, z-10) ── */}
-                      <motion.div
+                      {/* Doctor portrait */}
+                      <motion.figure
                         whileHover={(shouldReduceMotion || isMobile) ? {} : {
-                          y: -4,
-                          scale: 1.01,
-                          boxShadow: "0 20px 60px -12px rgba(18,53,91,0.18), 0 8px 24px -8px rgba(42,157,143,0.12), 0 0 0 1px rgba(18,53,91,0.06)",
+                          y: -5,
+                          scale: 1.012,
+                          boxShadow: "0 24px 65px -14px rgba(18,53,91,0.24)",
                           transition: { duration: 0.3, ease: "easeOut" },
                         }}
-                        className="relative z-10"
-                        style={{
-                          boxShadow: "0 8px 32px -8px rgba(18,53,91,0.12), 0 2px 8px -2px rgba(18,53,91,0.06)",
-                        }}
+                        className="relative z-10 overflow-hidden rounded-3xl border border-white/70 bg-white shadow-[0_18px_55px_rgba(18,53,91,0.18)]"
                       >
-                        <div className="bg-white border border-linen rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
-                          <div className="absolute top-0 right-0 w-32 h-32 bg-seafoam/15 rounded-full -mr-12 -mt-12" />
-
-                          <h3 className="font-serif text-2xl font-bold text-charcoal mb-4">Clinic Profile</h3>
-
-                          <div className="space-y-4">
-                            {/* Doctor Profile Mini */}
-                            <div className="flex items-start space-x-3.5 border-b border-linen pb-4 text-left">
-                              <div className="w-10 h-10 rounded-full bg-slate-teal text-white flex items-center justify-center shrink-0 font-bold font-serif text-lg">
-                                M
-                              </div>
-                              <div>
-                                <h4 className="font-serif font-bold text-sm text-charcoal">{DOCTOR_PROFILE.name}</h4>
-                                <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-slate-teal/15 to-seafoam/15 border border-slate-teal/30 px-2.5 py-1 rounded-lg mt-1.5 shadow-2xs">
-                                  <span className="text-amber-500 text-xs">🎓</span>
-                                  <p className="text-[11px] uppercase text-slate-teal font-extrabold tracking-wider">{DOCTOR_PROFILE.credentials}</p>
-                                </div>
-                                <p className="text-xs text-charcoal/60 mt-1.5">{DOCTOR_PROFILE.experience}</p>
-                              </div>
-                            </div>
-
-                            {/* Info Points */}
-                            <div className="space-y-2.5 text-xs text-charcoal/70 text-left">
-                              <div className="flex items-center space-x-2">
-                                <MapPinned size={14} className="text-slate-teal shrink-0" />
-                                <span>Near Sabunpura Gandhi Chowk, Juna Motor Stand Road, Gandhi Chowk, Amravati-444601, Maharashtra</span>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                <PhoneCall size={14} className="text-slate-teal shrink-0" />
-                                <span>+91 {CLINIC_INFO.phone}</span>
-                              </div>
-                            </div>
-
-                            {/* Status badge with pulse glow */}
-                            <div className="bg-linen/30 border border-linen rounded-xl p-3 text-center">
-                              <span className="text-[10px] font-extrabold uppercase text-slate-teal block mb-1">Clinic Status</span>
-                              <motion.span
-                                animate={shouldReduceMotion ? {} : {
-                                  opacity: [1, 0.72, 1],
-                                  boxShadow: [
-                                    "0 0 0 0 rgba(34,197,94,0)",
-                                    "0 0 0 5px rgba(34,197,94,0.12)",
-                                    "0 0 0 0 rgba(34,197,94,0)",
-                                  ],
-                                }}
-                                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                                className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800"
-                              >
-                                🟢 Accepting Priority Patients
-                              </motion.span>
-                            </div>
-                          </div>
+                        <div className="relative aspect-[3/4] w-full min-h-[430px] sm:min-h-[500px]">
+                          <Image
+                            src="/doctor-gallery/dr-imran-formal-portrait.jpg"
+                            alt="Dr. Mohammad Imran Shaikh seated at his clinic desk in formal attire"
+                            fill
+                            sizes="(min-width: 1024px) 40vw, 100vw"
+                            className="object-cover object-top"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent" />
+                          <figcaption className="absolute inset-x-0 bottom-0 p-6 text-left sm:p-7">
+                            <span className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-seafoam">
+                              Founder & Chief Consultant
+                            </span>
+                            <h3 className="mt-1 font-serif text-2xl font-bold text-white">
+                              {DOCTOR_PROFILE.name}
+                            </h3>
+                            <p className="mt-1 text-xs font-semibold text-white/75">
+                              {DOCTOR_PROFILE.credentials} · {DOCTOR_PROFILE.experience}
+                            </p>
+                          </figcaption>
                         </div>
-                      </motion.div>
+                      </motion.figure>
                     </motion.div>
                   </div>
 
@@ -1051,7 +1020,7 @@ export default function App() {
                 </motion.section>
 
                 {/* WHY CHOOSE US SECTION */}
-                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
                   <motion.div 
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -1062,8 +1031,8 @@ export default function App() {
                     <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full">
                       Clinical Standards
                     </span>
-                    <h2 className="font-serif text-3xl font-bold text-charcoal mt-3">Why Patients Trust Muskaan</h2>
-                    <p className="text-xs sm:text-sm text-charcoal/60 mt-1 max-w-md mx-auto">Discover the foundational pillars that make Dr. Imran's clinical guidance supreme in Amravati.</p>
+                    <h2 className="mt-3 font-serif text-3xl font-bold text-charcoal sm:text-4xl">Why Patients Trust Muskaan</h2>
+                    <p className="mx-auto mt-2 max-w-xl text-xs leading-relaxed text-charcoal/60 sm:text-sm">Discover the foundational pillars that make Dr. Imran's clinical guidance supreme in Amravati.</p>
                   </motion.div>
 
                   <motion.div 
@@ -1074,170 +1043,76 @@ export default function App() {
                       hidden: { opacity: 0 },
                       visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } }
                     }}
-                    className="grid grid-cols-1 md:grid-cols-3 gap-6"
+                    className="grid grid-cols-1 gap-6 md:grid-cols-3"
                   >
                     {WHY_CHOOSE_US.map((wc, idx) => (
-                      <motion.div
-                        key={idx}
+                      <motion.article
+                        key={wc.title}
                         variants={{
                           hidden: { opacity: 0, y: 25 },
-                          visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                          visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
                         }}
-                        className="bg-white border border-linen p-6 rounded-2xl shadow-xs text-left space-y-3"
+                        whileHover={{ y: -6 }}
+                        className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-teal/10 bg-white text-left shadow-[0_12px_35px_rgba(18,53,91,0.08)] transition-[border-color,box-shadow] duration-300 hover:border-ocean-teal/30 hover:shadow-[0_22px_50px_rgba(18,53,91,0.14)]"
                       >
-                        <div className="w-10 h-10 rounded-xl bg-slate-teal/10 text-slate-teal flex items-center justify-center">
-                          {idx === 0 && <Award size={20} />}
-                          {idx === 1 && <Activity size={20} />}
-                          {idx === 2 && <Sparkles size={20} />}
+                        <div className="relative aspect-[16/10] overflow-hidden bg-linen/30">
+                          <Image
+                            src={wc.image}
+                            alt={wc.imageAlt}
+                            fill
+                            sizes="(min-width: 768px) 33vw, 100vw"
+                            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-charcoal/65 via-transparent to-charcoal/10" />
+                          <div className="absolute bottom-4 left-4 flex h-10 w-10 items-center justify-center rounded-xl border border-white/30 bg-white/90 text-slate-teal shadow-lg backdrop-blur-md">
+                            {idx === 0 && <Award size={20} aria-hidden="true" />}
+                            {idx === 1 && <Activity size={20} aria-hidden="true" />}
+                            {idx === 2 && <Sparkles size={20} aria-hidden="true" />}
+                          </div>
+                          <span className="absolute right-4 top-4 rounded-full border border-white/25 bg-charcoal/55 px-2.5 py-1 text-[10px] font-extrabold tracking-[0.16em] text-white backdrop-blur-md">
+                            0{idx + 1}
+                          </span>
                         </div>
-                        <h3 className="font-serif font-bold text-sm text-charcoal">{wc.title}</h3>
-                        <p className="text-xs text-charcoal/60 leading-relaxed">{wc.description}</p>
-                      </motion.div>
+
+                        <div className="flex flex-1 flex-col p-6">
+                          <div className="mb-3 h-0.5 w-10 rounded-full bg-ocean-teal transition-all duration-300 group-hover:w-16" />
+                          <h3 className="font-serif text-lg font-bold leading-tight text-charcoal transition-colors duration-300 group-hover:text-ocean-teal">
+                            {wc.title}
+                          </h3>
+                          <p className="mt-3 text-sm leading-relaxed text-charcoal/65">
+                            {wc.description}
+                          </p>
+                        </div>
+                      </motion.article>
                     ))}
                   </motion.div>
                 </section>
 
-                {/* TREATMENTS CATALOG GRID */}
-                {/* TREATMENTS CATALOG GRID */}
-                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-                  <style>{`
-                    @keyframes cardShine {
-                      0% { transform: translateX(-100%) skewX(-20deg); }
-                      15% { transform: translateX(200%) skewX(-20deg); }
-                      100% { transform: translateX(200%) skewX(-20deg); }
-                    }
-                  `}</style>
-                  {/* Decorative Background */}
-                  <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden opacity-5">
-                    <div className="absolute top-10 left-10 w-64 h-64 bg-slate-teal rounded-full mix-blend-multiply filter blur-3xl animate-pulse" />
-                    <div className="absolute bottom-10 right-10 w-64 h-64 bg-slate-teal rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-teal/20 via-transparent to-transparent" />
-                  </div>
+                {/* HOMEPAGE DISCIPLINES SHOWCASE */}
+                <HomeDisciplinesShowcase
+                  onViewCatalog={(serviceId) => {
+                    setActiveTab("services");
+                    setTimeout(() => {
+                      const serviceTab = document.getElementById("service-tab-" + serviceId);
+                      serviceTab?.click();
 
-                  <div className="text-center mb-10 relative z-10">
-                    <span className="text-xs uppercase tracking-widest text-slate-teal font-extrabold bg-slate-teal/15 px-3.5 py-1.5 rounded-full">
-                      Treatment Portfolios
-                    </span>
-                    <h2 className="font-serif text-3xl font-bold text-charcoal mt-3">Our Dedicated Disciplines</h2>
-                    <p className="text-xs sm:text-sm text-charcoal/60 mt-1 max-w-md mx-auto">Click any specialty to view comprehensive treatment descriptions, session timings, and medical benefits.</p>
-                  </div>
-
-                  <motion.div 
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-20px" }}
-                    variants={{
-                      hidden: { opacity: 0, y: 25 },
-                      visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut", staggerChildren: 0.12 } }
-                    }}
-                    className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10"
-                  >
-                    {CLINIC_SERVICES.map((serv, idx) => (
-                      <motion.div
-                        key={serv.id}
-                        variants={{
-                          hidden: { opacity: 0, y: 25, scale: 0.95 },
-                          visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: "easeOut" } }
-                        }}
-                        animate={{ 
-                          y: [0, -6, 0], 
-                          boxShadow: [
-                            "0 18px 45px rgba(15,23,42,0.08)", 
-                            "0 22px 50px rgba(13,148,136,0.12)", 
-                            "0 18px 45px rgba(15,23,42,0.08)"
-                          ] 
-                        }}
-                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: idx * 0.5 }}
-                        whileHover={{ y: -10, scale: 1.03, boxShadow: "0 30px 70px rgba(15,23,42,0.14)", transition: { duration: 0.3 } }}
-                        className="group relative bg-[linear-gradient(180deg,#FFFFFF,#FCFEFF)] border border-linen hover:border-[rgba(13,148,136,0.35)] p-6 rounded-2xl transition-all duration-300 flex flex-col justify-between text-left overflow-hidden cursor-pointer"
-                      >
-                        {/* Shine Effect */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-[0.06] pointer-events-none" style={{ animation: 'cardShine 8s ease-in-out infinite' }} />
-                        <div className="space-y-4 relative z-10">
-                          <motion.div 
-                            animate={{ y: [0, -3, 0] }} 
-                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: idx * 0.2 }}
-                            className="w-10 h-10 rounded-full bg-slate-teal/10 text-slate-teal flex items-center justify-center transition-all duration-300 group-hover:scale-[1.15] group-hover:rotate-10 group-hover:drop-shadow-[0_0_8px_rgba(13,148,136,0.4)]"
-                          >
-                            {serv.id === 'hair' && <Sparkles size={20} />}
-                            {serv.id === 'skin' && <HeartPulse size={20} />}
-                            {serv.id === 'homeopathy' && <Activity size={20} />}
-                            {serv.id === 'infertility' && (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="28"
-                                height="28"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="#2A9D8F"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              >
-                                <path d="M 12 13 v 8" />
-                                <path d="M 9 18 h 6" />
-                                <path d="M 2.2 10.5 c -1.3 -0.6 -1.3 -2.6 0 -3.3 l 1.6 -1.1 a 2.8 2.8 0 0 1 3.6 0.4 l 3 3 c 0.4 0.4 1 0.4 1.4 0 l 3 -3 a 2.8 2.8 0 0 1 3.6 -0.4 l 1.6 1.1 c 1.3 0.7 1.3 2.7 0 3.3 l -3.3 1.8 c -1.3 0.7 -3.7 1.2 -6.1 1.2 s -4.8 -0.5 -6.1 -1.2 Z" />
-                              </svg>
-                            )}
-                          </motion.div>
-                          <h3 className="font-serif text-xl font-bold text-charcoal transition-colors duration-300 group-hover:text-slate-teal group-hover:tracking-[0.2px]">{serv.title}</h3>
-                          <p className="text-xs text-charcoal/60 leading-relaxed font-semibold transition-opacity duration-300 opacity-[0.88] group-hover:opacity-100">"{serv.tagline}"</p>
-                          <p className="text-xs text-charcoal/70 leading-relaxed line-clamp-3 transition-opacity duration-300 opacity-[0.88] group-hover:opacity-100">{serv.description}</p>
-                        </div>
-
-                        <div className="border-t border-linen mt-6 pt-4 flex justify-between items-center relative z-10">
-                          <motion.button
-                            initial={{ opacity: 0, y: 8 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.4, ease: "easeOut" }}
-                            whileHover={{ y: -2 }}
-                            onClick={() => {
-                              setActiveTab("services");
-                              // Dispatch virtual click on service tabs if loaded
-                              setTimeout(() => {
-                                const btn = document.getElementById(`service-tab-${serv.id}`);
-                                if (btn) btn.click();
-
-                                setTimeout(() => {
-                                  const targetSection = document.getElementById('treatments-section');
-                                  if (targetSection) {
-                                    const yOffset = -80;
-                                    const y = targetSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                                    window.scrollTo({ top: y, behavior: 'smooth' });
-                                  } else {
-                                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                                  }
-                                }, 50);
-                              }, 100);
-                            }}
-                            className="group/link relative text-slate-teal font-bold text-xs inline-flex items-center space-x-1 cursor-pointer transition-all duration-300 ease-out focus:outline-none rounded-xs"
-                          >
-                            <span className="transition-transform duration-250 ease-out group-hover/link:translate-x-[3px] relative">
-                              View Catalog
-                              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-slate-teal transition-all duration-250 ease-out group-hover/link:w-full" />
-                            </span>
-                            <ChevronRight size={14} className="transition-transform duration-250 ease-out group-hover/link:translate-x-[8px]" />
-                          </motion.button>
-                          <motion.button
-                            initial={{ opacity: 0, y: 8 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
-                            whileHover={{ y: -3, scale: 1.04, boxShadow: "0 10px 30px -5px rgba(13,148,136,0.30)" }}
-                            whileTap={{ scale: 0.97, transition: { type: "spring", stiffness: 400, damping: 17 } }}
-                            onClick={() => handleOpenBooking(serv.id)}
-                            aria-label={`Book Consult for ${serv.title}`}
-                            style={{ background: "linear-gradient(135deg, #f8fafc, #f1f5f9)" }}
-                            className="btn-ripple-effect text-charcoal hover:!bg-[linear-gradient(135deg,#0D9488,#0F766E)] hover:text-white font-semibold py-1.5 px-3.5 rounded-lg text-xs transition-all duration-300 ease-out cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-teal/50"
-                          >
-                            Book Consult
-                          </motion.button>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                </section>
+                      setTimeout(() => {
+                        const targetSection = document.getElementById("treatments-section");
+                        if (targetSection) {
+                          const yOffset = -80;
+                          const y =
+                            targetSection.getBoundingClientRect().top +
+                            window.pageYOffset +
+                            yOffset;
+                          window.scrollTo({ top: y, behavior: "smooth" });
+                        } else {
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }
+                      }, 50);
+                    }, 100);
+                  }}
+                  onBook={(serviceId) => handleOpenBooking(serviceId)}
+                />
 
                 {/* TESTIMONIALS CAROUSEL PREVIEW */}
                 <section className="bg-linen/10 py-16 px-4 sm:px-6 lg:px-8 border-y border-linen/60">
@@ -1600,31 +1475,56 @@ export default function App() {
       {/* --- FLOATING CONTROLS --- */}
 
       {/* Persistent AI Assistant Bubble */}
-      <div className="fixed bottom-6 right-6 z-30 flex flex-col items-end space-y-2">
-        {/* Helper pop tooltip */}
+      <div className="fixed bottom-5 right-4 z-30 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
         {!aiAssistantOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-charcoal text-white text-[11px] font-semibold py-1.5 px-3 rounded-xl shadow-md border border-slate-teal/30 hidden sm:block animate-pulse"
+            initial={{ opacity: 0, y: 10, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.35, duration: 0.4, ease: "easeOut" }}
+            className="relative hidden max-w-[245px] rounded-2xl border border-slate-teal/10 bg-white px-4 py-3 text-left shadow-[0_16px_45px_rgba(18,53,91,0.18)] sm:block"
           >
-            ✨ Chat with Muskaan AI Guide
+            <p className="font-serif text-sm font-bold leading-tight text-charcoal">
+              Hi, I&apos;m Muskaan Guide
+            </p>
+            <p className="mt-1 text-[11px] leading-relaxed text-charcoal/60">
+              Tap for clinic and treatment assistance.
+            </p>
+            <span
+              className="absolute -bottom-2 right-6 h-4 w-4 rotate-45 border-b border-r border-slate-teal/10 bg-white"
+              aria-hidden="true"
+            />
           </motion.div>
         )}
+
         <motion.button
           onClick={() => setAiAssistantOpen(!aiAssistantOpen)}
-          animate={shouldReduceMotion ? {} : { y: [0, -6, 0] }}
+          animate={shouldReduceMotion ? {} : { y: [0, -5, 0] }}
           transition={{ y: { duration: 3, repeat: Infinity, ease: "easeInOut" } }}
-          whileHover={{ scale: 1.08 }}
+          whileHover={{ scale: 1.07 }}
           whileTap={{ scale: 0.94 }}
-          className="w-14 h-14 rounded-full bg-slate-teal hover:bg-charcoal text-white flex items-center justify-center shadow-lg shadow-slate-teal/20 transition-colors cursor-pointer border border-seafoam/20 relative"
+          className={
+            "relative flex h-16 w-16 cursor-pointer items-center justify-center rounded-full border-2 shadow-[0_14px_35px_rgba(18,53,91,0.28)] transition-all focus:outline-none focus-visible:ring-4 focus-visible:ring-ocean-teal/25 " +
+            (aiAssistantOpen
+              ? "border-white/30 bg-slate-teal text-white"
+              : "border-white bg-white")
+          }
           id="floating-ai-guide-toggle"
-          aria-label="Toggle Muskaan AI assistant guide drawer"
+          aria-label={aiAssistantOpen ? "Close Muskaan AI assistant" : "Open Muskaan AI assistant"}
+          aria-expanded={aiAssistantOpen}
         >
-          {aiAssistantOpen ? <X size={24} /> : <Bot size={24} className="text-linen" />}
+          {aiAssistantOpen ? (
+            <X size={25} aria-hidden="true" />
+          ) : (
+            <>
+              <MuskaanAssistantAvatar className="h-[60px] w-[60px]" decorative />
+              <span
+                className="absolute right-0.5 top-0.5 h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-500 shadow-sm"
+                aria-hidden="true"
+              />
+            </>
+          )}
         </motion.button>
       </div>
-
       {/* Slide-out Drawer Panel for AI Guide */}
       <AnimatePresence>
         {aiAssistantOpen && (
@@ -1655,7 +1555,7 @@ export default function App() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             style={{ background: "rgba(15, 23, 42, 0.45)", backdropFilter: "blur(16px)" }}
-            className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 py-6 lg:items-center"
           >
             {/* Soft radial glow behind the modal */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center" aria-hidden="true">
@@ -1667,13 +1567,16 @@ export default function App() {
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.92, y: 20, opacity: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="w-full max-w-2xl relative z-10"
+              className="relative z-10 grid w-full max-w-6xl items-start gap-4 lg:grid-cols-[360px_minmax(0,1fr)] lg:gap-6"
             >
+              <ClinicProfileCard className="order-2 self-start lg:order-1 lg:sticky lg:top-6" />
+              <div className="order-1 min-w-0 lg:order-2">
               <AppointmentForm
                 preSelectedServiceId={preSelectedServiceId}
                 onClose={() => setBookingOpen(false)}
                 onAppointmentCreated={handleAppointmentCreated}
               />
+              </div>
             </motion.div>
           </motion.div>
         )}

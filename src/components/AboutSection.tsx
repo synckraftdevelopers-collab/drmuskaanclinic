@@ -36,6 +36,20 @@ const doctorGallery = [
 
 export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
   const [[activeDoctorPhoto, slideDirection], setActiveDoctorPhoto] = React.useState<[number, number]>([0, 0]);
+  const [isDoctorGalleryPaused, setIsDoctorGalleryPaused] = React.useState(false);
+
+  React.useEffect(() => {
+    if (isDoctorGalleryPaused) return;
+
+    const autoSlideTimer = window.setTimeout(() => {
+      setActiveDoctorPhoto(([currentPhoto]) => [
+        (currentPhoto + 1) % doctorGallery.length,
+        1,
+      ]);
+    }, 4500);
+
+    return () => window.clearTimeout(autoSlideTimer);
+  }, [activeDoctorPhoto, isDoctorGalleryPaused]);
 
   const moveDoctorPhoto = (direction: number) => {
     setActiveDoctorPhoto(([currentPhoto]) => [
@@ -104,7 +118,17 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
             
             {/* Dr Profile card */}
             <motion.div variants={fadeInUp} className="col-span-2 bg-linen/30 border border-linen rounded-2xl flex flex-col overflow-hidden">
-              <div className="relative h-[460px] w-full overflow-hidden">
+              <div
+                className="relative h-[460px] w-full overflow-hidden"
+                onMouseEnter={() => setIsDoctorGalleryPaused(true)}
+                onMouseLeave={() => setIsDoctorGalleryPaused(false)}
+                onFocusCapture={() => setIsDoctorGalleryPaused(true)}
+                onBlurCapture={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                    setIsDoctorGalleryPaused(false);
+                  }
+                }}
+              >
                 <AnimatePresence initial={false} custom={slideDirection}>
                   <motion.div
                     key={doctorGallery[activeDoctorPhoto].src}

@@ -10,6 +10,8 @@ export const CLINIC_SERVICES: Service[] = [
     subServices: [
       {
         name: "Scalp Mesotherapy",
+        image: "/services/treatments/scalp-mesotherapy.webp",
+        imageAlt: "Clinician performing a careful scalp mesotherapy treatment",
         description: "Direct micro-infusions of vital nutrients, biotin, vitamins, and hair growth peptides into the mesoderm layer of the scalp to rapidly nourish and activate thinning follicles.",
         benefits: ["Direct follicle nourishment", "Enhances blood circulation in the scalp", "Perfect for early-stage thinning"],
         duration: "30-45 Mins",
@@ -17,6 +19,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Customized Anti-Hair-Fall Protocols",
+        image: "/services/treatments/anti-hair-fall-protocol.webp",
+        imageAlt: "Patient receiving a customized light-based hair restoration treatment",
         description: "A dual-action system pairing local high-frequency scalp stimulation and advanced laser growth helmets with customized daily topical applications.",
         benefits: ["Controls excessive shedding within weeks", "Improves scalp environment and health", "Stimulates microcirculation"],
         duration: "30 Mins",
@@ -24,6 +28,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Dandruff Treatment",
+        image: "/services/treatments/dandruff-treatment.webp",
+        imageAlt: "Clinician examining a patient's scalp for dandruff and flaking",
         description: "Treat persistent dandruff and scalp flaking with personalized medical care. Our treatment helps reduce itching, controls excess scalp oil, eliminates fungal buildup, and restores a healthy scalp environment for stronger hair growth.",
         benefits: ["Controls dandruff and scalp flaking", "Reduces itching and scalp irritation", "Helps prevent hair fall caused by dandruff", "Improves overall scalp hygiene and health"],
         duration: "30–45 Mins",
@@ -31,6 +37,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Keratin Therapy",
+        image: "/services/treatments/keratin-therapy.webp",
+        imageAlt: "Professional applying a nourishing keratin treatment to healthy hair",
         description: "Keratin Therapy is a professional hair treatment that deeply nourishes, repairs damaged hair, reduces frizz, improves shine, and strengthens weak hair strands. It helps restore smooth, healthy, and manageable hair while protecting it from everyday damage.",
         benefits: ["Repairs damaged and weak hair", "Reduces frizz and improves smoothness", "Enhances shine and softness", "Strengthens hair strands and improves manageability"],
         duration: "60–90 Mins",
@@ -38,6 +46,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Saw Palmetto Treatment for Hair Loss",
+        image: "/services/treatments/saw-palmetto-treatment.webp",
+        imageAlt: "Natural hair restoration consultation featuring saw palmetto therapy",
         description: "Saw Palmetto Treatment is a natural hair restoration approach designed to help reduce hair fall associated with androgenetic hair loss. It supports healthier hair follicles, promotes stronger hair growth, and helps maintain scalp health as part of a personalized hair restoration plan.",
         benefits: ["Helps reduce hair fall naturally", "Supports healthy hair follicle function", "Promotes stronger and healthier hair growth", "Improves overall scalp and hair health"],
         duration: "30–45 Mins",
@@ -55,6 +65,8 @@ export const CLINIC_SERVICES: Service[] = [
     subServices: [
       {
         name: "Skin Toning & Rejuvenation",
+        image: "/services/treatments/skin-toning-rejuvenation.webp",
+        imageAlt: "Clinician performing a gentle facial skin rejuvenation treatment",
         description: "Precision non-ablative laser therapies that penetrate deep dermal layers to stimulate high-density collagen production, reduce redness, and fade stubborn pigmentations.",
         benefits: ["Smooths fine lines and acne scars", "Evens out skin tone without peeling", "Increases long-term skin elasticity"],
         duration: "45 Mins",
@@ -62,6 +74,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Advanced Acne & Scar Therapy",
+        image: "/services/treatments/acne-scar-therapy.webp",
+        imageAlt: "Dermatologist providing targeted acne and scar therapy",
         description: "A combination program of medical extractions, soothing therapeutic blue light, localized micro-needling, and intensive scar remodeling gels.",
         benefits: ["Calms angry pustules and active lesions", "Breaks down thick fibrous acne scars", "Prevents future cystic breakouts"],
         duration: "60 Mins",
@@ -69,6 +83,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Chemical Peeling",
+        image: "/services/treatments/chemical-peeling.webp",
+        imageAlt: "Clinician applying a professional chemical peel with a soft brush",
         description: "Chemical Peeling is a professional skin resurfacing treatment that removes dead skin cells, reduces pigmentation, acne scars, tanning, fine lines, and improves overall skin tone and texture.",
         benefits: ["Reduces acne scars", "Improves pigmentation", "Removes tanning", "Brightens dull skin"],
         duration: "30–45 Mins",
@@ -76,6 +92,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "OxyHydra Facial",
+        image: "/services/treatments/oxyhydra-facial.webp",
+        imageAlt: "Patient receiving a hydrating OxyHydra facial treatment",
         description: "OxyHydra Facial deeply cleanses, exfoliates, hydrates, and nourishes the skin using oxygen-rich technology to provide healthy, glowing, and refreshed skin.",
         benefits: ["Deep cleansing", "Instant glow", "Hydrates dry skin", "Improves skin elasticity"],
         duration: "45–60 Mins",
@@ -83,6 +101,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Dermabrasion",
+        image: "/services/treatments/dermabrasion.webp",
+        imageAlt: "Clinician performing controlled dermabrasion on a patient's cheek",
         description: "Dermabrasion is an advanced exfoliation procedure that smooths rough skin, improves acne scars, reduces pigmentation, and promotes healthy skin regeneration.",
         benefits: ["Smooths rough skin", "Reduces acne scars", "Improves skin texture", "Stimulates new skin growth"],
         duration: "45–60 Mins",
@@ -90,6 +110,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Derma Cautery for Warts & Mole Removal",
+        image: "/services/treatments/derma-cautery.webp",
+        imageAlt: "Dermatologist preparing a precise minor derma cautery procedure",
         description: "A safe and minimally invasive procedure for removing warts, moles, skin tags, and other benign skin growths with minimal discomfort and quick recovery.",
         benefits: ["Safe wart removal", "Mole removal", "Minimal downtime", "Quick healing"],
         duration: "20–40 Mins",
@@ -97,6 +119,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Eczema Treatment",
+        image: "/services/treatments/eczema-treatment.webp",
+        imageAlt: "Clinician assessing and soothing a mild eczema patch on an arm",
         description: "Personalized treatment to manage eczema by reducing itching, inflammation, dryness, and recurring flare-ups while restoring healthy skin.",
         benefits: ["Relieves itching", "Controls inflammation", "Restores skin barrier", "Reduces recurrence"],
         duration: "30–45 Mins",
@@ -104,6 +128,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Fungal Infection Treatment",
+        image: "/services/treatments/fungal-infection-treatment.webp",
+        imageAlt: "Dermatologist examining a mild fungal skin infection",
         description: "Medical treatment for fungal skin infections to eliminate infection, reduce itching, redness, irritation, and prevent recurrence.",
         benefits: ["Eliminates fungal infection", "Reduces itching", "Relieves redness", "Prevents recurrence"],
         duration: "20–40 Mins",
@@ -121,6 +147,8 @@ export const CLINIC_SERVICES: Service[] = [
     subServices: [
       {
         name: "Skin Disease Treatment",
+        image: "/services/treatments/homeopathic-skin-treatment.webp",
+        imageAlt: "Doctor providing personalized homeopathic care for a skin condition",
         description: "Comprehensive homeopathic treatment for chronic and acute skin disorders, helping reduce symptoms naturally while improving overall skin health.",
         benefits: ["Treats eczema, psoriasis, fungal infections & dermatitis", "Reduces itching and inflammation", "Promotes healthy skin", "Personalized homeopathic care"],
         duration: "30–45 Mins",
@@ -128,6 +156,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Recurrent Cold, Coryza & Fever",
+        image: "/services/treatments/cold-coryza-fever.webp",
+        imageAlt: "Doctor checking a child during a family immunity consultation",
         description: "Homeopathic treatment to reduce the frequency of recurrent colds, coryza, sore throat, fever, and improve overall immunity.",
         benefits: ["Improves immunity", "Reduces recurrent infections", "Natural symptom relief", "Suitable for all age groups"],
         duration: "20–30 Mins",
@@ -135,6 +165,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Allergy & Asthma Treatment",
+        image: "/services/treatments/allergy-asthma.webp",
+        imageAlt: "Clinician assessing a patient's breathing during respiratory care",
         description: "Personalized homeopathic management of allergic conditions and asthma to improve breathing, reduce allergy symptoms, and prevent recurring attacks.",
         benefits: ["Controls allergic reactions", "Improves breathing", "Reduces asthma attacks", "Supports respiratory health"],
         duration: "30–45 Mins",
@@ -142,6 +174,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Backache & Rheumatism Treatment",
+        image: "/services/treatments/backache-rheumatism.webp",
+        imageAlt: "Doctor assessing an older patient's back mobility",
         description: "Homeopathic treatment for chronic back pain, joint pain, arthritis, rheumatism, and musculoskeletal discomfort.",
         benefits: ["Relieves chronic pain", "Improves mobility", "Reduces inflammation", "Supports joint health"],
         duration: "30–45 Mins",
@@ -149,6 +183,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Kidney Stone & Renal Care",
+        image: "/services/treatments/kidney-stone-renal-care.webp",
+        imageAlt: "Doctor explaining renal care with a kidney model and scan",
         description: "Natural homeopathic treatment to help manage kidney stones and support kidney health under medical supervision.",
         benefits: ["Supports kidney function", "Helps manage kidney stones", "Reduces discomfort", "Personalized treatment"],
         duration: "30–45 Mins",
@@ -156,6 +192,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Marital & Sexual Wellness Consultation",
+        image: "/services/treatments/marital-sexual-wellness.webp",
+        imageAlt: "Couple attending a private and respectful wellness consultation",
         description: "Private and personalized homeopathic consultation for marital wellness and sexual health concerns in a professional and confidential environment.",
         benefits: ["Confidential consultation", "Personalized treatment", "Improves overall wellness", "Professional guidance"],
         duration: "30–45 Mins",
@@ -163,6 +201,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Acidity & Indigestion Treatment",
+        image: "/services/treatments/acidity-indigestion.webp",
+        imageAlt: "Doctor explaining digestive care with an anatomical stomach model",
         description: "Homeopathic treatment for acidity, indigestion, bloating, gastritis, and digestive discomfort using individualized medicines.",
         benefits: ["Relieves acidity", "Improves digestion", "Reduces bloating", "Supports digestive health"],
         duration: "20–30 Mins",
@@ -170,6 +210,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Buccal Fibrosis & Oral Health Care",
+        image: "/services/treatments/buccal-fibrosis-oral-care.webp",
+        imageAlt: "Clinician conducting a gentle oral health examination",
         description: "Homeopathic treatment for Oral Submucous Fibrosis (OSMF), mouth ulcers, reduced mouth opening, and other oral health conditions.",
         benefits: ["Improves mouth opening", "Reduces oral discomfort", "Supports oral tissue healing", "Personalized treatment"],
         duration: "30–45 Mins",
@@ -187,6 +229,8 @@ export const CLINIC_SERVICES: Service[] = [
     subServices: [
       {
         name: "Female Infertility Treatment",
+        image: "/services/treatments/female-infertility.webp",
+        imageAlt: "Woman receiving supportive female fertility counseling",
         description: "Personalized homeopathic treatment designed to support female reproductive health, regulate ovulation, improve hormonal balance, and naturally enhance fertility.",
         benefits: ["Hormonal Balance", "Supports Healthy Ovulation", "Improves Fertility Naturally", "Personalized Treatment Plan"],
         duration: "45–60 Mins",
@@ -194,6 +238,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Male Infertility Treatment",
+        image: "/services/treatments/male-infertility.webp",
+        imageAlt: "Man attending a confidential male fertility consultation",
         description: "Comprehensive homeopathic care focused on improving sperm quality, count, motility, and overall reproductive health.",
         benefits: ["Improves Sperm Count", "Enhances Motility", "Supports Reproductive Health", "Personalized Care"],
         duration: "45–60 Mins",
@@ -201,6 +247,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "PCOS / PCOD Treatment",
+        image: "/services/treatments/pcos-pcod.webp",
+        imageAlt: "Clinician discussing PCOS care with a patient using an ovary model",
         description: "Natural homeopathic treatment to help manage PCOS and PCOD by improving hormonal balance, regulating menstrual cycles, and reducing associated symptoms.",
         benefits: ["Regular Menstrual Cycles", "Hormonal Balance", "Reduces Acne & Hair Fall", "Supports Healthy Ovarian Function"],
         duration: "45–60 Mins",
@@ -208,6 +256,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Irregular Periods Treatment",
+        image: "/services/treatments/irregular-periods.webp",
+        imageAlt: "Woman discussing menstrual cycle health with a clinician",
         description: "Treatment focused on regulating menstrual cycles naturally while addressing the root cause of irregular periods.",
         benefits: ["Regular Cycles", "Reduces Menstrual Discomfort", "Hormonal Support", "Improves Overall Women's Health"],
         duration: "30–45 Mins",
@@ -215,6 +265,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Hormonal Imbalance Treatment",
+        image: "/services/treatments/hormonal-imbalance.webp",
+        imageAlt: "Clinician explaining hormonal balance during a personalized consultation",
         description: "Personalized homeopathic care for hormonal imbalance affecting menstrual health, metabolism, fertility, and overall wellness.",
         benefits: ["Hormone Regulation", "Improves Energy Levels", "Better Metabolism", "Long-term Wellness"],
         duration: "30–45 Mins",
@@ -222,6 +274,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Leucorrhoea Treatment",
+        image: "/services/treatments/leucorrhoea-treatment.webp",
+        imageAlt: "Woman having a confidential gynecological wellness consultation",
         description: "Confidential treatment for abnormal vaginal discharge, infections, and associated gynecological concerns using individualized homeopathic medicines.",
         benefits: ["Treats White Discharge", "Reduces Infection", "Improves Vaginal Health", "Safe Homeopathic Care"],
         duration: "30–45 Mins",
@@ -229,6 +283,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Menstrual Pain Management",
+        image: "/services/treatments/menstrual-pain-management.webp",
+        imageAlt: "Clinician supporting a patient with gentle menstrual pain care",
         description: "Homeopathic treatment to reduce painful periods, abdominal cramps, back pain, and discomfort during menstruation.",
         benefits: ["Reduces Menstrual Pain", "Less Cramping", "Better Comfort", "Natural Relief"],
         duration: "30–45 Mins",
@@ -236,6 +292,8 @@ export const CLINIC_SERVICES: Service[] = [
       },
       {
         name: "Pre-Conception Counseling",
+        image: "/services/treatments/pre-conception-counseling.webp",
+        imageAlt: "Couple receiving supportive pre-conception health counseling",
         description: "Comprehensive consultation for couples planning pregnancy, including reproductive health evaluation and personalized treatment guidance.",
         benefits: ["Pregnancy Planning", "Healthy Lifestyle Guidance", "Fertility Assessment", "Personalized Consultation"],
         duration: "45–60 Mins",

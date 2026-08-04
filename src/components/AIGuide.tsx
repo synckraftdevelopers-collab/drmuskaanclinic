@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { MessageSquare, Send, X, Bot, Sparkles, Smile, RefreshCw, AlertCircle, HelpCircle } from "lucide-react";
+import { MessageSquare, Send, X, Sparkles, RefreshCw, AlertCircle, HelpCircle } from "lucide-react";
+import MuskaanAssistantAvatar from "./MuskaanAssistantAvatar";
 import { ChatMessage } from "../types";
 
 interface AIGuideProps {
@@ -151,8 +152,8 @@ export default function AIGuide({ onClose, onOpenBooking }: AIGuideProps) {
       {/* Panel Header */}
       <div className="bg-charcoal text-white p-4 flex justify-between items-center border-b border-slate-teal">
         <div className="flex items-center space-x-3">
-          <div className="w-9 h-9 rounded-full bg-slate-teal flex items-center justify-center border border-seafoam/20">
-            <Bot className="text-linen" size={20} />
+          <div className="h-10 w-10 shrink-0 rounded-full border border-white/20 bg-white p-0.5 shadow-md">
+            <MuskaanAssistantAvatar className="h-full w-full" decorative />
           </div>
           <div>
             <div className="flex items-center space-x-1.5">
@@ -190,8 +191,8 @@ export default function AIGuide({ onClose, onOpenBooking }: AIGuideProps) {
           >
             <div className={`flex items-start space-x-2.5 max-w-[85%] ${msg.role === "user" ? "flex-row-reverse space-x-reverse" : "flex-row"}`}>
               {msg.role === "model" && (
-                <div className="w-7 h-7 rounded-full bg-seafoam flex items-center justify-center text-charcoal shrink-0 mt-0.5 shadow-xs">
-                  <Smile size={16} />
+                <div className="mt-0.5 h-8 w-8 shrink-0 rounded-full border border-slate-teal/10 bg-white p-0.5 shadow-sm">
+                  <MuskaanAssistantAvatar className="h-full w-full" decorative />
                 </div>
               )}
               
@@ -218,8 +219,8 @@ export default function AIGuide({ onClose, onOpenBooking }: AIGuideProps) {
         {isLoading && (
           <div className="flex justify-start">
             <div className="flex items-start space-x-2.5 max-w-[85%]">
-              <div className="w-7 h-7 rounded-full bg-seafoam flex items-center justify-center text-charcoal shrink-0 mt-0.5">
-                <Smile size={16} className="animate-pulse" />
+              <div className="mt-0.5 h-8 w-8 shrink-0 animate-pulse rounded-full border border-slate-teal/10 bg-white p-0.5 shadow-sm">
+                <MuskaanAssistantAvatar className="h-full w-full" decorative />
               </div>
               <div className="bg-white border border-linen p-4 rounded-2xl rounded-tl-none shadow-xs flex items-center space-x-2">
                 <RefreshCw size={14} className="animate-spin text-slate-teal" />
