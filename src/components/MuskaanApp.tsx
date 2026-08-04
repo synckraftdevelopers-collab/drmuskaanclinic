@@ -615,6 +615,14 @@ export default function App() {
 
                   {/* Right content */}
                   <div className="order-2 space-y-5 self-center pb-10 text-left sm:pb-12 md:col-span-7 md:py-12 lg:py-16">
+                    {/* EST. badge */}
+                    <motion.div variants={fadeUpItem} className="flex items-center gap-2">
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-teal/20 bg-slate-teal/8 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-teal">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        Muskaan Clinic · Est. 1998 · Amravati
+                      </span>
+                    </motion.div>
+
                     {/* Stagger Item 2: Heading (with 3. Text Reveal Animation) */}
                     <WordRevealHeading
                       line1="Ethical Hair,"
@@ -649,6 +657,23 @@ export default function App() {
                         <Bot size={16} />
                         <span>Chat with Muskaan AI Guide</span>
                       </MagneticButton>
+                    </motion.div>
+
+                    {/* Hero trust pill badges */}
+                    <motion.div variants={fadeUpItem} className="flex flex-wrap gap-2 pt-1">
+                      {[
+                        { icon: <ShieldCheck size={13} />, label: "Personalized Care" },
+                        { icon: <Sparkles size={13} />, label: "Advanced Treatments" },
+                        { icon: <HeartPulse size={13} />, label: "Holistic Approach" },
+                      ].map((badge) => (
+                        <span
+                          key={badge.label}
+                          className="inline-flex items-center gap-1.5 rounded-full border border-slate-teal/15 bg-white/80 px-3.5 py-1.5 text-[11px] font-semibold text-charcoal/70 backdrop-blur-sm"
+                        >
+                          <span className="text-slate-teal">{badge.icon}</span>
+                          {badge.label}
+                        </span>
+                      ))}
                     </motion.div>
                   </div>
 
@@ -851,7 +876,7 @@ export default function App() {
                           alt="Dr. Mohammad Imran Shaikh seated for consultation"
                           fill
                           sizes="(min-width: 1024px) 34vw, (min-width: 768px) 38vw, 90vw"
-                          className="object-contain object-bottom object-[42%_100%] md:object-[44%_100%] drop-shadow-[0_22px_34px_rgba(80,8,104,0.14)]"
+                          className="object-contain object-bottom object-[42%_100%] md:object-[44%_100%] photo-doctor drop-shadow-[0_22px_34px_rgba(80,8,104,0.14)]"
                           priority
                         />
                       </motion.div>
@@ -884,21 +909,152 @@ export default function App() {
               </section>
             </motion.div>
 
+            {/* MARQUEE TICKER STRIP */}
+            <div className="w-full overflow-hidden border-y border-linen bg-white py-3 !mt-0" aria-hidden="true">
+              <div className="flex whitespace-nowrap animate-marquee gap-0">
+                {[0, 1].map((copy) => (
+                  <div key={copy} className="flex shrink-0 items-center gap-0">
+                    {[
+                      "Personalized Care",
+                      "Modern Technology",
+                      "Holistic Results",
+                      "26+ Years of Practice",
+                      "1000+ Consultations",
+                      "4 Specialties",
+                      "100% Personalized Plans",
+                      "Patient-First Approach",
+                      "Constitutional Homeopathy",
+                      "Advanced Trichology",
+                    ].map((item, i) => (
+                      <span key={i} className="inline-flex items-center gap-3 px-6 text-[11px] font-extrabold uppercase tracking-[0.18em] text-charcoal/35">
+                        <span className="w-1 h-1 rounded-full bg-slate-teal/40 shrink-0" />
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* FULL-WIDTH CONTENT AREA BACKGROUND WRAPPER */}
             <div className="relative w-full overflow-hidden bg-[linear-gradient(180deg,#FFFFFF_0%,#FBF6FC_100%)] !mt-0 pt-8 sm:pt-10 md:pt-12 pb-12 sm:pb-16" id="home-content-wrapper">
               <ContentSectionBackground />
               <div className="relative z-10 space-y-16 w-full">
                 {/* EXPERIENCE STATS BADGES (Stagger Item 5: Statistics, with 5. Counter Animation) */}
-                <motion.section id="stats-section" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="bg-white border border-linen rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col sm:flex-row justify-evenly items-center gap-6 text-center">
-                    {CLINIC_STATS.map((st, i) => (
-                      <div key={i} className="flex-1 w-full flex flex-col items-center justify-center space-y-2">
-                        <AnimatedCounter value={st.value} suffix={st.suffix} />
-                        <p className="text-[10px] sm:text-xs uppercase font-extrabold text-charcoal/50 leading-tight">
-                          {st.label}
-                        </p>
-                      </div>
-                    ))}
+                <motion.section
+                  id="stats-section"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+                >
+                  <div className="relative overflow-hidden rounded-3xl border border-slate-teal/10 bg-white shadow-[0_12px_40px_rgba(80,8,104,0.08)]">
+                    {/* Subtle gradient wash */}
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgba(80,8,104,0.04)_0%,_transparent_60%)] pointer-events-none" />
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(248,96,8,0.04)_0%,_transparent_60%)] pointer-events-none" />
+
+                    <div className="relative flex flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x divide-linen">
+                      {/* Stat 1 — Skin */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.05 }}
+                        className="group flex-1 flex flex-col items-center justify-center gap-3 px-6 py-8 sm:py-10 text-center"
+                      >
+                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-rose-50 border border-rose-100 text-rose-500 group-hover:bg-rose-100 transition-colors duration-300">
+                          <HeartPulse size={22} aria-hidden="true" />
+                        </div>
+                        <div className="space-y-1">
+                          <AnimatedCounter
+                            value={600}
+                            suffix="+"
+                            className="text-4xl sm:text-5xl font-serif font-bold text-slate-teal tabular-nums block"
+                          />
+                          <p className="text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.18em] text-charcoal/45 leading-tight">
+                            Acne & Skin Peel Recoveries
+                          </p>
+                          <p className="text-xs text-charcoal/50 leading-snug max-w-[160px] mx-auto pt-0.5">
+                            Chemical peels, dermabrasion & homeopathic skin protocols
+                          </p>
+                        </div>
+                      </motion.div>
+
+                      {/* Stat 2 — Homeopathy */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.15 }}
+                        className="group flex-1 flex flex-col items-center justify-center gap-3 px-6 py-8 sm:py-10 text-center relative"
+                      >
+                        {/* Center highlight */}
+                        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(80,8,104,0.025)_0%,_transparent_70%)] pointer-events-none" />
+                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-violet-50 border border-violet-100 text-slate-teal group-hover:bg-violet-100 transition-colors duration-300">
+                          <Activity size={22} aria-hidden="true" />
+                        </div>
+                        <div className="space-y-1 relative z-10">
+                          <AnimatedCounter
+                            value={5500}
+                            suffix="+"
+                            className="text-4xl sm:text-5xl font-serif font-bold text-slate-teal tabular-nums block"
+                          />
+                          <p className="text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.18em] text-charcoal/45 leading-tight">
+                            Chronic Homeopathic Cases
+                          </p>
+                          <p className="text-xs text-charcoal/50 leading-snug max-w-[160px] mx-auto pt-0.5">
+                            Constitutional treatment across Vidarbha & Central India
+                          </p>
+                        </div>
+                      </motion.div>
+
+                      {/* Stat 3 — Satisfaction */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.25 }}
+                        className="group flex-1 flex flex-col items-center justify-center gap-3 px-6 py-8 sm:py-10 text-center"
+                      >
+                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-50 border border-amber-100 text-amber-500 group-hover:bg-amber-100 transition-colors duration-300">
+                          <Star size={22} aria-hidden="true" />
+                        </div>
+                        <div className="space-y-1">
+                          <div className="flex items-end justify-center gap-0.5">
+                            <AnimatedCounter
+                              value={90}
+                              suffix="%"
+                              className="text-4xl sm:text-5xl font-serif font-bold text-slate-teal tabular-nums block"
+                            />
+                          </div>
+                          <p className="text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.18em] text-charcoal/45 leading-tight">
+                            Patient Satisfaction Rate
+                          </p>
+                          <p className="text-xs text-charcoal/50 leading-snug max-w-[160px] mx-auto pt-0.5">
+                            Based on 26+ years of verified patient outcomes
+                          </p>
+                        </div>
+                      </motion.div>
+                    </div>
+
+                    {/* Bottom trust strip */}
+                    <div className="border-t border-linen bg-linen/20 px-6 py-3 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 text-center">
+                      <span className="flex items-center gap-1.5 text-[10px] font-bold text-charcoal/45 uppercase tracking-wider">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
+                        26+ Years in Practice
+                      </span>
+                      <span className="hidden sm:block w-px h-3 bg-linen-dark" />
+                      <span className="flex items-center gap-1.5 text-[10px] font-bold text-charcoal/45 uppercase tracking-wider">
+                        <span className="w-1.5 h-1.5 rounded-full bg-slate-teal/50 inline-block" />
+                        BHMS · MD Homeopathy · MUHS Certified
+                      </span>
+                      <span className="hidden sm:block w-px h-3 bg-linen-dark" />
+                      <span className="flex items-center gap-1.5 text-[10px] font-bold text-charcoal/45 uppercase tracking-wider">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400/70 inline-block" />
+                        Amravati, Maharashtra
+                      </span>
+                    </div>
                   </div>
                 </motion.section>
 
@@ -938,13 +1094,13 @@ export default function App() {
                         whileHover={{ y: -6 }}
                         className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-teal/10 bg-white text-left shadow-[0_12px_35px_rgba(18,53,91,0.08)] transition-[border-color,box-shadow] duration-300 hover:border-ocean-teal/30 hover:shadow-[0_22px_50px_rgba(18,53,91,0.14)]"
                       >
-                        <div className="relative aspect-[16/10] overflow-hidden bg-linen/30">
+                        <div className="relative aspect-[16/10] overflow-hidden bg-linen/30 photo-authentic">
                           <Image
                             src={wc.image}
                             alt={wc.imageAlt}
                             fill
                             sizes="(min-width: 768px) 33vw, 100vw"
-                            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                            className="object-cover photo-trust transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-charcoal/65 via-transparent to-charcoal/10" />
                           <div className="absolute bottom-4 left-4 flex h-10 w-10 items-center justify-center rounded-xl border border-white/30 bg-white/90 text-slate-teal shadow-lg backdrop-blur-md">
@@ -996,6 +1152,120 @@ export default function App() {
                   }}
                   onBook={(serviceId) => handleOpenBooking(serviceId)}
                 />
+
+                {/* PATIENT JOURNEY SECTION */}
+                <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                  <motion.div
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    className="mb-10 text-center"
+                  >
+                    <span className="text-[10px] uppercase tracking-[0.22em] font-extrabold text-charcoal/40">
+                      Patient Journey
+                    </span>
+                    <h2 className="mt-2 font-serif text-3xl font-bold text-charcoal sm:text-4xl">
+                      Your path to better wellness.
+                    </h2>
+                    <p className="mx-auto mt-2 max-w-xl text-sm text-charcoal/55 leading-relaxed">
+                      A clear, supported process from first visit to lasting results.
+                    </p>
+                  </motion.div>
+
+                  <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-30px" }}
+                    variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
+                    className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+                  >
+                    {[
+                      {
+                        step: "01",
+                        title: "Consultation",
+                        desc: "A thorough one-on-one session to understand your health history, concerns, and wellness goals.",
+                        icon: <MessageCircle size={22} aria-hidden="true" />,
+                        color: "bg-violet-50 border-violet-100 text-slate-teal",
+                      },
+                      {
+                        step: "02",
+                        title: "Assessment",
+                        desc: "Detailed skin, hair, or health analysis using advanced diagnostic tools and clinical evaluation.",
+                        icon: <Activity size={22} aria-hidden="true" />,
+                        color: "bg-rose-50 border-rose-100 text-rose-500",
+                      },
+                      {
+                        step: "03",
+                        title: "Personalized Plan",
+                        desc: "A custom protocol combining the right treatments for your specific profile and goals.",
+                        icon: <CheckCircle2 size={22} aria-hidden="true" />,
+                        color: "bg-amber-50 border-amber-100 text-amber-500",
+                      },
+                      {
+                        step: "04",
+                        title: "Follow-up & Progress",
+                        desc: "Regular check-ins to monitor results, adjust the plan, and ensure long-term wellness outcomes.",
+                        icon: <Star size={22} aria-hidden="true" />,
+                        color: "bg-emerald-50 border-emerald-100 text-emerald-500",
+                      },
+                    ].map((item, idx) => (
+                      <motion.div
+                        key={item.step}
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+                        }}
+                        className="group relative flex flex-col gap-5 rounded-2xl border border-linen bg-white p-6 shadow-[0_8px_28px_rgba(80,8,104,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(80,8,104,0.1)] hover:border-slate-teal/15"
+                      >
+                        {/* Step number */}
+                        <span className="absolute top-5 right-5 font-serif text-5xl font-bold text-charcoal/[0.04] select-none leading-none">
+                          {item.step}
+                        </span>
+
+                        {/* Icon badge */}
+                        <div className={`flex h-12 w-12 items-center justify-center rounded-2xl border ${item.color}`}>
+                          {item.icon}
+                        </div>
+
+                        {/* Connector line (desktop) */}
+                        {idx < 3 && (
+                          <div className="absolute -right-2 top-1/2 hidden -translate-y-1/2 lg:block" aria-hidden="true">
+                            <ChevronRight size={16} className="text-linen-dark" />
+                          </div>
+                        )}
+
+                        <div className="space-y-1.5">
+                          <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-charcoal/35">
+                            Step {item.step}
+                          </p>
+                          <h3 className="font-serif text-lg font-bold text-charcoal group-hover:text-slate-teal transition-colors duration-300">
+                            {item.title}
+                          </h3>
+                          <p className="text-sm leading-relaxed text-charcoal/60">
+                            {item.desc}
+                          </p>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="mt-8 text-center"
+                  >
+                    <button
+                      onClick={() => handleOpenBooking()}
+                      className="inline-flex items-center gap-2 rounded-full bg-slate-teal px-8 py-3.5 text-sm font-bold text-white shadow-[0_4px_14px_rgba(80,8,104,0.22)] transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_22px_rgba(80,8,104,0.28)] cursor-pointer"
+                    >
+                      <CalendarCheck size={16} />
+                      Start Your Journey
+                    </button>
+                  </motion.div>
+                </section>
 
                 {/* TESTIMONIALS CAROUSEL PREVIEW */}
                 <section className="bg-linen/10 py-16 px-4 sm:px-6 lg:px-8 border-y border-linen/60">

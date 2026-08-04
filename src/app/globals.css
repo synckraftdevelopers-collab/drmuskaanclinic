@@ -724,3 +724,106 @@
 .animate-loc-bg-radial {
   animation: locBgRadialSlow 18s ease-in-out infinite;
 }
+
+/* =============================================
+   AUTHENTIC IMAGE TREATMENT SYSTEM
+   Makes photos feel editorial & real, not AI
+   ============================================= */
+
+/* Subtle film grain overlay on clinical images */
+.photo-authentic::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
+  z-index: 2;
+}
+
+/* Slightly desaturate AI-looking images — feels more clinical/real */
+.photo-clinical {
+  filter: saturate(0.88) contrast(1.04);
+  transition: filter 0.4s ease;
+}
+
+.photo-clinical:hover {
+  filter: saturate(0.95) contrast(1.02);
+}
+
+/* Warm tone — gives a "photographed under natural light" feel */
+.photo-warm {
+  filter: saturate(0.85) sepia(0.06) contrast(1.03);
+  transition: filter 0.4s ease;
+}
+
+/* Trust card images — desaturate slightly for editorial credibility */
+.photo-trust {
+  filter: saturate(0.82) contrast(1.05) brightness(0.97);
+  transition: filter 0.5s ease;
+}
+
+.photo-trust:hover {
+  filter: saturate(0.90) contrast(1.03) brightness(1.0);
+}
+
+/* Treatment card images — slight desaturation for medical seriousness */
+.photo-treatment {
+  filter: saturate(0.80) contrast(1.04) brightness(0.98);
+  transition: filter 0.4s ease;
+}
+
+.photo-treatment:hover {
+  filter: saturate(0.88) contrast(1.02) brightness(1.0);
+}
+
+/* Service showcase full-bleed image */
+.photo-showcase {
+  filter: saturate(0.78) contrast(1.06) brightness(0.95);
+}
+
+/* Doctor portrait — warmer, more personal */
+.photo-doctor {
+  filter: saturate(0.90) sepia(0.04) contrast(1.02);
+}
+
+/* Photo caption bar — editorial style */
+.photo-caption {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  color: rgba(80, 8, 104, 0.55);
+  border-top: 1px solid rgba(80, 8, 104, 0.08);
+  padding: 6px 12px;
+  background: rgba(247, 241, 249, 0.6);
+}
+
+/* Photographic vignette for hero images */
+.photo-vignette::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.18) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* =============================================
+   MARQUEE TICKER ANIMATION
+   ============================================= */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}

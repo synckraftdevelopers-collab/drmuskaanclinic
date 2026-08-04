@@ -195,7 +195,7 @@ export default function ServicesSection({ onOpenBooking }: ServicesSectionProps)
                     alt=""
                     fill
                     sizes="56px"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover photo-clinical transition-transform duration-500 group-hover:scale-105"
                   />
                   <div
                     className={
@@ -255,17 +255,17 @@ export default function ServicesSection({ onOpenBooking }: ServicesSectionProps)
               }}
               className="group relative w-full overflow-hidden rounded-xl border border-linen bg-[linear-gradient(180deg,#FFFFFF,#FCFEFF)] transition-all duration-300 hover:border-[rgba(13,148,136,0.35)] sm:rounded-2xl"
             >
-              <div className="relative aspect-[16/9] w-full overflow-hidden">
+              <div className="relative aspect-[16/9] w-full overflow-hidden photo-authentic">
                 <Image
                   src={currentServiceImage.src}
                   alt={currentServiceImage.alt}
                   fill
                   sizes="(min-width: 1024px) 400px, 100vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="object-cover photo-clinical transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal/45 via-transparent to-transparent" />
                 <span className="absolute bottom-3 left-4 rounded-full bg-white/90 px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-teal backdrop-blur-sm">
-                  Personalized Care
+                  {currentService.title} · Muskaan Clinic
                 </span>
               </div>
 
@@ -358,13 +358,13 @@ export default function ServicesSection({ onOpenBooking }: ServicesSectionProps)
                   whileHover={{ y: -5 }}
                   className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-teal/10 bg-white shadow-[0_12px_35px_rgba(18,53,91,0.08)] transition-[border-color,box-shadow] duration-300 hover:border-ocean-teal/30 hover:shadow-[0_22px_50px_rgba(18,53,91,0.13)]"
                 >
-                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-linen/30">
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-linen/30 photo-authentic">
                     <Image
                       src={treatment.image}
                       alt={treatment.imageAlt}
                       fill
                       sizes="(min-width: 1280px) 390px, (min-width: 1024px) 66vw, 100vw"
-                      className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                      className="object-cover object-center photo-treatment transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/5 to-transparent" />
                     <span className="absolute left-4 top-4 flex h-8 min-w-8 items-center justify-center rounded-full border border-white/30 bg-charcoal/55 px-2 text-[10px] font-extrabold tracking-wider text-white backdrop-blur-md">

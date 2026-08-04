@@ -175,8 +175,12 @@ export default function Header({ activeTab, setActiveTab, onOpenBooking }: Heade
                   <span>Book Appointment</span>
                 </button>
                 <div className="text-center text-xs text-charcoal/60 pt-2 space-y-1">
-                  <p>ðŸ“ž +91 {CLINIC_INFO.phone}</p>
-                  <p>ðŸ“  Irwin Square, Amravati</p>
+                  <p className="flex items-center justify-center gap-1.5">
+                    <PhoneCall size={12} className="text-ocean-teal" /> +91 {CLINIC_INFO.phone}
+                  </p>
+                  <p className="flex items-center justify-center gap-1.5">
+                    <MapPinned size={12} className="text-ocean-teal" /> Gandhi Chowk, Amravati
+                  </p>
                 </div>
               </div>
             </nav>

@@ -25,13 +25,13 @@ export default function GallerySection() {
   const getCategoryImagePlaceholder = (img: any) => {
     if (img.id === "g1") {
       return (
-        <div className="relative h-[240px] w-full overflow-hidden rounded-t-xl">
+        <div className="relative h-[240px] w-full overflow-hidden rounded-t-xl photo-authentic">
           <Image
             src="/Reception & Waiting Lounge.png"
             alt={img.title || "Reception & Waiting Lounge"}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover object-center transition-transform duration-500 hover:scale-105"
+            className="object-cover object-center photo-clinical transition-transform duration-500 hover:scale-105"
           />
         </div>
       );
@@ -39,13 +39,13 @@ export default function GallerySection() {
 
     if (img.id === "equipment-2") {
       return (
-        <div className="relative h-[240px] w-full overflow-hidden rounded-t-xl">
+        <div className="relative h-[240px] w-full overflow-hidden rounded-t-xl photo-authentic">
           <Image
             src="/Hair Growth Helmet System.png"
             alt={img.title || "Hair Growth Helmet System"}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover object-center transition-transform duration-500 hover:scale-105"
+            className="object-cover object-center photo-clinical transition-transform duration-500 hover:scale-105"
           />
         </div>
       );
@@ -53,13 +53,13 @@ export default function GallerySection() {
 
     if (img.id === "treatment-1") {
       return (
-        <div className="relative h-[240px] w-full overflow-hidden rounded-t-xl">
+        <div className="relative h-[240px] w-full overflow-hidden rounded-t-xl photo-authentic">
           <Image
             src="/PRP & Trichology Procedure Bay.png"
             alt={img.title || "PRP & Trichology Procedure Bay"}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover object-center transition-transform duration-500 hover:scale-105"
+            className="object-cover object-center photo-clinical transition-transform duration-500 hover:scale-105"
           />
         </div>
       );
@@ -67,13 +67,13 @@ export default function GallerySection() {
 
     if (img.id === "treatment-2") {
       return (
-        <div className="relative h-[240px] w-full overflow-hidden rounded-t-xl">
+        <div className="relative h-[240px] w-full overflow-hidden rounded-t-xl photo-authentic">
           <Image
             src="/Cosmetology & Clinical Peels Suite.png"
             alt={img.title || "Cosmetology & Clinical Peels Suite"}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover object-center transition-transform duration-500 hover:scale-105"
+            className="object-cover object-center photo-clinical transition-transform duration-500 hover:scale-105"
           />
         </div>
       );
@@ -81,13 +81,13 @@ export default function GallerySection() {
 
     if (img.id === "g2") {
       return (
-        <div className="relative h-[220px] w-full overflow-hidden rounded-t-xl">
+        <div className="relative h-[220px] w-full overflow-hidden rounded-t-xl photo-authentic">
           <Image
             src="/consulting.jpeg"
             alt="Doctor's Consulting Suite"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 hover:scale-105"
+            className="object-cover photo-warm transition-transform duration-500 hover:scale-105"
           />
         </div>
       );
@@ -95,13 +95,13 @@ export default function GallerySection() {
 
     if (img.id === "certificates-2") {
       return (
-        <div className="relative h-[220px] w-full overflow-hidden rounded-t-xl">
+        <div className="relative h-[220px] w-full overflow-hidden rounded-t-xl photo-authentic">
           <Image
             src="/26 Years Clinical Excellence Citation.jpeg"
             alt="26 Years Clinical Excellence Citation"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover object-[center_20%] transition-transform duration-500 hover:scale-105"
+            className="object-cover object-[center_20%] photo-warm transition-transform duration-500 hover:scale-105"
           />
         </div>
       );
@@ -109,13 +109,13 @@ export default function GallerySection() {
 
     if (img.id === "equipment-1") {
       return (
-        <div className="relative h-[240px] w-full overflow-hidden rounded-t-xl">
+        <div className="relative h-[240px] w-full overflow-hidden rounded-t-xl photo-authentic">
           <Image
             src="/High-Frequency Scalp & PRP Stimulator (2).png"
             alt={img.title || "High-Frequency Scalp & PRP Stimulator"}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover object-center transition-transform duration-500 hover:scale-105"
+            className="object-cover object-center photo-clinical transition-transform duration-500 hover:scale-105"
           />
         </div>
       );
@@ -298,6 +298,9 @@ export default function GallerySection() {
                     {img.alt}
                   </p>
                 </div>
+                <p className="text-[10px] text-charcoal/35 font-medium pt-1 border-t border-linen mt-2">
+                  📍 Muskaan Clinic · Amravati, Maharashtra
+                </p>
               </div>
               </motion.div>
             ))}

@@ -220,7 +220,7 @@ export default function HomeDisciplinesShowcase({
                   alt={currentImage.alt}
                   fill
                   sizes="(min-width: 1024px) 68vw, 100vw"
-                  className="object-cover"
+                  className="object-cover photo-showcase"
                   priority={selectedServiceId === "hair"}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#071d2f]/95 via-[#071d2f]/40 to-transparent" />

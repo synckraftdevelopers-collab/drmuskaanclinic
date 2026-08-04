@@ -119,7 +119,7 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
             {/* Dr Profile card */}
             <motion.div variants={fadeInUp} className="col-span-2 bg-linen/30 border border-linen rounded-2xl flex flex-col overflow-hidden">
               <div
-                className="relative h-[460px] w-full overflow-hidden"
+                className="relative h-[460px] w-full overflow-hidden photo-authentic photo-vignette"
                 onMouseEnter={() => setIsDoctorGalleryPaused(true)}
                 onMouseLeave={() => setIsDoctorGalleryPaused(false)}
                 onFocusCapture={() => setIsDoctorGalleryPaused(true)}
@@ -151,7 +151,7 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
                       alt={doctorGallery[activeDoctorPhoto].alt}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className={"object-cover " + doctorGallery[activeDoctorPhoto].position}
+                      className={"object-cover photo-doctor " + doctorGallery[activeDoctorPhoto].position}
                       priority={activeDoctorPhoto === 0}
                       draggable={false}
                     />
@@ -209,6 +209,9 @@ export default function AboutSection({ onOpenBooking }: AboutSectionProps) {
                 <span className="text-amber-300 text-base">⭐</span>
                 <span>{DOCTOR_PROFILE.credentials} — Maharashtra University of Health Sciences</span>
               </div>
+              <p className="photo-caption text-center">
+                Muskaan Clinic · Gandhi Chowk, Amravati · Clinical practice documentation
+              </p>
             </motion.div>
 
             {/* Metric 1 */}

@@ -47,34 +47,49 @@ export default function Footer({ setActiveTab, onOpenBooking }: FooterProps) {
 
           <div className="space-y-4 text-left" id="footer-services">
             <h3 className="border-b border-[#500868]/12 pb-2 font-serif text-lg font-semibold text-[#500868]">
-              Our Specialties
+              Quick Links
             </h3>
             <ul className="space-y-2 text-sm text-[#2F3542]/78">
               <li>
-                <button
-                  onClick={() => setActiveTab("services")}
-                  className="text-left transition-all hover:text-[#F86008] hover:underline cursor-pointer"
-                >
-                  Skin Toning
-                </button>
+                <button onClick={() => setActiveTab("services")} className="text-left transition-all hover:text-[#F86008] hover:underline cursor-pointer">Treatments &amp; Services</button>
               </li>
               <li>
-                <button
-                  onClick={() => setActiveTab("services")}
-                  className="text-left transition-all hover:text-[#F86008] hover:underline cursor-pointer"
-                >
-                  Constitutional Homeopathy
-                </button>
+                <button onClick={() => setActiveTab("doctor")} className="text-left transition-all hover:text-[#F86008] hover:underline cursor-pointer">About Dr. Imran Shaikh</button>
               </li>
               <li>
-                <button
-                  onClick={() => setActiveTab("services")}
-                  className="text-left transition-all hover:text-[#F86008] hover:underline cursor-pointer"
-                >
-                  Chronic Skin Care (Psoriasis/Eczema)
-                </button>
+                <button onClick={() => setActiveTab("gallery")} className="text-left transition-all hover:text-[#F86008] hover:underline cursor-pointer">Clinic Gallery</button>
+              </li>
+              <li>
+                <button onClick={() => setActiveTab("testimonials")} className="text-left transition-all hover:text-[#F86008] hover:underline cursor-pointer">Patient Stories</button>
+              </li>
+              <li>
+                <button onClick={() => setActiveTab("faq")} className="text-left transition-all hover:text-[#F86008] hover:underline cursor-pointer">FAQs &amp; Guides</button>
+              </li>
+              <li>
+                <button onClick={() => setActiveTab("contact")} className="text-left transition-all hover:text-[#F86008] hover:underline cursor-pointer">Contact &amp; Directions</button>
               </li>
             </ul>
+            <div className="pt-2 space-y-1">
+              <p className="text-[10px] font-extrabold uppercase tracking-wider text-[#500868]/50 pb-1">Follow Us</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { label: "Instagram", href: CLINIC_INFO.socialLinks.instagram },
+                  { label: "Facebook", href: CLINIC_INFO.socialLinks.facebook },
+                  { label: "YouTube", href: CLINIC_INFO.socialLinks.youtube },
+                ].map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 rounded-lg border border-[#500868]/12 bg-white px-3 py-1.5 text-[11px] font-bold text-[#500868] transition-all hover:border-[#F86008]/40 hover:text-[#F86008]"
+                  >
+                    {s.label}
+                    <ExternalLink size={10} />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="space-y-4 text-left" id="footer-hours">
